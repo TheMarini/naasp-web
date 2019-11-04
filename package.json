@@ -1,8 +1,8 @@
 {
   "name": "naasp-web",
   "version": "0.1.0",
-	"repository": "git@github.com:TheMarini/naasp-web.git",
-	"author": "Bruno Marini <bruno.marini1@gmail.com>",
+  "repository": "git@github.com:TheMarini/naasp-web.git",
+  "author": "Bruno Marini <bruno.marini1@gmail.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 4242",
@@ -15,6 +15,7 @@
     "bootstrap-vue": "^2.0.1",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-feather-icons": "^5.0.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

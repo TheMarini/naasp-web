@@ -1,12 +1,29 @@
 <template>
-  <div id="app">
-		<router-view/>
-  </div>
+	<div id="app" class="app">
+		<div class="d-flex h-100 w-100">
+			<SideNav></SideNav>
+			<main class="h-100 w-100">
+				<transition>
+					<keep-alive>
+						<router-view></router-view>
+					</keep-alive>
+				</transition>
+			</main>
+		</div>
+	</div>
 </template>
 
 <script>
+import SideNav from '@/components/SideNav.vue';
+import Voluntario from '@/views/voluntario/Voluntario.vue';
+
+
 export default {
-	name: 'app'
+	name: 'app',
+	components: {
+    Voluntario,
+		SideNav,
+  },
 };
 </script>
 
@@ -19,7 +36,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  color: #303841;
+  color: #000;
+	background-color: #F5F5F5
 }
 
 /* --- GLOBALS --- */
@@ -58,5 +76,11 @@ export default {
 }
 ._squared-br {
   border-bottom-right-radius: 0 !important
+}
+
+/* ~ Card ~ */
+._card {
+	background-color: #fff;
+  border-radius: 10px !important
 }
 </style>
