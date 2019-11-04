@@ -1,9 +1,15 @@
+// --- IMPORTS ---
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
 
+// ~ Pages ~
+import Home from './views/Home.vue';
+import Login from './views/Login.vue';
+
+// Use vue-router
 Vue.use(Router);
 
+// --- EXPORT ---
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -12,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
     {
       path: '/about',
