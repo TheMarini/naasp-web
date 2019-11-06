@@ -18,9 +18,13 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
-				<form-step-1 v-show="currentStep === 1"></form-step-1>
-				<form-step-2 v-show="currentStep === 2"></form-step-2>
-				<form-step-3 v-show="currentStep === 3"></form-step-3>
+				{{form.step1}}
+				{{form.step2}}
+				{{form.step3}}
+				{{volunteer}}
+				<form-step-1 @input="(value) => {form.step1 = value}" v-show="currentStep === 1"></form-step-1>
+				<form-step-2 @input="(value) => {form.step2 = value}" v-show="currentStep === 2"></form-step-2>
+				<form-step-3 @input="(value) => {form.step2 = value}" v-show="currentStep === 3"></form-step-3>
 			</article>
 		</div>
 		<footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
@@ -33,7 +37,7 @@
 				<h5 class="mb-0 px-2"><b>Próxima</b></h5>
 				<chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
 			</button>
-			<button v-else type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
+			<button v-else @click="adicionar" type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 				<plus-icon size="1.5x" class="add-icon"></plus-icon>
 				<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
 			</button>
@@ -76,10 +80,36 @@ export default {
 	data() {
 		return {
 			steps: 3,
-			currentStep: 1
+			currentStep: 1,
+			volunteer: {},
+			form: {
+				step1: null,
+				step2: null,
+				step3: null
+			}
 		}
 	},
 	methods: {
+		adicionar () {
+			this.volunteer = {
+				"adress": {
+					"street": this.form.step2.adress.street,
+					"neighborhood": this.form.step2.adress.neighborhood,
+					"CEP": this.form.step2.adress['CEP']
+				},
+				"employee": {
+					"name": this.form.step2.employee.name,
+					"RG": this.form.step2.employee['RG'],
+					"CPF": this.form.step2.employee['CPF'],
+					 "nationality": this.form.step2.employee.nationality,
+	        "naturality": this.form.step2.employee.naturality,
+	        "profession": this.form.step3.employee.profession,
+	        "availability": this.form.step3.employee.availability,
+	        "dayTime": this.form.step3.employee.dayTime,
+					"type": this.form.step1.employee.type
+				}
+			}
+		}
 	},
 };
 </script>

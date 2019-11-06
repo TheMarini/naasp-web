@@ -35,6 +35,33 @@ export default {
 			userType: null
 		}
 	},
+	watch: {
+		userType: function () {
+			let papel;
+
+			switch (this.userType) {
+				case 0:
+					papel = "medic";
+					break;
+
+				case 1:
+					papel = "secretary";
+					break;
+
+				case 2:
+					papel = "social worker";
+					break;
+			}
+
+			let result = {
+				employee: {
+					type: papel
+				}
+			}
+
+			this.$emit('input', result);
+		}
+	},
 	methods: {
 	},
 };

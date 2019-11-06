@@ -6,7 +6,7 @@
 			  <div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="sex">Profissão</label>
-						<select class="custom-select _rounded" id="sex">
+						<select v-model="form.employee.profession" class="custom-select _rounded" id="sex">
 						  <option selected disabled>Escolha uma opção</option>
 						  <option value="0">Aposentado</option>
 						  <option value="1">Autônomo</option>
@@ -50,13 +50,13 @@
 			  <div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="days">Dias da semana</label>
-						<select class="custom-select _rounded" id="days">
+						<select v-model="form.employee.availability" class="custom-select _rounded" id="days">
 						  <option selected disabled>Escolha uma opção</option>
 						</select>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="per">Período</label>
-						<select class="custom-select _rounded" id="per">
+						<select v-model="form.employee.dayTime" class="custom-select _rounded" id="per">
 						  <option selected disabled>Escolha uma opção</option>
 						  <option value="0">Manhã</option>
 						  <option value="1">Tarde</option>
@@ -96,8 +96,22 @@ export default {
 	},
 	data() {
 		return {
-			userType: null
+			form: {
+				'employee': {
+					'profession': null,
+					'availability': null,
+					'dayTime': null,
+				},
+			},
 		}
+	},
+	watch: {
+		form: {
+			handler: function () {
+				this.$emit('input', this.form);
+			},
+			deep: true,
+		},
 	},
 	methods: {
 	},
