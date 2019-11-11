@@ -125,8 +125,12 @@ export default {
 			default: true,
 		},
 	},
+	mounted () {
+		this.acolhidoId = this.$route.params.id;
+	},
 	data() {
 		return {
+			acolhidoId: null,
 			steps: 5,
 			currentStep: 1,
 			form: {
