@@ -6,7 +6,7 @@
 				<h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
 			</div>
 			<div>
-				<router-link :to="'/voluntario/add'">
+				<router-link :to="'/voluntario/adicionar'">
 					<button type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 						<plus-icon size="1.5x" class="add-icon"></plus-icon>
 						<h5 class="mb-0 px-2"><b>Adicionar</b></h5>

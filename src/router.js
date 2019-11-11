@@ -31,7 +31,7 @@ export default new Router({
       component: Voluntario,
     },
     {
-      path: '/voluntario/add',
+      path: '/voluntario/adicionar',
       name: 'voluntarioAdd',
       component: VoluntarioControl,
 			props: {
@@ -39,7 +39,7 @@ export default new Router({
 			}
     },
 		{
-			path: '/voluntario/edit',
+			path: '/voluntario/editar',
 			name: 'voluntarioEdit',
 			component: VoluntarioControl,
 			props: {
