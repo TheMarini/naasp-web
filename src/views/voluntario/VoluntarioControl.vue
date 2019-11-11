@@ -49,13 +49,13 @@
 					<h5 class="mb-0 px-2"><b>Cancelar</b></h5>
 				</button>
 			</router-link>
-			<button v-if="currentStep < steps" @click="currentStep++" type="button" name="button" class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
+			<button v-if="currentStep < steps" @click="currentStep++" :style="[addMethod ? {} : { color: '#000', backgroundColor: '#E3DB4A' }]" type="button" name="button" class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 				<h5 class="mb-0 px-2"><b>Próxima</b></h5>
 				<chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
 			</button>
-			<button v-else @click="adicionar" type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
+			<button v-else @click="{{addMethod ? adicionar : editar }}" type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 				<plus-icon size="1.5x" class="add-icon"></plus-icon>
-				<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+				<h5 class="mb-0 px-2"><b>{{addMethod ? 'Adicionar' : 'Editar' }}</b></h5>
 			</button>
 		</footer>
 	</div>
@@ -92,6 +92,14 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		// form: {
+		// 	type: Object,
+		// 	default: () => ({
+		// 		// TODO: warn about fixed typo bellow
+		// 		address: {},
+		// 		employee: {},
+		// 	})
+		// }
 	},
 	data() {
 		return {
@@ -105,10 +113,8 @@ export default {
 		}
 	},
 	methods: {
-		adicionar () {
-
-
-		}
+		adicionar () { },
+		editar () { },
 	},
 };
 </script>
