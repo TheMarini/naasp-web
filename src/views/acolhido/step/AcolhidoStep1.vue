@@ -78,11 +78,11 @@
 					<div class="form-row">
 						<div class="form-group col-md-8">
 							<label for="name-resp">Nome completo do responsável</label>
-							<input @input="$emit('update:name-resp', $event.target.value)" type="text" class="form-control _rounded" id="name-resp" placeholder="">
+							<input @input="$emit('update:nameResp', $event.target.value)" type="text" class="form-control _rounded" id="name-resp" placeholder="">
 						</div>
 						<div class="form-group col-md-4">
 							<label for="rg-resp">RG</label>
-							<input @input="$emit('update:rg-resp', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg-resp" placeholder="">
+							<input @input="$emit('update:rgResp', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg-resp" placeholder="">
 						</div>
 					</div>
 				</div>

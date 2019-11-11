@@ -25,12 +25,19 @@
 					v-show="currentStep === 1"
 					:name.sync="form.name"
 					:rg.sync="form.RG"
-					:cpf.sync="form.CPF"
-					:nationality.sync="form.nationality"
-					:naturality.sync="form.naturality"
-					:street.sync="form.street"
-					:neighborhood.sync="form.neighborhood"
+					:sex.sync="form.sex"
+					:work.sync="form.work"
+					:school.sync="form.school"
+					:civil.sync="form.civil"
+					:religion.sync="form.religion"
+					:end.sync="form.end"
 					:cep.sync="form.CEP"
+					:email.sync="form.email"
+					:tel1.sync="form.tel1"
+					:tel2.sync="form.tel2"
+					:birthDate.sync="form.birthDate"
+					:nameResp.sync="form.responsible.name"
+					:rgResp.sync="form.responsible.RG"
 				></form-step-1>
 			</article>
 		</div>
@@ -85,7 +92,9 @@ export default {
 		return {
 			steps: 5,
 			currentStep: 1,
-			form: {	},
+			form: {
+				responsible: {}
+			},
 		}
 	},
 	methods: {
