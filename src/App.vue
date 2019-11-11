@@ -42,6 +42,11 @@ export default {
 
 main {
 	margin-left: 200px;
+	min-height: 100vh
+}
+
+a {
+	text-decoration: inherit !important;
 }
 
 /* --- GLOBALS --- */
