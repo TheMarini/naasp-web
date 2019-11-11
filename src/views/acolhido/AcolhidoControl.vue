@@ -14,7 +14,7 @@
 				<p class="current-step">ETAPA {{currentStep}}</p>
 			</div>
 			<article>
-				<div @click="currentStep--" v-if="currentStep > 1" class="d-flex prev-btn mb-2">
+				<div @click="currentStep--" v-if="currentStep > 1" class="d-inline-flex prev-btn mb-2">
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
