@@ -53,9 +53,13 @@
 				<h5 class="mb-0 px-2"><b>Próxima</b></h5>
 				<chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
 			</button>
-			<button v-else @click="{{addMethod ? adicionar : editar }}" type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
+			<button v-else-if="addMethod" @click="adicionar" type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 				<plus-icon size="1.5x" class="add-icon"></plus-icon>
-				<h5 class="mb-0 px-2"><b>{{addMethod ? 'Adicionar' : 'Editar' }}</b></h5>
+				<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+			</button>
+			<button v-else @click="editar" type="button" name="button" class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
+				<edit-icon size="1.5x" class="edit-icon"></edit-icon>
+				<h5 class="mb-0 px-2"><b>Editar</b></h5>
 			</button>
 		</footer>
 	</div>
@@ -68,7 +72,7 @@ import FormStep1 from '@/views/voluntario/step/VoluntarioStep1.vue';
 import FormStep2 from '@/views/voluntario/step/VoluntarioStep2.vue';
 import FormStep3 from '@/views/voluntario/step/VoluntarioStep3.vue';
 
-import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon } from 'vue-feather-icons'
+import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon } from 'vue-feather-icons'
 
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
@@ -82,6 +86,7 @@ export default {
 		PlusIcon,
 		ChevronRightIcon,
 		ArrowLeftIcon,
+		EditIcon,
 		FormStep1,
 		FormStep2,
 		FormStep3,
@@ -137,6 +142,11 @@ header {
 .add-btn, .next-btn {
 	color: white;
 	background-color: #175D2B;
+}
+
+.edit-btn {
+	color: black;
+	background-color: #E3DB4A;
 }
 
 .cancel-btn {
