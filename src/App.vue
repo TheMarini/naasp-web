@@ -3,7 +3,7 @@
 		<div class="d-flex h-100 w-100">
 			<SideNav></SideNav>
 			<main class="h-100 w-100">
-				<transition>
+				<transition name="fade" mode="out-in">
 					<keep-alive>
 						<router-view></router-view>
 					</keep-alive>
@@ -47,6 +47,14 @@ main {
 
 a {
 	text-decoration: inherit !important;
+}
+
+/* --- TRANSITIONS --- */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 /* --- GLOBALS --- */
