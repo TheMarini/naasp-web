@@ -45,7 +45,8 @@ main {
 	min-height: 100vh
 }
 
-a {
+a, a:hover {
+	color: inherit;
 	text-decoration: inherit !important;
 }
 
