@@ -6,6 +6,12 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 
+import Voluntario from './views/voluntario/Voluntario.vue';
+import VoluntarioControl from './views/voluntario/VoluntarioControl.vue';
+
+import Acolhido from './views/acolhido/Acolhido.vue';
+
+
 // Use vue-router
 Vue.use(Router);
 
@@ -16,8 +22,34 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'voluntario',
+      component: Voluntario,
+    },
+    {
+      path: '/voluntario',
+      name: 'voluntario',
+      component: Voluntario,
+    },
+    {
+      path: '/voluntario/adicionar',
+      name: 'voluntarioAdd',
+      component: VoluntarioControl,
+			props: {
+				addMethod: true
+			}
+    },
+		{
+			path: '/voluntario/editar',
+			name: 'voluntarioEdit',
+			component: VoluntarioControl,
+			props: {
+				addMethod: false
+			}
+		},
+    {
+      path: '/acolhido',
+      name: 'acolhido',
+      component: Acolhido,
     },
     {
       path: '/login',
