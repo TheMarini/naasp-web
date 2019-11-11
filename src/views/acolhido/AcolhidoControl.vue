@@ -39,6 +39,30 @@
 					:nameResp.sync="form.responsible.name"
 					:rgResp.sync="form.responsible.RG"
 				></form-step-1>
+				<form-step-2
+					v-show="currentStep === 2"
+					:home.sync="form.home"
+				></form-step-2>
+				<form-step-3
+					v-show="currentStep === 3"
+					:physicalActivity.sync="form.physicalActivity"
+					:medicines.sync="form.medicines"
+					:qtdCigarettes.sync="form.qtdCigarettes"
+					:qtdDrinks.sync="form.qtdDrinks"
+					:familyAbuse.sync="form.familyAbuse"
+					:familyDiseases.sync="form.familyDiseases"
+					:familyMedicines.sync="form.familyMedicines"
+				></form-step-3>
+				<form-step-4
+					v-show="currentStep === 4"
+					:parish.sync="form.parish"
+					:religiousActivities.sync="form.religiousActivities"
+				></form-step-4>
+				<form-step-5
+					v-show="currentStep === 5"
+					:demands.sync="form.demands"
+					:comments.sync="form.comments"
+				></form-step-5>
 			</article>
 		</div>
 		<footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
@@ -63,6 +87,10 @@
 import Step from '@/components/Step.vue';
 
 import FormStep1 from '@/views/acolhido/step/AcolhidoStep1.vue';
+import FormStep2 from '@/views/acolhido/step/AcolhidoStep2.vue';
+import FormStep3 from '@/views/acolhido/step/AcolhidoStep3.vue';
+import FormStep4 from '@/views/acolhido/step/AcolhidoStep4.vue';
+import FormStep5 from '@/views/acolhido/step/AcolhidoStep5.vue';
 
 import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon } from 'vue-feather-icons'
 
@@ -80,6 +108,10 @@ export default {
 		ArrowLeftIcon,
 		HeartIcon,
 		FormStep1,
+		FormStep2,
+		FormStep3,
+		FormStep4,
+		FormStep5,
 	},
 	props: {
 		// Add or edit method
