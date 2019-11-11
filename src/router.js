@@ -39,7 +39,7 @@ export default new Router({
 			}
     },
 		{
-			path: '/voluntario/editar',
+			path: '/voluntario/editar/:id',
 			name: 'voluntarioEdit',
 			component: VoluntarioControl,
 			props: {
@@ -60,7 +60,7 @@ export default new Router({
 			}
 		},
 		{
-			path: '/acolhido/editar',
+			path: '/acolhido/editar/:id',
 			name: 'acolhidoEdit',
 			component: AcolhidoControl,
 			props: {
