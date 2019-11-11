@@ -28,8 +28,11 @@ export default {
 
 <style lang="css" scoped>
 .side-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
 	height: 100vh;
-	width: 230px;
+	width: 200px;
 	background-color: #fff;
 	z-index: 99999
 }

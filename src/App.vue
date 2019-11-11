@@ -40,6 +40,10 @@ export default {
 	background-color: #F5F5F5
 }
 
+main {
+	margin-left: 200px;
+}
+
 /* --- GLOBALS --- */
 /* ~ Rounded ~ */
 ._rounded-100 {
