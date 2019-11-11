@@ -10,7 +10,7 @@ import Voluntario from './views/voluntario/Voluntario.vue';
 import VoluntarioControl from './views/voluntario/VoluntarioControl.vue';
 
 import Acolhido from './views/acolhido/Acolhido.vue';
-
+import AcolhidoControl from './views/acolhido/AcolhidoControl.vue';
 
 // Use vue-router
 Vue.use(Router);
@@ -51,6 +51,22 @@ export default new Router({
       name: 'acolhido',
       component: Acolhido,
     },
+		{
+			path: '/acolhido/adicionar',
+			name: 'acolhidoAdd',
+			component: AcolhidoControl,
+			props: {
+				addMethod: true
+			}
+		},
+		{
+			path: '/acolhido/editar',
+			name: 'acolhidoEdit',
+			component: AcolhidoControl,
+			props: {
+				addMethod: false
+			}
+		},
     {
       path: '/login',
       name: 'login',
