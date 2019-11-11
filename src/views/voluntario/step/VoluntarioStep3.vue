@@ -6,14 +6,14 @@
 			  <div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="sex">Profissão</label>
-						<select v-model="form.employee.profession" class="custom-select _rounded" id="sex">
+						<select @input="$emit('update:profession', $event.target.value)" class="custom-select _rounded" id="sex">
 						  <option selected disabled>Escolha uma opção</option>
-						  <option value="0">Aposentado</option>
-						  <option value="1">Autônomo</option>
-						  <option value="2">Desempregado</option>
-						  <option value="3">Empregado</option>
-						  <option value="4">Do lar</option>
-						  <option value="5">Estudante</option>
+						  <option value="Aposentado">Aposentado</option>
+						  <option value="Autônomo">Autônomo</option>
+						  <option value="Desempregado">Desempregado</option>
+						  <option value="Empregado">Empregado</option>
+						  <option value="Do lar">Do lar</option>
+						  <option value="Estudante">Estudante</option>
 						</select>
 					</div>
 			  </div>
@@ -50,17 +50,17 @@
 			  <div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="days">Dias da semana</label>
-						<select v-model="form.employee.availability" class="custom-select _rounded" id="days">
+						<select class="custom-select _rounded" id="days">
 						  <option selected disabled>Escolha uma opção</option>
 						</select>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="per">Período</label>
-						<select v-model="form.employee.dayTime" class="custom-select _rounded" id="per">
+						<select @input="$emit('update:dayTime', $event.target.value)"class="custom-select _rounded" id="per">
 						  <option selected disabled>Escolha uma opção</option>
-						  <option value="0">Manhã</option>
-						  <option value="1">Tarde</option>
-						  <option value="2">Noite</option>
+						  <option value="Manhã">Manhã</option>
+						  <option value="Tarde">Tarde</option>
+						  <option value="Noite">Noite</option>
 						</select>
 					</div>
 			  </div>
@@ -93,27 +93,6 @@ export default {
 		ActivityIcon,
 		BookOpenIcon,
 		ClipboardIcon
-	},
-	data() {
-		return {
-			form: {
-				'employee': {
-					'profession': null,
-					'availability': null,
-					'dayTime': null,
-				},
-			},
-		}
-	},
-	watch: {
-		form: {
-			handler: function () {
-				this.$emit('input', this.form);
-			},
-			deep: true,
-		},
-	},
-	methods: {
 	},
 };
 </script>

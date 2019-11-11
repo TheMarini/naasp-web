@@ -6,7 +6,7 @@
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
 			      <label for="name">Nome completo</label>
-			      <input v-model="form.employee.name" type="text" class="form-control _rounded" id="name" placeholder="">
+			      <input @input="$emit('update:name', $event.target.value)" type="text" class="form-control _rounded" id="name" placeholder="">
 			    </div>
 					<div class="form-group col-md-3">
 			      <label for="birth-date">Data de nascimento</label>
@@ -24,29 +24,29 @@
 				<div class="form-row">
 					<div class="form-group col-md-3">
 						<label for="rg">RG</label>
-						<input v-model="form.employee['RG']" type="number" class="form-control _rounded" id="rg" placeholder="">
+						<input @input="$emit('update:rg', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="cpf">CPF</label>
-						<input v-model="form.employee['CPF']" type="number" class="form-control _rounded" id="cpf" placeholder="">
+						<input @input="$emit('update:cpf', parseInt($event.target.value))" type="number" class="form-control _rounded" id="cpf" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="nac">Nacionalidade</label>
-						<input v-model="form.employee.nationality" type="text" class="form-control _rounded" id="nac" placeholder="">
+						<input @input="$emit('update:nationality', $event.target.value)" type="text" class="form-control _rounded" id="nac" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="nat">Naturalidade</label>
-						<input v-model="form.employee.naturality" type="text" class="form-control _rounded" id="nat" placeholder="">
+						<input @input="$emit('update:naturality', $event.target.value)" type="text" class="form-control _rounded" id="nat" placeholder="">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-3">
 						<label for="end">Endereço residencial</label>
-						<input v-model="form.employee.street" type="text" class="form-control _rounded" id="end" placeholder="">
+						<input @input="$emit('update:street', $event.target.value)" type="text" class="form-control _rounded" id="end" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="neighborhood">Bairro</label>
-						<input v-model="form.adress.neighborhood"  type="text" class="form-control _rounded" id="neighborhood" placeholder="">
+						<input @input="$emit('update:neighborhood', $event.target.value)" type="text" class="form-control _rounded" id="neighborhood" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="city">Cidade</label>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-group col-md-3">
 						<label for="cep">CEP</label>
-						<input v-model="form.adress['CEP']"  type="number" class="form-control _rounded" id="cep" placeholder="">
+						<input @input="$emit('update:cep', $event.target.value)"  type="number" class="form-control _rounded" id="cep" placeholder="">
 					</div>
 				</div>
 				<div class="form-row">
@@ -89,35 +89,6 @@ export default {
 		ActivityIcon,
 		BookOpenIcon,
 		ClipboardIcon
-	},
-	data() {
-		return {
-			userType: null,
-			form: {
-				'adress': {
-					'street': null,
-					'neighborhood': null,
-					'CEP': null
-				},
-				'employee': {
-					'name': null,
-					'RG': null,
-					'CPF': null,
-					'nationality': null,
-					'naturality': null
-				},
-			},
-		}
-	},
-	watch: {
-		form: {
-			handler: function () {
-				this.$emit('input', this.form);
-			},
-			deep: true
-		},
-	},
-	methods: {
 	},
 };
 </script>

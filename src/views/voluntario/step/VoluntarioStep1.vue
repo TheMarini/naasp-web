@@ -37,32 +37,24 @@ export default {
 	},
 	watch: {
 		userType: function () {
-			let papel;
+			let type;
 
 			switch (this.userType) {
 				case 0:
-					papel = "medic";
+					type = "medic";
 					break;
 
 				case 1:
-					papel = "secretary";
+					type = "secretary";
 					break;
 
 				case 2:
-					papel = "social worker";
+					type = "social worker";
 					break;
 			}
 
-			let result = {
-				employee: {
-					type: papel
-				}
-			}
-
-			this.$emit('input', result);
+			this.$emit('update:type', type);
 		}
-	},
-	methods: {
 	},
 };
 </script>
