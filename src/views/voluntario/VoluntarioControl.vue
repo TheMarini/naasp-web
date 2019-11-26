@@ -27,19 +27,26 @@
 				></form-step-1>
 				<form-step-2
 					v-show="currentStep === 2"
-					:name.sync="form.employee.name"
-					:rg.sync="form.employee.RG"
-					:cpf.sync="form.employee.CPF"
-					:nationality.sync="form.employee.nationality"
-					:naturality.sync="form.employee.naturality"
-					:street.sync="form.address.street"
-					:neighborhood.sync="form.address.neighborhood"
-					:cep.sync="form.address.CEP"
+					:name.sync="form.person.name"
+					:rg.sync="form.person.RG"
+					:cpf.sync="form.person.CPF"
+					:birthDate.sync="form.person.birthDate"
+					:sex.sync="form.person.sex"
+					:email.sync="form.person.email"
+					:tel1.sync="form.person.telephones[0]"
+					:tel2.sync="form.person.telephones[1]"
+					:nationality.sync="form.others.nationality"
+					:naturality.sync="form.others.naturality"
+					:street.sync="form.adress.street"
+					:neighborhood.sync="form.adress.neighborhood"
+					:cep.sync="form.adress.CEP"
 				></form-step-2>
 				<form-step-3
 					v-show="currentStep === 3"
-					:profession.sync="form.employee.profession"
-					:dayTime.sync="form.employee.dayTime"
+					:profession.sync="form.employee.profissionalSituation"
+					:schooling.sync="form.employee.schooling"
+					:availability.sync="form.employee.availability"
+					:dayTime.sync="form.employee.dayTimeAvailability"
 				></form-step-3>
 			</article>
 		</div>
@@ -111,14 +118,38 @@ export default {
 			steps: 3,
 			currentStep: 1,
 			form: {
-				// TODO: warn about fixed typo bellow
-				address: {},
+				adress: {},
+				person: {
+					telephones: [],
+				},
 				employee: {},
-			},
+				others: {},
+			}
 		}
 	},
 	methods: {
-		adicionar () { },
+		adicionar () {
+			this.form.adress.number = 12;
+			this.form.person.profession = "";
+			this.form.person.degree = "";
+			this.form.person.matrialStatus = "Solteiro";
+			this.form.person.religion = "Agnóstico";
+
+			this.form.welcomed.areSmoker = true;
+			this.form.welcomed.onMedicine = true;
+			this.form.welcomed.inReligiousActivities = true;
+			this.form.welcomed.inParish = true;
+			axios.post('/employee', this.form)
+				.then(response => {
+					console.log(response);
+
+					if (response.status == 200) {
+						this.$destroy();
+						this.$router.push('/voluntario')
+					}
+				})
+				.catch(console.log)
+		},
 		editar () { },
 	},
 };

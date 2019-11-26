@@ -18,55 +18,56 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
-				<pre style="white-space: pre">
+				<!-- <pre style="white-space: pre" class="bg-dark text-white p-2">
 					{{JSON.stringify(form, null, 2)}}
-				</pre>
+				</pre> -->
 				<form-step-1
 					v-show="currentStep === 1"
-					:name.sync="form.name"
-					:rg.sync="form.RG"
-					:sex.sync="form.sex"
-					:work.sync="form.work"
-					:school.sync="form.school"
-					:civil.sync="form.civil"
-					:religion.sync="form.religion"
-					:end.sync="form.end"
-					:cep.sync="form.CEP"
-					:email.sync="form.email"
-					:tel1.sync="form.tel1"
-					:tel2.sync="form.tel2"
-					:birthDate.sync="form.birthDate"
-					:nameResp.sync="form.responsible.name"
-					:rgResp.sync="form.responsible.RG"
+					:name.sync="form.person.name"
+					:rg.sync="form.person.RG"
+					:cpf.sync="form.person.CPF"
+					:sex.sync="form.person.sex"
+					:work.sync="form.person.profession"
+					:school.sync="form.person.degree"
+					:civil.sync="form.person.matrialStatus"
+					:religion.sync="form.person.religion"
+					:end.sync="form.adress.street"
+					:cep.sync="form.adress.CEP"
+					:email.sync="form.person.email"
+					:tel1.sync="form.person.telephones[0]"
+					:tel2.sync="form.person.telephones[1]"
+					:birthDate.sync="form.person.birthDate"
+					:nameResp.sync="form.person.responsible.name"
+					:rgResp.sync="form.person.responsible.RG"
 				></form-step-1>
 				<form-step-2
 					v-show="currentStep === 2"
-					:home.sync="form.home"
+					:home.sync="form.welcomed.housingConditions"
 				></form-step-2>
 				<form-step-3
 					v-show="currentStep === 3"
-					:physicalActivity.sync="form.physicalActivity"
-					:medicines.sync="form.medicines"
-					:qtdCigarettes.sync="form.qtdCigarettes"
-					:qtdDrinks.sync="form.qtdDrinks"
+					:physicalActivity.sync="form.welcomed.physicalActivity"
+					:medicines.sync="form.welcomed.medicines"
+					:qtdCigarettes.sync="form.welcomed.cigarreteNumber"
+					:qtdDrinks.sync="form.welcomed.qtdDrinks"
 					:familyAbuse.sync="form.familyAbuse"
 					:familyDiseases.sync="form.familyDiseases"
 					:familyMedicines.sync="form.familyMedicines"
 				></form-step-3>
 				<form-step-4
 					v-show="currentStep === 4"
-					:parish.sync="form.parish"
-					:religiousActivities.sync="form.religiousActivities"
+					:parish.sync="form.welcomed.inParish"
+					:religiousActivities.sync="form.welcomed.religiousActivities"
 				></form-step-4>
 				<form-step-5
 					v-show="currentStep === 5"
-					:demands.sync="form.demands"
-					:comments.sync="form.comments"
+					:demands.sync="form.others.demands"
+					:comments.sync="form.others.comments"
 				></form-step-5>
 			</article>
 		</div>
 		<footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
-			<router-link :to="'/voluntario'" @click.native="$destroy()">
+			<router-link :to="'/acolhido'" @click.native="$destroy()">
 				<button type="button" name="button" class="cancel-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 					<h5 class="mb-0 px-2"><b>Cancelar</b></h5>
 				</button>
@@ -133,13 +134,84 @@ export default {
 			acolhidoId: null,
 			steps: 5,
 			currentStep: 1,
+			// form: {
+			// 	responsible: {}
+			// },
+			// form: {
+			// 	"adress": {
+			// 		"number": 125,
+			// 		"street": "Rua Dom Pedro II",
+			// 		"neighborhood": "Centro",
+			// 		"CEP": 34505000
+			// 	},
+			// 	"person": {
+			// 		"name": "Perdo Guerra Machado Pinto",
+			// 		"RG": 12345678,
+			// 		"CPF": 12345678900,
+			// 		"profession": "full stack developer",
+			// 		"degree": "Software engineer Major",
+			// 		"birthDate": "08/05/2000",
+			// 		"sex": "M",
+			// 		"matrialStatus": "Solteiro",
+			// 		"email": "pedrowar.pw@gmail.com",
+			// 		"religion": "Agnóstico",
+			// 		"telephones":
+			// 		[
+			// 			31988190055,
+			// 			3136711768
+			// 		]
+			// 	},
+			// 	"welcomed": {
+			// 		"housingConditions": "Própria",
+			// 		"physicalActivity": "nope",
+			// 		"areSmoker": "false",
+			// 		"cigarreteNumber": null,
+			// 		"onMedicine": "false",
+			// 		"inParish": "false",
+			// 		"inReligiousActivities": "false",
+			// 		"religiousActivities": "",
+			// 		"relatives":
+			// 		[
+			// 			{
+			// 				"name": "Marini",
+			// 				"kinship": "Santista",
+			// 				"birthDate": "11/08/1995",
+			// 				"profession": "Front end",
+			// 				"liveTogether": "false"
+			// 			}
+			// 		]
+			// 	}
+			// }
 			form: {
-				responsible: {}
-			},
+				adress: {},
+				person: {
+					telephones: [],
+					responsible: {}
+				},
+				welcomed: {},
+				others: {},
+			}
 		}
 	},
 	methods: {
-		adicionar () { },
+		adicionar () {
+			this.form.adress.number = 12;
+			this.form.adress.neighborhood = "Limoeiro";
+			this.form.welcomed.areSmoker = true;
+			this.form.welcomed.onMedicine = true;
+			this.form.welcomed.inReligiousActivities = true;
+			this.form.welcomed.inParish = true;
+			axios.post('/welcomed', this.form)
+				.then(response => {
+					console.log(response);
+
+					if (response.status == 200) {
+						this.$destroy();
+						this.$router.push('/acolhido')
+					}
+				})
+				.catch(console.log)
+		},
 		editar () { },
 	},
 };

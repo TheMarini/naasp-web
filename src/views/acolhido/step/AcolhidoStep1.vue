@@ -4,7 +4,7 @@
 			<h4 class="section-title">DADOS PESSOAIS</h4>
 			<form>
 			  <div class="form-row">
-			    <div class="form-group col-md-6">
+			    <div class="form-group col-md-4">
 			      <label for="name">Nome completo</label>
 			      <input @input="$emit('update:name', $event.target.value)" type="text" class="form-control _rounded" id="name" placeholder="">
 			    </div>
@@ -13,11 +13,15 @@
 						<input @input="$emit('update:rg', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
+						<label for="cpf">CPF</label>
+						<input @input="$emit('update:cpf', parseInt($event.target.value))" type="number" class="form-control _rounded" id="cpf" placeholder="">
+					</div>
+					<div class="form-group col-md-2">
 						<label for="sex">Sexo</label>
 						<select @input="$emit('update:sex', $event.target.value)" class="custom-select _rounded" id="sex">
 							<option selected disabled>Escolha uma opção</option>
-							<option value="Masculino">Masculino</option>
-							<option value="Feminino">Feminino</option>
+							<option value="M">Masculino</option>
+							<option value="F">Feminino</option>
 						</select>
 					</div>
 			  </div>
@@ -35,8 +39,8 @@
 						<select @input="$emit('update:civil', $event.target.value)" class="custom-select _rounded" id="civil">
 							<option selected disabled>Escolha uma opção</option>
 							<option value="Solteiro">Solteiro</option>
-							<option value="Noivo">Noivo</option>
 							<option value="Casado">Casado</option>
+							<option value="Separado">Separado</option>
 							<option value="Viúvo">Viúvo</option>
 						</select>
 					</div>

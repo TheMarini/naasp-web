@@ -15,23 +15,23 @@
 			</div>
 		</header>
 		<article class="mt-4">
-			<div class="_card p-3">
+			<!-- <div class="_card p-3"> -->
 				<b-table
-					class="_rounded"
+					class="_rounded bg-white"
 					:items="items"
 					:fields="fields"
 					:busy="isBusy"
 					primary-key="id"
 					head-variant="dark"
-					fixed responsive bordered hover
+					responsive bordered hover
 				>
 				<template v-slot:cell(actions)="data">
-					<router-link :to="`/acolhido/editar/${data.item.id}`">
+					<router-link :to="`/acolhido/editar/${data.item.idPerson}`">
 						<button type="button" name="button" class="edit-btn btn" title="Editar">
 							<edit-icon size="1.5x" class="edit-icon"></edit-icon>
 						</button>
 					</router-link>
-					<button type="button" name="button" class="edit-btn btn" title="Deletar">
+					<button @click="deleteData(data.index)" type="button" name="button" class="edit-btn btn" title="Deletar">
 						<trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
 					</button>
 	      </template>
@@ -42,7 +42,7 @@
 	        </div>
 	      </template>
 				</b-table>
-			</div>
+			<!-- </div> -->
 		</article>
 	</div>
 </template>
@@ -50,6 +50,7 @@
 <script>
 import { UsersIcon, PlusIcon, EditIcon, Trash2Icon, } from 'vue-feather-icons'
 
+import moment from 'moment';
 
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
@@ -63,8 +64,17 @@ export default {
 		EditIcon,
 		Trash2Icon,
 	},
+	mounted () {
+		this.updateData();
+	},
+	watch: {
+    $route(to, from) {
+      this.updateData();
+    }
+  },
 	data() {
 		return {
+			acolhidos: [],
 			fields: [
         {
           key: 'name',
@@ -76,21 +86,54 @@ export default {
           label: 'Idade',
           sortable: true,
         },
+				'RG',
+				'CPF',
+				'email',
 				{
           key: 'actions',
           label: 'Ações',
         },
       ],
       items: [
-        { id: 5, isActive: true, age: 40, name: 'Dickerson' },
-        { id: 6, isActive: false, age: 21, name: 'Larsen' },
-        { id: 7, isActive: false, age: 89, name: 'Geneva' },
-        { id: 8, isActive: true, age: 38, name: 'Jami' }
+
       ],
-			isBusy: false,
+			isBusy: true,
 		}
 	},
 	methods: {
+		async updateData () {
+			this.isBusy = true;
+			axios.get('/welcomed')
+				.then(async response => {
+					this.acolhidos = response.data;
+					console.log(this.acolhidos)
+					let acolhidos = response.data;
+					let persons = [];
+					for (var i = 0; i < acolhidos.length; i++) {
+						await axios.get(`/person/?id=${acolhidos[i].idWelcomed}`)
+							.then(response => {
+								response.data.age = moment().diff(new Date(response.data.birthDate), 'years');
+								persons.push(response.data);
+							})
+							.catch(console.log)
+					}
+					setTimeout(() => {
+						this.items = persons;
+						this.isBusy = false;
+						console.log(this.items)
+					}, 1000);
+				})
+				.catch(console.log);
+		},
+		deleteData (index) {
+			let acolhido = this.acolhidos[index];
+			axios.delete(`/welcomed/?id=${acolhido.idWelcomed}`)
+				.then(response => {
+					if (response.status == 200)
+						this.updateData();
+				})
+				.catch(console.log);
+		}
 	},
 };
 </script>
