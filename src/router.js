@@ -4,7 +4,6 @@ import Router from 'vue-router';
 
 // ~ Pages ~
 import Home from './views/Home.vue';
-import Login from './views/Login.vue';
 
 // Volunteer
 import Volunteer from './views/volunteer/Volunteer.vue';
@@ -27,11 +26,6 @@ export default new Router({
       name: 'home',
       component: Home,
     },
-		{
-			path: '/login',
-			name: 'login',
-			component: Login,
-		},
     {
       path: '/voluntario',
       name: 'volunteer',
