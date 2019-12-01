@@ -6,8 +6,8 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 
-import Voluntario from './views/voluntario/Voluntario.vue';
-import VoluntarioControl from './views/voluntario/VoluntarioControl.vue';
+import Volunteer from './views/volunteer/Volunteer.vue';
+import VolunteerForm from './views/volunteer/form/VolunteerForm.vue';
 
 import Acolhido from './views/acolhido/Acolhido.vue';
 import AcolhidoControl from './views/acolhido/AcolhidoControl.vue';
@@ -28,12 +28,12 @@ export default new Router({
     {
       path: '/voluntario',
       name: 'voluntario',
-      component: Voluntario,
+      component: Volunteer,
     },
     {
       path: '/voluntario/adicionar',
       name: 'voluntarioAdd',
-      component: VoluntarioControl,
+      component: VolunteerForm,
 			props: {
 				addMethod: true
 			}
@@ -41,7 +41,7 @@ export default new Router({
 		{
 			path: '/voluntario/editar/:id',
 			name: 'voluntarioEdit',
-			component: VoluntarioControl,
+			component: VolunteerForm,
 			props: {
 				addMethod: false
 			}

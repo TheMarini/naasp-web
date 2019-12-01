@@ -75,9 +75,9 @@
 <script>
 import Step from '@/components/Step.vue';
 
-import FormStep1 from '@/views/voluntario/step/VoluntarioStep1.vue';
-import FormStep2 from '@/views/voluntario/step/VoluntarioStep2.vue';
-import FormStep3 from '@/views/voluntario/step/VoluntarioStep3.vue';
+import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
+import FormStep2 from '@/views/volunteer/form/steps/VolunteerStep2.vue';
+import FormStep3 from '@/views/volunteer/form/steps/VolunteerStep3.vue';
 
 import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon } from 'vue-feather-icons'
 

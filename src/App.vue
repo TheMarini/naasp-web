@@ -15,13 +15,12 @@
 
 <script>
 import SideNav from '@/components/SideNav.vue';
-import Voluntario from '@/views/voluntario/Voluntario.vue';
-
+import Volunteer from '@/views/volunteer/Volunteer.vue';
 
 export default {
 	name: 'app',
 	components: {
-    Voluntario,
+    Volunteer,
 		SideNav,
   },
 };
