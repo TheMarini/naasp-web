@@ -30,6 +30,7 @@
 				</pre> -->
 				<PersonalDataForm
 					v-show="currentStep === 1"
+					:responsibleForm="true"
 					:name.sync="form.person.name"
 					:rg.sync="form.person.RG"
 					:cpf.sync="form.person.CPF"
@@ -108,7 +109,6 @@ import Step from '@/components/Step.vue';
 
 // Form Steps
 import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
-
 import FormStep2 from '@/views/welcomed/form/steps/WelcomedStep2.vue';
 import FormStep3 from '@/views/welcomed/form/steps/WelcomedStep3.vue';
 import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
