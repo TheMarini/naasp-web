@@ -25,22 +25,29 @@
 					v-show="currentStep === 1"
 					:type.sync="form.employee.type"
 				></form-step-1>
-				<form-step-2
+				<PersonalDataForm
 					v-show="currentStep === 2"
 					:name.sync="form.person.name"
 					:rg.sync="form.person.RG"
 					:cpf.sync="form.person.CPF"
-					:birthDate.sync="form.person.birthDate"
 					:sex.sync="form.person.sex"
-					:email.sync="form.person.email"
-					:tel1.sync="form.person.telephones[0]"
-					:tel2.sync="form.person.telephones[1]"
-					:nationality.sync="form.others.nationality"
-					:naturality.sync="form.others.naturality"
-					:street.sync="form.adress.street"
+					:civil.sync="form.person.matrialStatus"
+					:school.sync="form.person.degree"
+					:work.sync="form.person.profession"
+					:birthDate.sync="form.person.birthDate"
+					:religion.sync="form.person.religion"
+					:placeOfBirth.sync="form.person.placeOfBirth"
+					:nationality.sync="form.person.nationality"
+					:end.sync="form.adress.street"
 					:neighborhood.sync="form.adress.neighborhood"
+					:city.sync="form.adress.city"
+					:state.sync="form.adress.state"
 					:cep.sync="form.adress.CEP"
-				></form-step-2>
+					:cellPhoneNumber.sync="form.person.telephones[0]"
+					:homePhoneNumber.sync="form.person.telephones[1]"
+					:businessPhoneNumber.sync="form.person.telephones[2]"
+					:email.sync="form.person.email"
+				></PersonalDataForm>
 				<form-step-3
 					v-show="currentStep === 3"
 					:profession.sync="form.employee.profissionalSituation"
@@ -75,8 +82,9 @@
 <script>
 import Step from '@/components/Step.vue';
 
+// Form Steps
 import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
-import FormStep2 from '@/views/volunteer/form/steps/VolunteerStep2.vue';
+import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
 import FormStep3 from '@/views/volunteer/form/steps/VolunteerStep3.vue';
 
 import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon } from 'vue-feather-icons'
@@ -95,7 +103,7 @@ export default {
 		ArrowLeftIcon,
 		EditIcon,
 		FormStep1,
-		FormStep2,
+		PersonalDataForm,
 		FormStep3,
 	},
 	props: {
