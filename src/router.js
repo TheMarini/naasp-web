@@ -6,11 +6,13 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 
+// Volunteer
 import Volunteer from './views/volunteer/Volunteer.vue';
 import VolunteerForm from './views/volunteer/form/VolunteerForm.vue';
 
-import Acolhido from './views/acolhido/Acolhido.vue';
-import AcolhidoControl from './views/acolhido/AcolhidoControl.vue';
+// Welcomed
+import Welcomed from './views/welcomed/Welcomed.vue';
+import WelcomedForm from './views/welcomed/form/WelcomedForm.vue';
 
 // Use vue-router
 Vue.use(Router);
@@ -48,27 +50,29 @@ export default new Router({
 				}
 			],
     },
-    {
+		{
       path: '/acolhido',
-      name: 'acolhido',
-      component: Acolhido,
+      name: 'welcomed',
+      component: Welcomed,
+			children: [
+				{
+					path: '/adicionar',
+					name: 'welcomedAdd',
+					component: WelcomedForm,
+					props: {
+						method: 'add'
+					}
+				},
+				{
+					path: '/editar/:id',
+					name: 'welcomedEdit',
+					component: WelcomedForm,
+					props: {
+						method: 'edit'
+					}
+				}
+			],
     },
-		{
-			path: '/acolhido/adicionar',
-			name: 'acolhidoAdd',
-			component: AcolhidoControl,
-			props: {
-				addMethod: true
-			}
-		},
-		{
-			path: '/acolhido/editar/:id',
-			name: 'acolhidoEdit',
-			component: AcolhidoControl,
-			props: {
-				addMethod: false
-			}
-		},
     {
       path: '/login',
       name: 'login',

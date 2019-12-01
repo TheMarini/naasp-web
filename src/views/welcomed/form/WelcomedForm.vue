@@ -91,11 +91,11 @@
 <script>
 import Step from '@/components/Step.vue';
 
-import FormStep1 from '@/views/acolhido/step/AcolhidoStep1.vue';
-import FormStep2 from '@/views/acolhido/step/AcolhidoStep2.vue';
-import FormStep3 from '@/views/acolhido/step/AcolhidoStep3.vue';
-import FormStep4 from '@/views/acolhido/step/AcolhidoStep4.vue';
-import FormStep5 from '@/views/acolhido/step/AcolhidoStep5.vue';
+import FormStep1 from '@/views/welcomed/form/steps/WelcomedStep1.vue';
+import FormStep2 from '@/views/welcomed/form/steps/WelcomedStep2.vue';
+import FormStep3 from '@/views/welcomed/form/steps/WelcomedStep3.vue';
+import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
+import FormStep5 from '@/views/welcomed/form/steps/WelcomedStep5.vue';
 
 import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon } from 'vue-feather-icons'
 

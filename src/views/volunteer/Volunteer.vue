@@ -6,7 +6,7 @@
 				<h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
 			</div>
 			<div>
-				<router-link :to="'/voluntario/adicionar'">
+				<router-link :to="'/volunteer/adicionar'">
 					<button type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 						<plus-icon size="1.5x" class="add-icon"></plus-icon>
 						<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
@@ -25,7 +25,7 @@
 				responsive bordered hover
 			>
 			<template v-slot:cell(actions)="data">
-				<router-link :to="`/acolhido/editar/${data.item.idPerson}`">
+				<router-link :to="`/welcomed/editar/${data.item.idPerson}`">
 					<button type="button" name="button" class="edit-btn btn" title="Editar">
 						<edit-icon size="1.5x" class="edit-icon"></edit-icon>
 					</button>
