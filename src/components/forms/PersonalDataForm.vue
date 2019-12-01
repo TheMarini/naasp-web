@@ -55,12 +55,12 @@
 						<input @input="$emit('update:religion', $event.target.value)" type="text" class="form-control _rounded" id="religion" placeholder="Cristianismo, Catolicismo, Ateu...">
 					</div>
 					<div class="form-group col-md-3 mb-0">
-						<label for="work">Naturalidade</label>
-						<input @input="$emit('update:placeOfBirth', $event.target.value)" type="text" class="form-control _rounded" id="work" placeholder="Belo Horizonte, MG">
+						<label for="place-of-birth">Naturalidade</label>
+						<input @input="$emit('update:placeOfBirth', $event.target.value)" type="text" class="form-control _rounded" id="place-of-birth" placeholder="Belo Horizonte, MG">
 					</div>
 					<div class="form-group col-md-3 mb-0">
-						<label for="work">Nacionalidade</label>
-						<input @input="$emit('update:nationality', $event.target.value)" type="text" class="form-control _rounded" id="work" placeholder="Brasileira">
+						<label for="nationality">Nacionalidade</label>
+						<input @input="$emit('update:nationality', $event.target.value)" type="text" class="form-control _rounded" id="nationality" placeholder="Brasileira">
 					</div>
 				</div>
 			</form>
