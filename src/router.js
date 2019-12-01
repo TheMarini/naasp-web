@@ -27,25 +27,27 @@ export default new Router({
     },
     {
       path: '/voluntario',
-      name: 'voluntario',
+      name: 'volunteer',
       component: Volunteer,
+			children: [
+				{
+					path: '/adicionar',
+					name: 'volunteerAdd',
+					component: VolunteerForm,
+					props: {
+						method: 'add'
+					}
+				},
+				{
+					path: '/editar/:id',
+					name: 'volunteerEdit',
+					component: VolunteerForm,
+					props: {
+						method: 'edit'
+					}
+				}
+			],
     },
-    {
-      path: '/voluntario/adicionar',
-      name: 'voluntarioAdd',
-      component: VolunteerForm,
-			props: {
-				addMethod: true
-			}
-    },
-		{
-			path: '/voluntario/editar/:id',
-			name: 'voluntarioEdit',
-			component: VolunteerForm,
-			props: {
-				addMethod: false
-			}
-		},
     {
       path: '/acolhido',
       name: 'acolhido',
