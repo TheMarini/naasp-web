@@ -6,7 +6,14 @@
 				<h2 class="ml-3 mb-0"><b>{{addMethod ? 'Adicionar' : 'Editar' }} acolhido</b></h2>
 			</div>
 			<div class="steps d-flex">
-				<step v-for="index of steps" @click.native="currentStep = index" :number="index" :active="index <= currentStep" :addMethod="addMethod" class="step ml-2"></step>
+				<step
+					class="step ml-2"
+					v-for="index of steps"
+					@click.native="currentStep = index"
+					:number="index"
+					:active="index <= currentStep"
+					:addMethod="addMethod"
+				></step>
 			</div>
 		</header>
 		<div class="wrapper pt-4">
@@ -91,12 +98,14 @@
 <script>
 import Step from '@/components/Step.vue';
 
+// Form Steps
 import FormStep1 from '@/views/welcomed/form/steps/WelcomedStep1.vue';
 import FormStep2 from '@/views/welcomed/form/steps/WelcomedStep2.vue';
 import FormStep3 from '@/views/welcomed/form/steps/WelcomedStep3.vue';
 import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
 import FormStep5 from '@/views/welcomed/form/steps/WelcomedStep5.vue';
 
+// Icons
 import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon } from 'vue-feather-icons'
 
 import axios from 'axios';

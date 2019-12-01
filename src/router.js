@@ -27,16 +27,13 @@ let volunteer = [
 		path: '/voluntario/adicionar',
 		name: 'volunteerAdd',
 		component: VolunteerForm,
-		props: {
-			method: 'add'
-		}
 	},
 	{
 		path: '/voluntario/editar/:id',
 		name: 'volunteerEdit',
 		component: VolunteerForm,
 		props: {
-			method: 'edit'
+			addMethod: false
 		}
 	}
 ];
@@ -51,16 +48,13 @@ let welcomed = [
 		path: '/acolhido/adicionar',
 		name: 'welcomedAdd',
 		component: WelcomedForm,
-		props: {
-			method: 'add'
-		}
 	},
 	{
 		path: '/acolhido/editar/:id',
 		name: 'welcomedEdit',
 		component: WelcomedForm,
 		props: {
-			method: 'edit'
+			addMethod: false
 		}
 	}
 ];

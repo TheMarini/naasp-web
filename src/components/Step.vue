@@ -12,20 +12,13 @@ export default {
 			type: Number,
 			required: true
 		},
-		active: {
-			type: Boolean,
-			default: false
-		},
-		defaultStyle: {
-			type: Object,
-			default: () => ({
-				color: "#707070",
-				backgroundColor: "#fff"
-			})
-		},
 		addMethod: {
 			type: Boolean,
 			default: true
+		},
+		active: {
+			type: Boolean,
+			default: false
 		},
 		activeStyle: {
 			type: Object,
@@ -35,6 +28,13 @@ export default {
 
 				return { color: "#000", backgroundColor: "#E3DB4A" }
 			}
+		},
+		defaultStyle: {
+			type: Object,
+			default: () => ({
+				color: "#707070",
+				backgroundColor: "#fff"
+			})
 		},
 	},
 };
