@@ -5,7 +5,7 @@
 				<users-icon size="2.3x" class="title-icon"></users-icon>
 				<h2 class="ml-3 mb-0"><b>Acolhidos</b></h2>
 			</div>
-			<router-link :to="'/welcomed/adicionar'">
+			<router-link :to="'/acolhido/adicionar'">
 				<button type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
 					<plus-icon size="1.5x" class="add-icon"></plus-icon>
 					<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
@@ -23,7 +23,7 @@
 				responsive bordered hover
 			>
 				<template v-slot:cell(actions)="data">
-					<router-link :to="`/welcomed/editar/${data.item.idPerson}`">
+					<router-link :to="`/acolhido/editar/${data.item.idPerson}`">
 						<button type="button" name="button" class="edit-btn btn" title="Editar">
 							<edit-icon size="1.5x" class="edit-icon"></edit-icon>
 						</button>
