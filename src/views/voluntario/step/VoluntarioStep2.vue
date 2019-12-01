@@ -10,14 +10,14 @@
 			    </div>
 					<div class="form-group col-md-3">
 			      <label for="birth-date">Data de nascimento</label>
-			      <input type="date" class="form-control _rounded" id="birth-date">
+			      <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
 			    </div>
 					<div class="form-group col-md-3">
 						<label for="sex">Sexo</label>
-						<select class="custom-select _rounded" id="sex">
+						<select @input="$emit('update:sex', $event.target.value)" class="custom-select _rounded" id="sex">
 						  <option selected disabled>Escolha uma opção</option>
-						  <option value="0">Masculino</option>
-						  <option value="1">Feminino</option>
+						  <option value="M">Masculino</option>
+						  <option value="F">Feminino</option>
 						</select>
 					</div>
 			  </div>
@@ -60,11 +60,11 @@
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="tel-cel">Telefone celular</label>
-						<input type="number" class="form-control _rounded" id="tel-cel" placeholder="">
+						<input @input="$emit('update:tel1', $event.target.value)" type="number" class="form-control _rounded" id="tel-cel" placeholder="">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="tel-res">Telefone residencial</label>
-						<input type="number" class="form-control _rounded" id="tel-res" placeholder="">
+						<input @input="$emit('update:tel2', $event.target.value)" type="number" class="form-control _rounded" id="tel-res" placeholder="">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="tel-com">Telefone comercial</label>
@@ -73,7 +73,7 @@
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input type="email" class="form-control _rounded" id="email" placeholder="">
+					<input @input="$emit('update:email', $event.target.value)" type="email" class="form-control _rounded" id="email" placeholder="">
 				</div>
 			</form>
 		</section>
@@ -81,6 +81,9 @@
 </template>
 
 <script>
+// Moment
+import moment from 'moment';
+
 import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons'
 
 export default {
@@ -89,6 +92,15 @@ export default {
 		ActivityIcon,
 		BookOpenIcon,
 		ClipboardIcon
+	},
+	data () {
+		birthDate: null
+	},
+	watch: {
+		birthDate: function () {
+			this.$emit('update:birthDate', this.birthDate);
+			this.minor = moment().diff(this.birthDate, 'years') < 18;
+		}
 	},
 };
 </script>

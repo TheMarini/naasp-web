@@ -24,8 +24,8 @@
 			<form>
 			  <div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="fund">Fundamental</label>
-						<select class="custom-select _rounded" id="fund">
+						<label for="fund">Nível</label>
+						<select @input="$emit('update:schooling', $event.target.value)" class="custom-select _rounded" id="fund">
 						  <option selected disabled>Escolha uma opção</option>
 						  <option value="0">Fundamental</option>
 						  <option value="1">Médio</option>
@@ -33,7 +33,7 @@
 						</select>
 					</div>
 					<div class="form-group col-md-4">
-						<label for="sup">Superior</label>
+						<label for="sup">Estado</label>
 						<select class="custom-select _rounded" id="sup">
 						  <option selected disabled>Escolha uma opção</option>
 						  <option value="0">Completo</option>
@@ -50,13 +50,20 @@
 			  <div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="days">Dias da semana</label>
-						<select class="custom-select _rounded" id="days">
+						<select @input="$emit('update:availability', $event.target.value)" class="custom-select _rounded" id="days">
 						  <option selected disabled>Escolha uma opção</option>
+							<option value="Segunda">Segunda</option>
+							<option value="Terça">Terça</option>
+							<option value="Quarta">Quarta</option>
+							<option value="Quinta">Quinta</option>
+							<option value="Sexta">Sexta</option>
+							<option value="Sábado">Sábado</option>
+							<option value="Domingo">Domingo</option>
 						</select>
 					</div>
 					<div class="form-group col-md-4">
 						<label for="per">Período</label>
-						<select @input="$emit('update:dayTime', $event.target.value)"class="custom-select _rounded" id="per">
+						<select @input="$emit('update:dayTime', $event.target.value)" class="custom-select _rounded" id="per">
 						  <option selected disabled>Escolha uma opção</option>
 						  <option value="Manhã">Manhã</option>
 						  <option value="Tarde">Tarde</option>
