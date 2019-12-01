@@ -94,7 +94,9 @@ export default {
 		ClipboardIcon
 	},
 	data () {
-		birthDate: null
+		return {
+			birthDate: null
+		}
 	},
 	watch: {
 		birthDate: function () {
