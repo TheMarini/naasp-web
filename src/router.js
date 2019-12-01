@@ -22,8 +22,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'voluntario',
-      component: Voluntario,
+      name: 'home',
+      component: Home,
     },
     {
       path: '/voluntario',
