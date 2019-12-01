@@ -5,14 +5,12 @@
 				<users-icon size="2.3x" class="title-icon"></users-icon>
 				<h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
 			</div>
-			<div>
-				<router-link :to="'/volunteer/adicionar'">
-					<button type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
-						<plus-icon size="1.5x" class="add-icon"></plus-icon>
-						<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-					</button>
-				</router-link>
-			</div>
+			<router-link :to="'/volunteer/adicionar'">
+				<button type="button" name="button" class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100">
+					<plus-icon size="1.5x" class="add-icon"></plus-icon>
+					<h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+				</button>
+			</router-link>
 		</header>
 		<article class="mt-4">
 			<b-table
@@ -47,7 +45,6 @@
 
 <script>
 import { UsersIcon, PlusIcon, EditIcon, Trash2Icon, } from 'vue-feather-icons'
-
 
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
