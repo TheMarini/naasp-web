@@ -28,25 +28,33 @@
 				<!-- <pre style="white-space: pre" class="bg-dark text-white p-2">
 					{{JSON.stringify(form, null, 2)}}
 				</pre> -->
-				<form-step-1
+				<PersonalDataForm
 					v-show="currentStep === 1"
 					:name.sync="form.person.name"
 					:rg.sync="form.person.RG"
 					:cpf.sync="form.person.CPF"
 					:sex.sync="form.person.sex"
-					:work.sync="form.person.profession"
-					:school.sync="form.person.degree"
 					:civil.sync="form.person.matrialStatus"
-					:religion.sync="form.person.religion"
-					:end.sync="form.adress.street"
-					:cep.sync="form.adress.CEP"
-					:email.sync="form.person.email"
-					:tel1.sync="form.person.telephones[0]"
-					:tel2.sync="form.person.telephones[1]"
+					:school.sync="form.person.degree"
+					:work.sync="form.person.profession"
 					:birthDate.sync="form.person.birthDate"
+					:religion.sync="form.person.religion"
+					:placeOfBirth.sync="form.person.placeOfBirth"
+					:nationality.sync="form.person.nationality"
+					:end.sync="form.adress.street"
+					:neighborhood.sync="form.adress.neighborhood"
+					:city.sync="form.adress.city"
+					:state.sync="form.adress.state"
+					:cep.sync="form.adress.CEP"
+					:cellPhoneNumber.sync="form.person.telephones[0]"
+					:homePhoneNumber.sync="form.person.telephones[1]"
+					:businessPhoneNumber.sync="form.person.telephones[2]"
+					:email.sync="form.person.email"
 					:nameResp.sync="form.person.responsible.name"
 					:rgResp.sync="form.person.responsible.RG"
-				></form-step-1>
+					:cpfResp.sync="form.person.responsible.CPF"
+				></PersonalDataForm>
+
 				<form-step-2
 					v-show="currentStep === 2"
 					:home.sync="form.welcomed.housingConditions"
@@ -99,7 +107,8 @@
 import Step from '@/components/Step.vue';
 
 // Form Steps
-import FormStep1 from '@/views/welcomed/form/steps/WelcomedStep1.vue';
+import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
+
 import FormStep2 from '@/views/welcomed/form/steps/WelcomedStep2.vue';
 import FormStep3 from '@/views/welcomed/form/steps/WelcomedStep3.vue';
 import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
@@ -122,7 +131,7 @@ export default {
 		ArrowLeftIcon,
 		HeartIcon,
 		EditIcon,
-		FormStep1,
+		PersonalDataForm,
 		FormStep2,
 		FormStep3,
 		FormStep4,
