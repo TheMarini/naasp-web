@@ -15,10 +15,10 @@
 		<article class="mt-4">
 			<b-table
 				class="_rounded bg-white"
-				:items="items"
+				:items="welcomed"
 				:fields="fields"
 				:busy="isBusy"
-				primary-key="id"
+				primary-key="idPerson"
 				head-variant="dark"
 				responsive bordered hover
 			>
@@ -61,16 +61,16 @@ export default {
 		Trash2Icon,
 	},
 	mounted () {
-		this.updateData();
+		this.update();
 	},
 	watch: {
     $route(to, from) {
-      this.updateData();
+      this.update();
     }
   },
 	data() {
 		return {
-			acolhidos: [],
+			welcomed: [],
 			fields: [
         {
           key: 'name',
@@ -90,34 +90,35 @@ export default {
           label: 'Ações',
         },
       ],
-      items: [
-
-      ],
 			isBusy: true,
 		}
 	},
 	methods: {
-		async updateData () {
+		update () {
 			this.isBusy = true;
 			axios.get('/welcomed')
-				.then(async response => {
-					this.acolhidos = response.data;
-					console.log(this.acolhidos)
-					let acolhidos = response.data;
+				.then(response => {
+					this.welcomed = response.data;
+
 					let persons = [];
-					for (var i = 0; i < acolhidos.length; i++) {
-						await axios.get(`/person/?id=${acolhidos[i].idWelcomed}`)
-							.then(response => {
-								response.data.age = moment().diff(new Date(response.data.birthDate), 'years');
-								persons.push(response.data);
-							})
-							.catch(console.log)
+
+					for (let w of this.welcomed) {
+						persons.push(
+							axios.get(`/person/?id=${w.idWelcomed}`)
+								.then(response => {
+									let person = response.data;
+									person.age = moment().diff(new Date(person.birthDate), 'years');
+
+									return person;
+								})
+								.catch(console.log)
+						)
 					}
-					setTimeout(() => {
-						this.items = persons;
+
+					Promise.all(persons).then(persons => {
+						this.welcomed = persons;
 						this.isBusy = false;
-						console.log(this.items)
-					}, 1000);
+					});
 				})
 				.catch(console.log);
 		},
@@ -126,7 +127,7 @@ export default {
 			axios.delete(`/welcomed/?id=${acolhido.idWelcomed}`)
 				.then(response => {
 					if (response.status == 200)
-						this.updateData();
+						this.update();
 				})
 				.catch(console.log);
 		}
