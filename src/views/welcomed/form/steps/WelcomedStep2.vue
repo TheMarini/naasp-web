@@ -1,7 +1,11 @@
 <template lang="html">
 	<div class="form-step">
 		<section>
-			<h4 class="section-title">DADOS E CONDIÇÕES</h4>
+			<h4 class="section-title">DADOS E CONDIÇÕES DOS FAMILIARES</h4>
+			<p>Pessoas relevantes na vida do acolhido, que suportam direta/indiretamente, coabitando na mesma casa ou não:</p>
+		</section>
+		<section class="mt-2">
+			<h4 class="section-title">CONDIÇÕES DE MORADIA</h4>
 			<form>
 				<div class="form-row">
 					<div class="form-group col-md-4">
@@ -16,10 +20,6 @@
 					</div>
 				</div>
 			</form>
-		</section>
-		<section class="mt-2">
-			<h4 class="section-title">DADOS E CONDIÇÕES DOS FAMILIARES</h4>
-			<p>Pessoas relevantes na vida do acolhido, que suportam direta/indiretamente, coabitando mesma casa ou não:</p>
 		</section>
 	</div>
 </template>
