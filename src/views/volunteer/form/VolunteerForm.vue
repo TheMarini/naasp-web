@@ -56,8 +56,6 @@
 
 				<form-step-3
 					v-show="currentStep === 3"
-					:profession.sync="volunteer.profissionalSituation"
-					:schooling.sync="volunteer.schooling"
 					:availability.sync="volunteer.availability"
 					:dayTime.sync="volunteer.dayTimeAvailability"
 				></form-step-3>
