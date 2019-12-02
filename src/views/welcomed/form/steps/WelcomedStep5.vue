@@ -5,11 +5,11 @@
 			<form>
 				<div class="form-group">
 					<label for="demands">Demandas apresentadas</label>
-					<textarea @input="$emit('update:demands', $event.target.value)"  class="form-control" id="demands"></textarea>
+					<textarea @input="$emit('update:demands', $event.target.value)"  class="form-control _rounded" id="demands"></textarea>
 				</div>
 				<div class="form-group">
 					<label for="comments">Observações</label>
-					<textarea @input="$emit('update:comments', $event.target.value)"  class="form-control" id="comments"></textarea>
+					<textarea @input="$emit('update:comments', $event.target.value)"  class="form-control _rounded" id="comments"></textarea>
 				</div>
 			</form>
 		</section>
