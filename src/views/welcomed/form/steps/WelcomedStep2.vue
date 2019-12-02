@@ -9,8 +9,8 @@
 			<form>
 				<div class="form-row">
 					<div class="form-group col-md-4">
-						<label for="home">Moradia</label>
-						<select @input="$emit('update:home', $event.target.value)" class="custom-select _rounded" id="home">
+						<label for="housing-condition">Moradia</label>
+						<select @input="$emit('update:housingCondition', $event.target.value)" class="custom-select _rounded" id="housing-condition">
 							<option selected disabled>Escolha uma opção</option>
 							<option value="Própria">Própria</option>
 							<option value="Alugada">Alugada</option>
