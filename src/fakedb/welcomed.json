@@ -1,0 +1,66 @@
+[
+	{
+		"name": "Bruno Marini",
+	  "rg": "12.345.678-9",
+	  "cpf": "12345-678",
+	  "sex": "M",
+	  "matrialStatus": "Solteiro",
+	  "educationLevel": "Graduando",
+	  "jobRole": "Estudante",
+	  "birthDate": "2010-09-01",
+	  "religion": "Agnóstico",
+	  "placeOfBirth": "São Paulo, SP",
+	  "nationality": "Brasileira",
+	  "address": {
+	    "publicPlace": "Rua do Limão",
+	    "number": "42",
+	    "complement": "fundos",
+	    "neighborhood": "Limoeiro",
+	    "city": "São Paulo",
+	    "state": "São Paulo",
+			"cep": "12345-678"
+	  },
+	  "contact": {
+	    "phoneNumber": {
+	      "cell": "(31) 9 1234-5678",
+	      "home": "(31) 1234-5678",
+	      "business": "(31) 1234-5678"
+	    },
+	    "email": "bruno@marini.com"
+	  },
+		"responsible": {
+			"name": "Spike Jonze",
+			"rg": "12.345.678-9",
+			"cpf": "123.456.789-10"
+		},
+		"money": {
+			"governmentBenefit": {
+				"name": "Cesta básica",
+				"value": "380"
+			},
+			"familyIncomeComments": "Ganha um dinheiro por fora."
+		},
+		"home": {
+			"housingCondition": "Alugada"
+		},
+		"health": {
+			"physicalActivity": "Corrida",
+			"medicines": "Omeprazol",
+			"qtdCigarettes": "2",
+			"qtdDrinks": "4",
+			"family": {
+				"alcoholAbuse": "Tio",
+				"diseases": "Mãe - Alzhaimer",
+				"medicines": "Irmão - Atenolol"
+			}
+		},
+		"affiliation": {
+			"parish": "NAASP",
+			"religiousActivities": "Caridade"
+		},
+	  "others": {
+	    "demands": "Lembrar ele de algo.",
+	    "comments": "Nenhuma observação."
+	  }
+	}
+]
