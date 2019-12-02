@@ -70,9 +70,17 @@
 			<h4 class="section-title">ENDEREÇO</h4>
 			<form>
 				<div class="form-row">
-					<div class="form-group col-md-8">
-						<label for="public-place">Endereço</label>
+					<div class="form-group col-md-4">
+						<label for="public-place">Logradouro</label>
 						<input @input="$emit('update:publicPlace', $event.target.value)" type="text" class="form-control _rounded" id="public-place" placeholder="Rua do Limão">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="address-number">Número</label>
+						<input @input="$emit('update:addressNumber', parseInt($event.target.value))" type="number" class="form-control _rounded" id="address-number" placeholder="42">
+					</div>
+					<div class="form-group col-md-2">
+						<label for="address-complement">Complemento</label>
+						<input @input="$emit('update:addressComplement', $event.target.value)" type="text" class="form-control _rounded" id="address-complement" placeholder="Apto. 101">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="neighborhood">Bairro</label>
@@ -90,7 +98,7 @@
 					</div>
 					<div class="form-group col-md-4 mb-0">
 						<label for="cep">CEP</label>
-						<the-mask @input.native="$emit('update:cpf', $event.target.value)" id="cep" type="text" class="form-control _rounded" mask="#####-##" placeholder="12345-678" />
+						<the-mask @input.native="$emit('update:cep', $event.target.value)" id="cep" type="text" class="form-control _rounded" mask="#####-###" placeholder="12345-678" />
 					</div>
 				</div>
 			</form>
@@ -110,7 +118,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="business-phone-number">Telefone comercial</label>
-						<the-mask @input.native="$emit('update:homePhoneNumber', $event.target.value)" id="business-phone-number" type="tel" class="form-control _rounded" :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
+						<the-mask @input.native="$emit('update:businessPhoneNumber', $event.target.value)" id="business-phone-number" type="tel" class="form-control _rounded" :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
 					</div>
 				</div>
 				<div class="form-row">
@@ -127,16 +135,16 @@
 			<form>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="name-resp">Nome completo</label>
-						<input @input="$emit('update:nameResp', $event.target.value)" type="text" class="form-control _rounded" id="name-resp" placeholder="Spike Jonze">
+						<label for="resp-name">Nome completo</label>
+						<input @input="$emit('update:responsibleName', $event.target.value)" type="text" class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="rg-resp">RG</label>
-						<the-mask @input.native="$emit('update:rgResp', $event.target.value)" id="rg-resp" type="text" class="form-control _rounded" mask="##.###.###-#" placeholder="12.345.678-9" />
+						<label for="resp-rg">RG</label>
+						<the-mask @input.native="$emit('update:responsibleRg', $event.target.value)" id="resp-rg" type="text" class="form-control _rounded" mask="##.###.###-#" placeholder="12.345.678-9" />
 					</div>
 					<div class="form-group col-md-3">
-						<label for="cpf-resp">CPF</label>
-						<the-mask @input.native="$emit('update:cpfResp', $event.target.value)" id="cpf-resp" type="text" class="form-control _rounded" mask="###.###.###-##" placeholder="123.456.789-10" />
+						<label for="resp-cpf">CPF</label>
+						<the-mask @input.native="$emit('update:responsibleCpf', $event.target.value)" id="resp-cpf" type="text" class="form-control _rounded" mask="###.###.###-##" placeholder="123.456.789-10" />
 					</div>
 				</div>
 			</form>
