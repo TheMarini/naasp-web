@@ -18,43 +18,47 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
-				<pre style="white-space: pre">
-					{{JSON.stringify(form, null, 2)}}
-				</pre>
+
+				<VueCodeHighlight>
+				 {{JSON.stringify(volunteer, null, 2)}}
+				</VueCodeHighlight>
+
 				<form-step-1
 					v-show="currentStep === 1"
-					:type.sync="form.employee.type"
+					:type.sync="volunteer.type"
 				></form-step-1>
+
 				<PersonalDataForm
 					v-show="currentStep === 2"
-					:name.sync="form.person.name"
-					:rg.sync="form.person.RG"
-					:cpf.sync="form.person.CPF"
-					:sex.sync="form.person.sex"
-					:civil.sync="form.person.matrialStatus"
-					:school.sync="form.person.degree"
-					:work.sync="form.person.profession"
-					:birthDate.sync="form.person.birthDate"
-					:religion.sync="form.person.religion"
-					:placeOfBirth.sync="form.person.placeOfBirth"
-					:nationality.sync="form.person.nationality"
-					:end.sync="form.adress.street"
-					:neighborhood.sync="form.adress.neighborhood"
-					:city.sync="form.adress.city"
-					:state.sync="form.adress.state"
-					:cep.sync="form.adress.CEP"
-					:cellPhoneNumber.sync="form.person.telephones[0]"
-					:homePhoneNumber.sync="form.person.telephones[1]"
-					:businessPhoneNumber.sync="form.person.telephones[2]"
-					:email.sync="form.person.email"
+					:name.sync="volunteer.name"
+					:rg.sync="volunteer.rg"
+					:cpf.sync="volunteer.cpf"
+					:sex.sync="volunteer.sex"
+					:matrialStatus.sync="volunteer.matrialStatus"
+					:educationLevel.sync="volunteer.educationLevel"
+					:jobRole.sync="volunteer.jobRole"
+					:birthDate.sync="volunteer.birthDate"
+					:religion.sync="volunteer.religion"
+					:placeOfBirth.sync="volunteer.placeOfBirth"
+					:nationality.sync="volunteer.nationality"
+					:publicPlace.sync="volunteer.address.publicPlace"
+					:addressNumber.sync="volunteer.address.number"
+					:addressComplement.sync="volunteer.address.complement"
+					:neighborhood.sync="volunteer.address.neighborhood"
+					:city.sync="volunteer.address.city"
+					:state.sync="volunteer.address.state"
+					:cep.sync="volunteer.address.cep"
+					:cellPhoneNumber.sync="volunteer.contact.phoneNumber.cell"
+					:homePhoneNumber.sync="volunteer.contact.phoneNumber.home"
+					:businessPhoneNumber.sync="volunteer.contact.phoneNumber.business"
+					:email.sync="volunteer.contact.email"
 				></PersonalDataForm>
-				<form-step-3
+
+				<!-- <form-step-3
 					v-show="currentStep === 3"
-					:profession.sync="form.employee.profissionalSituation"
-					:schooling.sync="form.employee.schooling"
-					:availability.sync="form.employee.availability"
-					:dayTime.sync="form.employee.dayTimeAvailability"
-				></form-step-3>
+					:availability.sync="volunteer.availability"
+					:dayTime.sync="volunteer.dayTimeAvailability"
+				></form-step-3> -->
 			</article>
 		</div>
 		<footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
@@ -80,6 +84,10 @@
 </template>
 
 <script>
+// Code highlight
+import { component as VueCodeHighlight } from 'vue-code-highlight';
+
+// Step dot
 import Step from '@/components/Step.vue';
 
 // Form Steps
@@ -96,6 +104,7 @@ axios.defaults.baseURL = 'http://localhost:4242';
 export default {
 	name: 'voluntario',
 	components: {
+		VueCodeHighlight,
 		Step,
 		UsersIcon,
 		PlusIcon,
@@ -123,31 +132,19 @@ export default {
 	},
 	data() {
 		return {
-			steps: 3,
+			steps: 2,
 			currentStep: 1,
-			form: {
-				adress: {},
-				person: {
-					telephones: [],
+			volunteer: {
+				address: {},
+				contact: {
+					phoneNumber: {},
 				},
-				employee: {},
-				others: {},
-			}
+			},
 		}
 	},
 	methods: {
 		adicionar () {
-			this.form.adress.number = 12;
-			this.form.person.profession = "";
-			this.form.person.degree = "";
-			this.form.person.matrialStatus = "Solteiro";
-			this.form.person.religion = "Agnóstico";
-
-			this.form.welcomed.areSmoker = true;
-			this.form.welcomed.onMedicine = true;
-			this.form.welcomed.inReligiousActivities = true;
-			this.form.welcomed.inParish = true;
-			axios.post('/employee', this.form)
+			axios.post('/employee', this.volunteer)
 				.then(response => {
 					console.log(response);
 

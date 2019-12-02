@@ -26,9 +26,9 @@
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
 
-				<vue-code-highlight>
+				<VueCodeHighlight>
 				 {{JSON.stringify(welcomed, null, 2)}}
-				</vue-code-highlight>
+				</VueCodeHighlight>
 
 				<PersonalDataForm
 					v-show="currentStep === 1"
