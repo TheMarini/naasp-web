@@ -45,6 +45,8 @@
 					:placeOfBirth.sync="welcomed.placeOfBirth"
 					:nationality.sync="welcomed.nationality"
 					:publicPlace.sync="welcomed.address.publicPlace"
+					:addressNumber.sync="welcomed.address.number"
+					:addressComplement.sync="welcomed.address.complement"
 					:neighborhood.sync="welcomed.address.neighborhood"
 					:city.sync="welcomed.address.city"
 					:state.sync="welcomed.address.state"
@@ -53,14 +55,17 @@
 					:homePhoneNumber.sync="welcomed.contact.phoneNumber.home"
 					:businessPhoneNumber.sync="welcomed.contact.phoneNumber.business"
 					:email.sync="welcomed.contact.email"
-					:nameResp.sync="welcomed.responsible.name"
-					:rgResp.sync="welcomed.responsible.rg"
-					:cpfResp.sync="welcomed.responsible.cpf"
+					:responsibleName.sync="welcomed.responsible.name"
+					:responsibleRg.sync="welcomed.responsible.rg"
+					:responsibleCpf.sync="welcomed.responsible.cpf"
 				></PersonalDataForm>
 
 				<form-step-2
 					v-show="currentStep === 2"
-					:home.sync="welcomed.home.housingConditions"
+					:governmentBenefitName.sync="welcomed.money.governmentBenefit.name"
+					:governmentBenefitValue.sync="welcomed.money.governmentBenefit.value"
+					:familyIncomeComments.sync="welcomed.money.familyIncomeComments"
+					:housingCondition.sync="welcomed.home.housingCondition"
 				></form-step-2>
 
 				<form-step-3
@@ -69,7 +74,7 @@
 					:medicines.sync="welcomed.health.medicines"
 					:qtdCigarettes.sync="welcomed.health.qtdCigarettes"
 					:qtdDrinks.sync="welcomed.health.qtdDrinks"
-					:familyAbuse.sync="welcomed.health.family.abuse"
+					:familyAlcoholAbuse.sync="welcomed.health.family.alcoholAbuse"
 					:familyDiseases.sync="welcomed.health.family.diseases"
 					:familyMedicines.sync="welcomed.health.family.medicines"
 				></form-step-3>
@@ -169,7 +174,9 @@ export default {
 				},
 				responsible: {},
 				family: {},
-				money: {},
+				money: {
+					governmentBenefit: {},
+				},
 				home: {},
 				health: {
 					family: {},
