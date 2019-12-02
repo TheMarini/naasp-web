@@ -16,15 +16,15 @@
 				<div class="form-row">
 					<div class="form-group col-md-3">
 						<label for="qtdCigarettes">Qtd. cigarros (semanais)</label>
-						<input @input="$emit('update:qtdCigarettes', $event.target.value)" type="number" min="0" value="0" class="form-control _rounded" id="qtdCigarettes" placeholder="">
+						<input @input="$emit('update:qtdCigarettes', parseInt($event.target.value))" type="number" min="0" value="0" class="form-control _rounded" id="qtdCigarettes" placeholder="">
 					</div>
 					<div class="form-group col-md-3">
 						<label for="qtdDrinks">Qtd. bebidas (semanais)</label>
-						<input @input="$emit('update:qtdDrinks', $event.target.value)" type="number" min="0" value="0" class="form-control _rounded" id="qtdDrinks" placeholder="">
+						<input @input="$emit('update:qtdDrinks', parseInt($event.target.value))" type="number" min="0" value="0" class="form-control _rounded" id="qtdDrinks" placeholder="">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="familyAbuse">Casos de abuso de álcool na família (quem)</label>
-						<input @input="$emit('update:familyAbuse', $event.target.value)" type="text" class="form-control _rounded" id="familyAbuse" placeholder="Pai, mãe, tio, primo...">
+						<label for="familyAlcoholAbuse">Casos de abuso de álcool na família (quem)</label>
+						<input @input="$emit('update:familyAlcoholAbuse', $event.target.value)" type="text" class="form-control _rounded" id="familyAlcoholAbuse" placeholder="Pai, mãe, tio, primo...">
 					</div>
 				</div>
 				<div class="form-group">

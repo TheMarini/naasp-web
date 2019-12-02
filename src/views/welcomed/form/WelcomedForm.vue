@@ -25,60 +25,70 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
+
 				<vue-code-highlight>
-				 {{JSON.stringify(form, null, 2)}}
+				 {{JSON.stringify(welcomed, null, 2)}}
 				</vue-code-highlight>
+
 				<PersonalDataForm
 					v-show="currentStep === 1"
 					:responsibleForm="true"
-					:name.sync="form.person.name"
-					:rg.sync="form.person.RG"
-					:cpf.sync="form.person.CPF"
-					:sex.sync="form.person.sex"
-					:civil.sync="form.person.matrialStatus"
-					:school.sync="form.person.degree"
-					:work.sync="form.person.profession"
-					:birthDate.sync="form.person.birthDate"
-					:religion.sync="form.person.religion"
-					:placeOfBirth.sync="form.person.placeOfBirth"
-					:nationality.sync="form.person.nationality"
-					:end.sync="form.adress.street"
-					:neighborhood.sync="form.adress.neighborhood"
-					:city.sync="form.adress.city"
-					:state.sync="form.adress.state"
-					:cep.sync="form.adress.CEP"
-					:cellPhoneNumber.sync="form.person.telephones[0]"
-					:homePhoneNumber.sync="form.person.telephones[1]"
-					:businessPhoneNumber.sync="form.person.telephones[2]"
-					:email.sync="form.person.email"
-					:nameResp.sync="form.person.responsible.name"
-					:rgResp.sync="form.person.responsible.RG"
-					:cpfResp.sync="form.person.responsible.CPF"
+					:name.sync="welcomed.name"
+					:rg.sync="welcomed.rg"
+					:cpf.sync="welcomed.cpf"
+					:sex.sync="welcomed.sex"
+					:matrialStatus.sync="welcomed.matrialStatus"
+					:educationLevel.sync="welcomed.educationLevel"
+					:jobRole.sync="welcomed.jobRole"
+					:birthDate.sync="welcomed.birthDate"
+					:religion.sync="welcomed.religion"
+					:placeOfBirth.sync="welcomed.placeOfBirth"
+					:nationality.sync="welcomed.nationality"
+					:publicPlace.sync="welcomed.address.publicPlace"
+					:addressNumber.sync="welcomed.address.number"
+					:addressComplement.sync="welcomed.address.complement"
+					:neighborhood.sync="welcomed.address.neighborhood"
+					:city.sync="welcomed.address.city"
+					:state.sync="welcomed.address.state"
+					:cep.sync="welcomed.address.cep"
+					:cellPhoneNumber.sync="welcomed.contact.phoneNumber.cell"
+					:homePhoneNumber.sync="welcomed.contact.phoneNumber.home"
+					:businessPhoneNumber.sync="welcomed.contact.phoneNumber.business"
+					:email.sync="welcomed.contact.email"
+					:responsibleName.sync="welcomed.responsible.name"
+					:responsibleRg.sync="welcomed.responsible.rg"
+					:responsibleCpf.sync="welcomed.responsible.cpf"
 				></PersonalDataForm>
 
 				<form-step-2
 					v-show="currentStep === 2"
-					:home.sync="form.welcomed.housingConditions"
+					:governmentBenefitName.sync="welcomed.money.governmentBenefit.name"
+					:governmentBenefitValue.sync="welcomed.money.governmentBenefit.value"
+					:familyIncomeComments.sync="welcomed.money.familyIncomeComments"
+					:housingCondition.sync="welcomed.home.housingCondition"
 				></form-step-2>
+
 				<form-step-3
 					v-show="currentStep === 3"
-					:physicalActivity.sync="form.welcomed.physicalActivity"
-					:medicines.sync="form.welcomed.medicines"
-					:qtdCigarettes.sync="form.welcomed.cigarreteNumber"
-					:qtdDrinks.sync="form.welcomed.qtdDrinks"
-					:familyAbuse.sync="form.familyAbuse"
-					:familyDiseases.sync="form.familyDiseases"
-					:familyMedicines.sync="form.familyMedicines"
+					:physicalActivity.sync="welcomed.health.physicalActivity"
+					:medicines.sync="welcomed.health.medicines"
+					:qtdCigarettes.sync="welcomed.health.qtdCigarettes"
+					:qtdDrinks.sync="welcomed.health.qtdDrinks"
+					:familyAlcoholAbuse.sync="welcomed.health.family.alcoholAbuse"
+					:familyDiseases.sync="welcomed.health.family.diseases"
+					:familyMedicines.sync="welcomed.health.family.medicines"
 				></form-step-3>
+
 				<form-step-4
 					v-show="currentStep === 4"
-					:parish.sync="form.welcomed.inParish"
-					:religiousActivities.sync="form.welcomed.religiousActivities"
+					:parish.sync="welcomed.affiliation.parish"
+					:religiousActivities.sync="welcomed.affiliation.religiousActivities"
 				></form-step-4>
+
 				<form-step-5
 					v-show="currentStep === 5"
-					:demands.sync="form.others.demands"
-					:comments.sync="form.others.comments"
+					:demands.sync="welcomed.others.demands"
+					:comments.sync="welcomed.others.comments"
 				></form-step-5>
 			</article>
 		</div>
@@ -157,73 +167,27 @@ export default {
 			acolhidoId: null,
 			steps: 5,
 			currentStep: 1,
-			// form: {
-			// 	responsible: {}
-			// },
-			// form: {
-			// 	"adress": {
-			// 		"number": 125,
-			// 		"street": "Rua Dom Pedro II",
-			// 		"neighborhood": "Centro",
-			// 		"CEP": 34505000
-			// 	},
-			// 	"person": {
-			// 		"name": "Perdo Guerra Machado Pinto",
-			// 		"RG": 12345678,
-			// 		"CPF": 12345678900,
-			// 		"profession": "full stack developer",
-			// 		"degree": "Software engineer Major",
-			// 		"birthDate": "08/05/2000",
-			// 		"sex": "M",
-			// 		"matrialStatus": "Solteiro",
-			// 		"email": "pedrowar.pw@gmail.com",
-			// 		"religion": "Agnóstico",
-			// 		"telephones":
-			// 		[
-			// 			31988190055,
-			// 			3136711768
-			// 		]
-			// 	},
-			// 	"welcomed": {
-			// 		"housingConditions": "Própria",
-			// 		"physicalActivity": "nope",
-			// 		"areSmoker": "false",
-			// 		"cigarreteNumber": null,
-			// 		"onMedicine": "false",
-			// 		"inParish": "false",
-			// 		"inReligiousActivities": "false",
-			// 		"religiousActivities": "",
-			// 		"relatives":
-			// 		[
-			// 			{
-			// 				"name": "Marini",
-			// 				"kinship": "Santista",
-			// 				"birthDate": "11/08/1995",
-			// 				"profession": "Front end",
-			// 				"liveTogether": "false"
-			// 			}
-			// 		]
-			// 	}
-			// }
-			form: {
-				adress: {},
-				person: {
-					telephones: [],
-					responsible: {}
+			welcomed: {
+				address: {},
+				contact: {
+					phoneNumber: {},
 				},
-				welcomed: {},
+				responsible: {},
+				family: {},
+				money: {
+					governmentBenefit: {},
+				},
+				home: {},
+				health: {
+					family: {},
+				},
+				affiliation: {},
 				others: {},
-			}
+			},
 		}
 	},
 	methods: {
 		adicionar () {
-			this.form.adress.number = 12;
-			this.form.adress.neighborhood = "Limoeiro";
-			this.form.welcomed.areSmoker = true;
-			this.form.welcomed.onMedicine = true;
-			this.form.welcomed.inReligiousActivities = true;
-			this.form.welcomed.inParish = true;
 			axios.post('/welcomed', this.form)
 				.then(response => {
 					console.log(response);
