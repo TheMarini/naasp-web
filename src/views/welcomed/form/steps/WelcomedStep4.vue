@@ -5,11 +5,11 @@
 			<form>
 				<div class="form-group">
 					<label for="parish">Paróquia/bairro que pertence</label>
-					<input @input="$emit('update:parish', $event.target.value)" type="text" class="form-control _rounded" id="parish" placeholder="">
+					<input @input="$emit('update:parish', $event.target.value)" type="text" class="form-control _rounded" id="parish" placeholder="NAASP">
 				</div>
 				<div class="form-group">
-					<label for="religiousActivities">Atividades promovidas por outras instituições religiosas em que pratica</label>
-					<input @input="$emit('update:religiousActivities', $event.target.value)" type="text" class="form-control _rounded" id="religiousActivities" placeholder="">
+					<label for="religiousActivities">Atividades promovidas por outras instituições religiosas em que participa</label>
+					<input @input="$emit('update:religiousActivities', $event.target.value)" type="text" class="form-control _rounded" id="religiousActivities" placeholder="-">
 				</div>
 			</form>
 		</section>
