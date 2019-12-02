@@ -1,32 +1,32 @@
 {
 	"id": 1,
-	"priority": 0,
+	"priority": 1,
 	"name": "Bruno Marini",
-  "rg": "12.345.678-9",
-  "cpf": "123.456.789-10",
-  "sex": "M",
-  "matrialStatus": "Solteiro",
-  "educationLevel": "Graduando",
-  "jobRole": "Estudante",
+	"rg": "12.345.678-9",
+	"cpf": "123.456.789-10",
+	"sex": "M",
+	"matrialStatus": "Solteiro",
+	"educationLevel": "Graduando",
+	"jobRole": "Estudante",
 	"birthDate": "2003-09-01",
-	"age": "16",
+	"age": 16,
 	"isUnderAge": true,
-  "religion": "Agnóstico",
-  "placeOfBirth": "São Paulo, SP",
-  "nationality": "Brasileira",
+	"religion": "Agnóstico",
+	"placeOfBirth": "São Paulo, SP",
+	"nationality": "Brasileira",
 	"email": "bruno@marini.com",
 	"cellPhoneNumber": "(31) 9 1234-5678",
 	"homePhoneNumber": "(31) 1234-5678",
 	"businessPhoneNumber": "(31) 1234-5678",
-  "address": {
-    "publicPlace": "Rua do Limão",
-    "number": "42",
-    "complement": "fundos",
-    "neighborhood": "Limoeiro",
-    "city": "São Paulo",
-    "state": "São Paulo",
+	"address": {
+		"publicPlace": "Rua do Limão",
+		"number": "42",
+		"complement": "fundos",
+		"neighborhood": "Limoeiro",
+		"city": "São Paulo",
+		"state": "São Paulo",
 		"cep": "12345-678"
-  },
+	},
 	"responsible": {
 		"name": "Spike Jonze",
 		"rg": "12.345.678-9",
@@ -57,8 +57,8 @@
 		"parish": "NAASP",
 		"religiousActivities": "Caridade"
 	},
-  "others": {
-    "demands": "Lembrar ele de algo.",
-    "comments": "Nenhuma observação."
-  }
+	"others": {
+		"demands": "Lembrar ele de algo.",
+		"comments": "Nenhuma observação."
+	}
 }
