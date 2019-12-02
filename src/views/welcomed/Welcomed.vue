@@ -44,6 +44,9 @@
 </template>
 
 <script>
+// FakeDB
+import fakedb from '@/fakedb/welcomed.json';
+
 import { UsersIcon, PlusIcon, EditIcon, Trash2Icon, } from 'vue-feather-icons'
 
 import moment from 'moment';
@@ -94,33 +97,40 @@ export default {
 		}
 	},
 	methods: {
-		update () {
+		async update () {
 			this.isBusy = true;
-			axios.get('/welcomed')
-				.then(response => {
-					this.welcomed = response.data;
+			try {
+				await axios.get('/welcomed')
+					.then(response => {
+						this.welcomed = response.data;
 
-					let persons = [];
+						let persons = [];
 
-					for (let w of this.welcomed) {
-						persons.push(
-							axios.get(`/person/?id=${w.idWelcomed}`)
-								.then(response => {
-									let person = response.data;
-									person.age = moment().diff(new Date(person.birthDate), 'years');
+						for (let w of this.welcomed) {
+							persons.push(
+								axios.get(`/person/?id=${w.idWelcomed}`)
+									.then(response => {
+										let person = response.data;
+										person.age = moment().diff(new Date(person.birthDate), 'years');
 
-									return person;
-								})
-								.catch(console.log)
-						)
-					}
+										return person;
+									})
+									.catch(console.log)
+							)
+						}
 
-					Promise.all(persons).then(persons => {
-						this.welcomed = persons;
-						this.isBusy = false;
-					});
-				})
-				.catch(console.log);
+						Promise.all(persons).then(persons => {
+							this.welcomed = persons;
+							this.isBusy = false;
+						});
+					})
+			} catch (e) {
+				console.error(e);
+				console.warn("[WARN]", "Error with request, using fake databse...");
+
+				this.welcomed = fakedb;
+				this.isBusy = false;
+			}
 		},
 		deleteData (index) {
 			let acolhido = this.acolhidos[index];
