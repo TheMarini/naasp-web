@@ -41,6 +41,8 @@
 					:educationLevel.sync="welcomed.educationLevel"
 					:jobRole.sync="welcomed.jobRole"
 					:birthDate.sync="welcomed.birthDate"
+					:age.sync="welcomed.age"
+					:isUnderAge.sync="welcomed.isUnderAge"
 					:religion.sync="welcomed.religion"
 					:placeOfBirth.sync="welcomed.placeOfBirth"
 					:nationality.sync="welcomed.nationality"
