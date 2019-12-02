@@ -10,11 +10,11 @@
 			    </div>
 					<div class="form-group col-md-3">
 						<label for="rg">RG</label>
-						<input @input="$emit('update:rg', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg" placeholder="123456789">
+						<the-mask @input.native="$emit('update:rg', $event.target.value)" id="rg" type="text" class="form-control _rounded" mask="##.###.###-#" placeholder="12.345.678-9" />
 					</div>
 					<div class="form-group col-md-3">
 						<label for="cpf">CPF</label>
-						<input @input="$emit('update:cpf', parseInt($event.target.value))" type="number" class="form-control _rounded" id="cpf" placeholder="">
+						<the-mask @input.native="$emit('update:cpf', $event.target.value)" id="cpf" type="text" class="form-control _rounded" mask="###.###.###-##" placeholder="123.456.789-10" />
 					</div>
 			  </div>
 				<div class="form-row">
@@ -90,7 +90,7 @@
 					</div>
 					<div class="form-group col-md-4 mb-0">
 						<label for="cep">CEP</label>
-						<input @input="$emit('update:cep', $event.target.value)" type="number" class="form-control _rounded" id="cep" placeholder="">
+						<the-mask @input.native="$emit('update:cpf', $event.target.value)" id="cep" type="text" class="form-control _rounded" mask="#####-##" placeholder="12345-678" />
 					</div>
 				</div>
 			</form>
@@ -102,15 +102,15 @@
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="cell-phone-number">Telefone celular</label>
-						<input @input="$emit('update:cellPhoneNumber', $event.target.value)" type="number" class="form-control _rounded" id="cell-phone-number" placeholder="">
+						<the-mask @input.native="$emit('update:cellPhoneNumber', $event.target.value)" id="cell-phone-number" type="tel" class="form-control _rounded" :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 9 1234-5678" />
 					</div>
 					<div class="form-group col-md-4">
 						<label for="home-phone-number">Telefone residencial</label>
-						<input @input="$emit('update:homePhoneNumber', $event.target.value)" type="number" class="form-control _rounded" id="home-phone-number" placeholder="">
+						<the-mask @input.native="$emit('update:homePhoneNumber', $event.target.value)" id="home-phone-number" type="tel" class="form-control _rounded" :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
 					</div>
 					<div class="form-group col-md-4">
 						<label for="business-phone-number">Telefone comercial</label>
-						<input @input="$emit('update:businessPhoneNumber', $event.target.value)" type="number" class="form-control _rounded" id="business-phone-number" placeholder="">
+						<the-mask @input.native="$emit('update:homePhoneNumber', $event.target.value)" id="business-phone-number" type="tel" class="form-control _rounded" :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
 					</div>
 				</div>
 				<div class="form-row">
@@ -132,11 +132,11 @@
 					</div>
 					<div class="form-group col-md-3">
 						<label for="rg-resp">RG</label>
-						<input @input="$emit('update:rgResp', parseInt($event.target.value))" type="number" class="form-control _rounded" id="rg-resp" placeholder="">
+						<the-mask @input.native="$emit('update:rgResp', $event.target.value)" id="rg-resp" type="text" class="form-control _rounded" mask="##.###.###-#" placeholder="12.345.678-9" />
 					</div>
 					<div class="form-group col-md-3">
 						<label for="cpf-resp">CPF</label>
-						<input @input="$emit('update:cpfResp', parseInt($event.target.value))" type="number" class="form-control _rounded" id="cpf-resp" placeholder="">
+						<the-mask @input.native="$emit('update:cpfResp', $event.target.value)" id="cpf-resp" type="text" class="form-control _rounded" mask="###.###.###-##" placeholder="123.456.789-10" />
 					</div>
 				</div>
 			</form>
