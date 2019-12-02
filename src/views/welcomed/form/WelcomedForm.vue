@@ -25,9 +25,9 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
-				<!-- <pre style="white-space: pre" class="bg-dark text-white p-2">
-					{{JSON.stringify(form, null, 2)}}
-				</pre> -->
+				<vue-code-highlight>
+				 {{JSON.stringify(form, null, 2)}}
+				</vue-code-highlight>
 				<PersonalDataForm
 					v-show="currentStep === 1"
 					:responsibleForm="true"
@@ -105,6 +105,10 @@
 </template>
 
 <script>
+// Code highlight
+import { component as VueCodeHighlight } from 'vue-code-highlight';
+
+// Step dot
 import Step from '@/components/Step.vue';
 
 // Form Steps
@@ -124,6 +128,7 @@ axios.defaults.baseURL = 'http://localhost:4242';
 export default {
 	name: 'acolhidoControl',
 	components: {
+		VueCodeHighlight,
 		Step,
 		UsersIcon,
 		PlusIcon,
@@ -236,6 +241,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+/* VueCodeHighlight theme */
+@import url('../../../../node_modules/vue-code-highlight/themes/prism-tomorrow.css');
+
 header {
 	color: #707070
 }
