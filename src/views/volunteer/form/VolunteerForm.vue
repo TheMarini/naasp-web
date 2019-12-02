@@ -54,11 +54,11 @@
 					:email.sync="volunteer.contact.email"
 				></PersonalDataForm>
 
-				<form-step-3
+				<!-- <form-step-3
 					v-show="currentStep === 3"
 					:availability.sync="volunteer.availability"
 					:dayTime.sync="volunteer.dayTimeAvailability"
-				></form-step-3>
+				></form-step-3> -->
 			</article>
 		</div>
 		<footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
@@ -132,7 +132,7 @@ export default {
 	},
 	data() {
 		return {
-			steps: 3,
+			steps: 2,
 			currentStep: 1,
 			volunteer: {
 				address: {},
