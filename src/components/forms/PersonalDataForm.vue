@@ -122,14 +122,14 @@
 					</div>
 				</div>
 				<div class="form-row">
-					<div class="form-group col-md-12" :class="underage ?  'mb-0' : ''">
+					<div class="form-group col-md-12" :class="isUnderAge ?  'mb-0' : ''">
 						<label for="email">E-mail</label>
 						<input @input="$emit('update:email', $event.target.value)" type="email" class="form-control _rounded" id="email" placeholder="douglas@exemplo.com">
 					</div>
 				</div>
 			</form>
 		</section>
-		<section v-if="underage && responsibleForm">
+		<section v-if="isUnderAge && responsibleForm">
 			<hr class="my-4">
 			<h4 class="section-title">RESPONSÁVEL</h4>
 			<form>
@@ -163,7 +163,7 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		underageLimit: {
+		underAgeLimit: {
 			type: Number,
 			default: 17
 		},
@@ -172,7 +172,7 @@ export default {
 		return {
 			birthDate: null,
 			age: null,
-			underage: false,
+			isUnderAge: false,
 		}
 	},
 	watch: {
@@ -183,9 +183,9 @@ export default {
 			this.age = moment().diff(this.birthDate, 'years');
 			this.$emit('update:age', this.age);
 
-			// Calc underage
-			this.underage = this.age <= this.underageLimit;
-			this.$emit('update:minor', this.underage);
+			// Calc if under age
+			this.isUnderAge = this.age <= this.underAgeLimit;
+			this.$emit('update:isUnderAge', this.isUnderAge);
 		}
 	}
 };
