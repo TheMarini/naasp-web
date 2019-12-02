@@ -146,16 +146,6 @@ export default {
 	},
 	methods: {
 		adicionar () {
-			this.form.adress.number = 12;
-			this.form.person.profession = "";
-			this.form.person.degree = "";
-			this.form.person.matrialStatus = "Solteiro";
-			this.form.person.religion = "Agnóstico";
-
-			this.form.welcomed.areSmoker = true;
-			this.form.welcomed.onMedicine = true;
-			this.form.welcomed.inReligiousActivities = true;
-			this.form.welcomed.inParish = true;
 			axios.post('/employee', this.volunteer)
 				.then(response => {
 					console.log(response);
