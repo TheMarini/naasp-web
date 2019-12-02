@@ -18,13 +18,16 @@
 					<arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
-				<pre style="white-space: pre">
-					{{JSON.stringify(form, null, 2)}}
-				</pre>
+
+				<VueCodeHighlight>
+				 {{JSON.stringify(form, null, 2)}}
+				</VueCodeHighlight>
+
 				<form-step-1
 					v-show="currentStep === 1"
 					:type.sync="form.employee.type"
 				></form-step-1>
+
 				<PersonalDataForm
 					v-show="currentStep === 2"
 					:name.sync="form.person.name"
@@ -48,6 +51,7 @@
 					:businessPhoneNumber.sync="form.person.telephones[2]"
 					:email.sync="form.person.email"
 				></PersonalDataForm>
+
 				<form-step-3
 					v-show="currentStep === 3"
 					:profession.sync="form.employee.profissionalSituation"
@@ -80,6 +84,10 @@
 </template>
 
 <script>
+// Code highlight
+import { component as VueCodeHighlight } from 'vue-code-highlight';
+
+// Step dot
 import Step from '@/components/Step.vue';
 
 // Form Steps
@@ -96,6 +104,7 @@ axios.defaults.baseURL = 'http://localhost:4242';
 export default {
 	name: 'voluntario',
 	components: {
+		VueCodeHighlight,
 		Step,
 		UsersIcon,
 		PlusIcon,
