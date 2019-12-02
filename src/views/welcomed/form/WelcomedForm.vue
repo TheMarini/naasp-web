@@ -89,6 +89,7 @@
 
 				<form-step-5
 					v-show="currentStep === 5"
+					:priority.sync="welcomed.priority"
 					:demands.sync="welcomed.others.demands"
 					:comments.sync="welcomed.others.comments"
 				></form-step-5>
