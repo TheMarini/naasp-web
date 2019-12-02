@@ -2,6 +2,7 @@
 	{
 		"id": 1,
 		"priority": 1,
+		"status": 5,
 		"name": "Bruno Marini",
 	  "rg": "12.345.678-9",
 	  "cpf": "123.456.789-10",
@@ -66,6 +67,7 @@
 	{
 		"id": 2,
 		"priority": 2,
+		"status": 6,
 		"name": "Bruno Marini",
 		"rg": "12.345.678-9",
 		"cpf": "123.456.789-10",
@@ -130,6 +132,7 @@
 	{
 		"id": 3,
 		"priority": 0,
+		"status": 7,
 		"name": "Bruno Marini",
 		"rg": "12.345.678-9",
 		"cpf": "123.456.789-10",
