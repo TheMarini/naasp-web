@@ -14,14 +14,22 @@
 		</header>
 		<article class="mt-4">
 			<b-table
-				class="_rounded bg-white"
+				class="table _rounded bg-white"
 				:items="welcomed"
 				:fields="fields"
 				:busy="isBusy"
-				primary-key="idPerson"
+				:sort-by.sync="sortBy"
+      	:sort-desc.sync="sortDesc"
+				primary-key="id"
 				head-variant="dark"
 				responsive bordered hover
 			>
+				<template v-slot:cell(priority)="data">
+					<b-badge :variant="priorityClass(data.item.priority)">{{priorityText(data.item.priority)}}</b-badge>
+	      </template>
+				<template v-slot:cell(status)="data">
+					<b-badge pill variant="light">{{data.item.status}} - {{statusText(data.item.status)}}</b-badge>
+				</template>
 				<template v-slot:cell(actions)="data">
 					<router-link :to="`/acolhido/editar/${data.item.idPerson}`">
 						<button type="button" name="button" class="edit-btn btn" title="Editar">
@@ -74,20 +82,36 @@ export default {
 	data() {
 		return {
 			welcomed: [],
+			sortBy: "priority",
+      sortDesc: false,
 			fields: [
         {
           key: 'name',
 					label: 'Nome',
           sortable: true,
         },
-        {
-          key: 'age',
-          label: 'Idade',
-          sortable: true,
-        },
-				'RG',
-				'CPF',
-				'email',
+				{
+					key: 'cpf',
+					label: 'CPF',
+				},
+				{
+					key: 'cellPhoneNumber',
+					label: 'Telefone Celular',
+				},
+				{
+					key: 'email',
+					label: 'E-mail',
+				},
+				{
+					key: 'priority',
+					label: 'Prioridade',
+					sortable: true,
+				},
+				{
+					key: 'status',
+					label: 'Estado',
+					sortable: true,
+				},
 				{
           key: 'actions',
           label: 'Ações',
@@ -142,7 +166,71 @@ export default {
 						this.update();
 				})
 				.catch(console.log);
-		}
+		},
+		priorityClass (level) {
+			switch (level) {
+				case 0:
+					return 'danger';
+					break;
+				case 1:
+					return 'warning';
+					break;
+				case 2:
+					return 'secondary';
+					break;
+				case 3:
+					return 'info';
+					break;
+			}
+		},
+		// TODO: This info bellow should be in the database
+		priorityText (level) {
+			switch (level) {
+				case 0:
+					return 'Urgente';
+					break;
+				case 1:
+					return 'Alta';
+					break;
+				case 2:
+					return 'Média';
+					break;
+				case 3:
+					return 'Baixa';
+					break;
+			}
+		},
+		// TODO: This info bellow should be in the database
+		statusText (level) {
+			switch (level) {
+				case 1:
+					return 'Desistente';
+					break;
+				case 2:
+					return 'Primeiro contato';
+					break;
+				case 3:
+					return 'Esperando triagem';
+					break;
+				case 4:
+					return 'Em triagem';
+					break;
+				case 5:
+					return 'Esperando atendimento';
+					break;
+				case 6:
+					return 'Em atendimento';
+					break;
+				case 7:
+					return 'Alta médica';
+					break;
+
+				case 0:
+				default:
+					return 'Indefinido';
+					break;
+			}
+		},
 	},
 };
 </script>
@@ -164,5 +252,10 @@ header {
 .add-btn {
 	color: white;
 	background-color: #175D2B;
+}
+
+/* Table */
+.table >>> tr[role="row"]:not(.b-table-details) {
+	cursor: pointer !important;
 }
 </style>
