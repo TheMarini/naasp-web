@@ -181,7 +181,7 @@ export default {
 
 			// Calc age
 			this.age = moment().diff(this.birthDate, 'years');
-			this.$emit('update:age', this.age);
+			this.$emit('update:age', parseInt(this.age));
 
 			// Calc if under age
 			this.isUnderAge = this.age <= this.underAgeLimit;
