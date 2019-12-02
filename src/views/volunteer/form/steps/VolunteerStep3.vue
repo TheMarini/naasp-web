@@ -29,21 +29,6 @@
 			  </div>
 			</form>
 		</section>
-		<section class="mt-2">
-			<h4 class="section-title">PESSOA DE CONTATO</h4>
-			<form>
-			  <div class="form-row">
-					<div class="form-group col-md-4">
-						<label for="name">Nome completo</label>
-						<input type="text" class="form-control _rounded" id="name" placeholder="">
-					</div>
-					<div class="form-group col-md-4">
-						<label for="tel">Telefone</label>
-						<input type="number" class="form-control _rounded" id="tel" placeholder="">
-					</div>
-			  </div>
-			</form>
-		</section>
 	</div>
 </template>
 
