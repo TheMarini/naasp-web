@@ -1,8 +1,29 @@
 <template lang="html">
 	<div class="form-step">
-		<section>
+		<!-- <section>
 			<h4 class="section-title">DADOS E CONDIÇÕES DOS FAMILIARES</h4>
 			<p>Pessoas relevantes na vida do acolhido, que suportam direta/indiretamente, coabitando na mesma casa ou não:</p>
+		</section> -->
+		<section>
+			<h4 class="section-title">DADOS E CONDIÇÕES DOS FAMILIARES</h4>
+			<form>
+				<div class="form-row">
+					<div class="form-group col-md-8">
+						<label for="government-benefit-name">Benefício financeiro governamental</label>
+						<input @input="$emit('update:governmentBenefitName', $event.target.value)" type="text" class="form-control _rounded" id="government-benefit-name" placeholder="-">
+					</div>
+					<div class="form-group col-md-4">
+						<label for="government-benefit-value">Valor</label>
+						<input @input="$emit('update:governmentBenefitValue', $event.target.value)" type="text" class="form-control _rounded" id="government-benefit-value" placeholder="-">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="family-income-comments">Observações sobre renda familiar</label>
+						<textarea @input="$emit('update:familyIncomeComments', $event.target.value)"  class="form-control _rounded" id="family-income-comments"></textarea>
+					</div>
+				</div>
+			</form>
 		</section>
 		<section class="mt-2">
 			<h4 class="section-title">CONDIÇÕES DE MORADIA</h4>
