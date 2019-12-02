@@ -79,7 +79,7 @@
 					:parish.sync="welcomed.affiliation.parish"
 					:religiousActivities.sync="welcomed.affiliation.religiousActivities"
 				></form-step-4>
-				
+
 				<form-step-5
 					v-show="currentStep === 5"
 					:demands.sync="welcomed.others.demands"
@@ -177,64 +177,10 @@ export default {
 				affiliation: {},
 				others: {},
 			},
-			// form: {
-			// 	responsible: {}
-			// },
-			// form: {
-			// 	"address": {
-			// 		"number": 125,
-			// 		"street": "Rua Dom Pedro II",
-			// 		"neighborhood": "Centro",
-			// 		"CEP": 34505000
-			// 	},
-			// 	"person": {
-			// 		"name": "Perdo Guerra Machado Pinto",
-			// 		"RG": 12345678,
-			// 		"CPF": 12345678900,
-			// 		"profession": "full stack developer",
-			// 		"degree": "Software engineer Major",
-			// 		"birthDate": "08/05/2000",
-			// 		"sex": "M",
-			// 		"matrialStatus": "Solteiro",
-			// 		"email": "pedrowar.pw@gmail.com",
-			// 		"religion": "Agnóstico",
-			// 		"telephones":
-			// 		[
-			// 			31988190055,
-			// 			3136711768
-			// 		]
-			// 	},
-			// 	"welcomed": {
-			// 		"housingConditions": "Própria",
-			// 		"physicalActivity": "nope",
-			// 		"areSmoker": "false",
-			// 		"cigarreteNumber": null,
-			// 		"onMedicine": "false",
-			// 		"inParish": "false",
-			// 		"inReligiousActivities": "false",
-			// 		"religiousActivities": "",
-			// 		"relatives":
-			// 		[
-			// 			{
-			// 				"name": "Marini",
-			// 				"kinship": "Santista",
-			// 				"birthDate": "11/08/1995",
-			// 				"profession": "Front end",
-			// 				"liveTogether": "false"
-			// 			}
-			// 		]
-			// 	}
-			// }
 		}
 	},
 	methods: {
 		adicionar () {
-			this.address.number = 12;
-			this.address.neighborhood = "Limoeiro";
-			this.welcomed.areSmoker = true;
-			this.welcomed.onMedicine = true;
-			this.welcomed.inReligiousActivities = true;
-			this.welcomed.inParish = true;
 			axios.post('/welcomed', this.form)
 				.then(response => {
 					console.log(response);
