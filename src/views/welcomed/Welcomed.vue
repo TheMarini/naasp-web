@@ -31,7 +31,7 @@
 					<b-badge pill variant="light">{{data.item.status}} - {{statusText(data.item.status)}}</b-badge>
 				</template>
 				<template v-slot:cell(actions)="data">
-					<router-link :to="`/acolhido/editar/${data.item.idPerson}`">
+					<router-link :to="`/acolhido/editar/${data.item.id}`">
 						<button type="button" name="button" class="edit-btn btn" title="Editar">
 							<edit-icon size="1.5x" class="edit-icon"></edit-icon>
 						</button>
