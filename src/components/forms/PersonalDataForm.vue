@@ -27,8 +27,8 @@
 						</select>
 					</div>
 					<div class="form-group col-md-3">
-						<label for="civil">Estado civil</label>
-						<select @input="$emit('update:civil', $event.target.value)" class="custom-select _rounded" id="civil">
+						<label for="matrial-status">Estado civil</label>
+						<select @input="$emit('update:matrialStatus', $event.target.value)" class="custom-select _rounded" id="matrial-status">
 							<option selected disabled>Escolha uma opção</option>
 							<option value="Solteiro">Solteiro</option>
 							<option value="Casado">Casado</option>
@@ -37,12 +37,12 @@
 						</select>
 					</div>
 					<div class="form-group col-md-3">
-						<label for="school">Escolaridade</label>
-						<input @input="$emit('update:school', $event.target.value)" type="text" class="form-control _rounded" id="school" placeholder="Ensino médio, graduação...">
+						<label for="education-level">Escolaridade</label>
+						<input @input="$emit('update:educationLevel', $event.target.value)" type="text" class="form-control _rounded" id="education-level" placeholder="Ensino médio, graduação...">
 					</div>
 					<div class="form-group col-md-3">
-						<label for="work">Cargo de trabalho</label>
-						<input @input="$emit('update:work', $event.target.value)" type="text" class="form-control _rounded" id="work" placeholder="Professor, engenheiro, médico...">
+						<label for="job-role">Cargo de trabalho</label>
+						<input @input="$emit('update:jobRole', $event.target.value)" type="text" class="form-control _rounded" id="job-role" placeholder="Professor, engenheiro, médico...">
 					</div>
 				</div>
 				<div class="form-row">
@@ -71,22 +71,22 @@
 			<form>
 				<div class="form-row">
 					<div class="form-group col-md-8">
-						<label for="end">Endereço</label>
-						<input @input="$emit('update:end', $event.target.value)" type="text" class="form-control _rounded" id="end" placeholder="Rua do Limão">
+						<label for="public-place">Endereço</label>
+						<input @input="$emit('update:publicPlace', $event.target.value)" type="text" class="form-control _rounded" id="public-place" placeholder="Rua do Limão">
 					</div>
 					<div class="form-group col-md-4">
-						<label for="end">Bairro</label>
-						<input @input="$emit('update:neighborhood', $event.target.value)" type="text" class="form-control _rounded" id="end" placeholder="Limoeiro">
+						<label for="neighborhood">Bairro</label>
+						<input @input="$emit('update:neighborhood', $event.target.value)" type="text" class="form-control _rounded" id="neighborhood" placeholder="Limoeiro">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-4 mb-0">
-						<label for="end">Cidade</label>
-						<input @input="$emit('update:city', $event.target.value)" type="text" class="form-control _rounded" id="end" placeholder="São Paulo">
+						<label for="city">Cidade</label>
+						<input @input="$emit('update:city', $event.target.value)" type="text" class="form-control _rounded" id="city" placeholder="São Paulo">
 					</div>
 					<div class="form-group col-md-4 mb-0">
-						<label for="end">Estado</label>
-						<input @input="$emit('update:state', $event.target.value)" type="text" class="form-control _rounded" id="end" placeholder="São Paulo">
+						<label for="state">Estado</label>
+						<input @input="$emit('update:state', $event.target.value)" type="text" class="form-control _rounded" id="state" placeholder="São Paulo">
 					</div>
 					<div class="form-group col-md-4 mb-0">
 						<label for="cep">CEP</label>
