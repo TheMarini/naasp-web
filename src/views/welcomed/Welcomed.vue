@@ -130,6 +130,8 @@ export default {
 
 				this.welcomed = fakedb;
 				this.isBusy = false;
+			} finally {
+				console.log("Welcomed:", this.welcomed);
 			}
 		},
 		deleteData (index) {
