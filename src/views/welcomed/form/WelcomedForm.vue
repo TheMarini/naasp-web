@@ -42,11 +42,11 @@
 					:religion.sync="form.person.religion"
 					:placeOfBirth.sync="form.person.placeOfBirth"
 					:nationality.sync="form.person.nationality"
-					:end.sync="form.adress.street"
-					:neighborhood.sync="form.adress.neighborhood"
-					:city.sync="form.adress.city"
-					:state.sync="form.adress.state"
-					:cep.sync="form.adress.CEP"
+					:end.sync="form.address.street"
+					:neighborhood.sync="form.address.neighborhood"
+					:city.sync="form.address.city"
+					:state.sync="form.address.state"
+					:cep.sync="form.address.CEP"
 					:cellPhoneNumber.sync="form.person.telephones[0]"
 					:homePhoneNumber.sync="form.person.telephones[1]"
 					:businessPhoneNumber.sync="form.person.telephones[2]"
@@ -161,7 +161,7 @@ export default {
 			// 	responsible: {}
 			// },
 			// form: {
-			// 	"adress": {
+			// 	"address": {
 			// 		"number": 125,
 			// 		"street": "Rua Dom Pedro II",
 			// 		"neighborhood": "Centro",
@@ -206,7 +206,7 @@ export default {
 			// 	}
 			// }
 			form: {
-				adress: {},
+				address: {},
 				person: {
 					telephones: [],
 					responsible: {}
@@ -218,8 +218,8 @@ export default {
 	},
 	methods: {
 		adicionar () {
-			this.form.adress.number = 12;
-			this.form.adress.neighborhood = "Limoeiro";
+			this.form.address.number = 12;
+			this.form.address.neighborhood = "Limoeiro";
 			this.form.welcomed.areSmoker = true;
 			this.form.welcomed.onMedicine = true;
 			this.form.welcomed.inReligiousActivities = true;
