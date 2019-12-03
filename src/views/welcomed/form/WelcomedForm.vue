@@ -26,9 +26,9 @@
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
 
-				<VueCodeHighlight>
+				<!-- <VueCodeHighlight>
 				 {{JSON.stringify(welcomed, null, 2)}}
-				</VueCodeHighlight>
+				</VueCodeHighlight> -->
 
 				<PersonalDataForm
 					v-show="currentStep === 1"
@@ -118,6 +118,9 @@
 </template>
 
 <script>
+// FakeDB
+import fakedb from '@/fakedb/welcomed.json';
+
 // Code highlight
 import { component as VueCodeHighlight } from 'vue-code-highlight';
 
@@ -163,7 +166,12 @@ export default {
 		},
 	},
 	mounted () {
-		this.acolhidoId = this.$route.params.id;
+		if (!this.addMethod) {
+			this.getWelcomed(parseInt(this.$route.params.id)).then(welcomed => {
+				this.welcomed = welcomed;
+				console.log("Welcomed:", this.welcomed);
+			});
+		}
 	},
 	data() {
 		return {
@@ -190,6 +198,19 @@ export default {
 		}
 	},
 	methods: {
+		async getWelcomed (id) {
+			try {
+				await axios.get(`/welcomed/${id}`)
+					.then(response => {
+						return response.data;
+					})
+			} catch (e) {
+				console.error(e);
+				console.warn("[WARN]", "Error with request, using fake databse...");
+
+				return fakedb.find(w => w.id === id);
+			}
+		},
 		adicionar () {
 			axios.post('/welcomed', this.form)
 				.then(response => {

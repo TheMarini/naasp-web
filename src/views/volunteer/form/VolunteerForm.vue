@@ -19,9 +19,9 @@
 					<p class="mb-0 ml-1">Voltar a etapa anterior</p>
 				</div>
 
-				<VueCodeHighlight>
+				<!-- <VueCodeHighlight>
 				 {{JSON.stringify(volunteer, null, 2)}}
-				</VueCodeHighlight>
+				</VueCodeHighlight> -->
 
 				<form-step-1
 					v-show="currentStep === 1"
