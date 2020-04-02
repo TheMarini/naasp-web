@@ -1,27 +1,25 @@
 <template>
-	<div id="app" class="app">
-		<div class="d-flex h-100 w-100">
-			<SideNav></SideNav>
-			<main class="h-100 w-100">
-				<transition name="fade" mode="out-in">
-					<keep-alive>
-						<router-view></router-view>
-					</keep-alive>
-				</transition>
-			</main>
-		</div>
-	</div>
+  <div id="app" class="app">
+    <div class="d-flex h-100 w-100">
+      <SideNav></SideNav>
+      <main class="h-100 w-100">
+        <transition name="fade" mode="out-in">
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
+      </main>
+    </div>
+  </div>
 </template>
 
 <script>
 import SideNav from '@/components/SideNav.vue';
-import Volunteer from '@/views/volunteer/Volunteer.vue';
 
 export default {
-	name: 'app',
-	components: {
-    Volunteer,
-		SideNav,
+  name: 'app',
+  components: {
+    SideNav,
   },
 };
 </script>
@@ -36,17 +34,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
   color: #000;
-	background-color: #F5F5F5
+  background-color: #F5F5F5
 }
 
 main {
-	margin-left: 200px;
-	min-height: 100vh
+  margin-left: 200px;
+  min-height: 100vh
 }
 
 a, a:hover {
-	color: inherit;
-	text-decoration: inherit !important;
+  color: inherit;
+  text-decoration: inherit !important;
 }
 
 /* --- TRANSITIONS --- */
@@ -97,7 +95,7 @@ a, a:hover {
 
 /* ~ Card ~ */
 ._card {
-	background-color: #fff;
+  background-color: #fff;
   border-radius: 10px !important
 }
 </style>
