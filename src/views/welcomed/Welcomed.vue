@@ -69,8 +69,6 @@ import {
   UsersIcon, PlusIcon, EditIcon, Trash2Icon,
 } from 'vue-feather-icons';
 
-import moment from 'moment';
-
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
@@ -139,26 +137,6 @@ export default {
         await axios.get('/welcomed')
           .then((response) => {
             this.welcomed = response.data;
-
-            const persons = [];
-
-            for (const w of this.welcomed) {
-              persons.push(
-                axios.get(`/person/?id=${w.idWelcomed}`)
-                  .then((response) => {
-                    const person = response.data;
-                    person.age = moment().diff(new Date(person.birthDate), 'years');
-
-                    return person;
-                  })
-                  .catch(console.log),
-              );
-            }
-
-            Promise.all(persons).then((persons) => {
-              this.welcomed = persons;
-              this.isBusy = false;
-            });
           });
       } catch (e) {
         console.error(e);
