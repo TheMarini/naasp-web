@@ -75,7 +75,6 @@ export default {
   display: flex;
   align-items: center;
   font-size: 1.1rem;
-
   border-radius: 100px;
 }
 
