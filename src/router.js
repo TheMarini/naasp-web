@@ -17,46 +17,46 @@ import WelcomedForm from './views/welcomed/form/WelcomedForm.vue';
 Vue.use(Router);
 
 // TODO: check a better way to do this
-let volunteer = [
-	{
-		path: '/voluntario',
-		name: 'volunteer',
-		component: Volunteer,
-	},
-	{
-		path: '/voluntario/adicionar',
-		name: 'volunteerAdd',
-		component: VolunteerForm,
-	},
-	{
-		path: '/voluntario/editar/:id',
-		name: 'volunteerEdit',
-		component: VolunteerForm,
-		props: {
-			addMethod: false
-		}
-	}
+const volunteer = [
+  {
+    path: '/voluntario',
+    name: 'volunteer',
+    component: Volunteer,
+  },
+  {
+    path: '/voluntario/adicionar',
+    name: 'volunteerAdd',
+    component: VolunteerForm,
+  },
+  {
+    path: '/voluntario/editar/:id',
+    name: 'volunteerEdit',
+    component: VolunteerForm,
+    props: {
+      addMethod: false,
+    },
+  },
 ];
 
-let welcomed = [
-	{
-		path: '/acolhido',
-		name: 'welcomed',
-		component: Welcomed,
-	},
-	{
-		path: '/acolhido/adicionar',
-		name: 'welcomedAdd',
-		component: WelcomedForm,
-	},
-	{
-		path: '/acolhido/editar/:id',
-		name: 'welcomedEdit',
-		component: WelcomedForm,
-		props: {
-			addMethod: false
-		}
-	}
+const welcomed = [
+  {
+    path: '/acolhido',
+    name: 'welcomed',
+    component: Welcomed,
+  },
+  {
+    path: '/acolhido/adicionar',
+    name: 'welcomedAdd',
+    component: WelcomedForm,
+  },
+  {
+    path: '/acolhido/editar/:id',
+    name: 'welcomedEdit',
+    component: WelcomedForm,
+    props: {
+      addMethod: false,
+    },
+  },
 ];
 
 // --- EXPORT ---
@@ -69,7 +69,7 @@ export default new Router({
       name: 'home',
       component: Home,
     },
-		...volunteer,
-		...welcomed,
+    ...volunteer,
+    ...welcomed,
   ],
 });
