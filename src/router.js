@@ -3,6 +3,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // ~ Pages ~
+// Home
 import Home from './views/Home.vue';
 
 // Volunteer
@@ -16,6 +17,7 @@ import WelcomedForm from './views/welcomed/form/WelcomedForm.vue';
 // Use vue-router
 Vue.use(Router);
 
+// --- PATHS ---
 // TODO: check a better way to do this
 const volunteer = [
   {
