@@ -95,68 +95,70 @@ import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
 import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
 import FormStep3 from '@/views/volunteer/form/steps/VolunteerStep3.vue';
 
-import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon } from 'vue-feather-icons'
+import {
+  UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon,
+} from 'vue-feather-icons';
 
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
-	name: 'voluntario',
-	components: {
-		VueCodeHighlight,
-		Step,
-		UsersIcon,
-		PlusIcon,
-		ChevronRightIcon,
-		ArrowLeftIcon,
-		EditIcon,
-		FormStep1,
-		PersonalDataForm,
-		FormStep3,
-	},
-	props: {
-		// Add or edit method
-		addMethod: {
-			type: Boolean,
-			default: true,
-		},
-		// form: {
-		// 	type: Object,
-		// 	default: () => ({
-		// 		// TODO: warn about fixed typo bellow
-		// 		address: {},
-		// 		employee: {},
-		// 	})
-		// }
-	},
-	data() {
-		return {
-			steps: 2,
-			currentStep: 1,
-			volunteer: {
-				address: {},
-				contact: {
-					phoneNumber: {},
-				},
-			},
-		}
-	},
-	methods: {
-		adicionar () {
-			axios.post('/employee', this.volunteer)
-				.then(response => {
-					console.log(response);
+  name: 'voluntario',
+  components: {
+    VueCodeHighlight,
+    Step,
+    UsersIcon,
+    PlusIcon,
+    ChevronRightIcon,
+    ArrowLeftIcon,
+    EditIcon,
+    FormStep1,
+    PersonalDataForm,
+    FormStep3,
+  },
+  props: {
+    // Add or edit method
+    addMethod: {
+      type: Boolean,
+      default: true,
+    },
+    // form: {
+    // 	type: Object,
+    // 	default: () => ({
+    // 		// TODO: warn about fixed typo bellow
+    // 		address: {},
+    // 		employee: {},
+    // 	})
+    // }
+  },
+  data() {
+    return {
+      steps: 2,
+      currentStep: 1,
+      volunteer: {
+        address: {},
+        contact: {
+          phoneNumber: {},
+        },
+      },
+    };
+  },
+  methods: {
+    adicionar() {
+      axios.post('/employee', this.volunteer)
+        .then((response) => {
+          console.log(response);
 
-					if (response.status == 200) {
-						this.$destroy();
-						this.$router.push('/voluntario')
-					}
-				})
-				.catch(console.log)
-		},
-		editar () { },
-	},
+          if (response.status == 200) {
+            this.$destroy();
+            this.$router.push('/voluntario');
+          }
+        })
+        .catch(console.log);
+    },
+    editar() { },
+  },
 };
 </script>
 

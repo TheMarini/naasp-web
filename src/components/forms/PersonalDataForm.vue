@@ -157,40 +157,40 @@
 import moment from 'moment';
 
 export default {
-	name: 'personal-data-form',
-	props: {
-		responsibleForm: {
-			type: Boolean,
-			default: false
-		},
-		underAgeLimit: {
-			type: Number,
-			default: 17
-		},
-		name: {
-			type: String
-		}
-	},
-	data () {
-		return {
-			birthDate: null,
-			age: null,
-			isUnderAge: false,
-		}
-	},
-	watch: {
-		birthDate: function () {
-			this.$emit('update:birthDate', this.birthDate);
+  name: 'personal-data-form',
+  props: {
+    responsibleForm: {
+      type: Boolean,
+      default: false,
+    },
+    underAgeLimit: {
+      type: Number,
+      default: 17,
+    },
+    name: {
+      type: String,
+    },
+  },
+  data() {
+    return {
+      birthDate: null,
+      age: null,
+      isUnderAge: false,
+    };
+  },
+  watch: {
+    birthDate() {
+      this.$emit('update:birthDate', this.birthDate);
 
-			// Calc age
-			this.age = moment().diff(this.birthDate, 'years');
-			this.$emit('update:age', parseInt(this.age));
+      // Calc age
+      this.age = moment().diff(this.birthDate, 'years');
+      this.$emit('update:age', parseInt(this.age));
 
-			// Calc if under age
-			this.isUnderAge = this.age <= this.underAgeLimit;
-			this.$emit('update:isUnderAge', this.isUnderAge);
-		}
-	}
+      // Calc if under age
+      this.isUnderAge = this.age <= this.underAgeLimit;
+      this.$emit('update:isUnderAge', this.isUnderAge);
+    },
+  },
 };
 </script>
 

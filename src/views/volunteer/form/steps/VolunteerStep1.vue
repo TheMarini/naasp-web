@@ -21,41 +21,41 @@
 </template>
 
 <script>
-import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons'
+import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons';
 
 export default {
-	name: 'form-step-1',
-	components: {
-		ActivityIcon,
-		BookOpenIcon,
-		ClipboardIcon
-	},
-	data() {
-		return {
-			userType: null
-		}
-	},
-	watch: {
-		userType: function () {
-			let type;
+  name: 'form-step-1',
+  components: {
+    ActivityIcon,
+    BookOpenIcon,
+    ClipboardIcon,
+  },
+  data() {
+    return {
+      userType: null,
+    };
+  },
+  watch: {
+    userType() {
+      let type;
 
-			switch (this.userType) {
-				case 0:
-					type = "medic";
-					break;
+      switch (this.userType) {
+        case 0:
+          type = 'medic';
+          break;
 
-				case 1:
-					type = "secretary";
-					break;
+        case 1:
+          type = 'secretary';
+          break;
 
-				case 2:
-					type = "social worker";
-					break;
-			}
+        case 2:
+          type = 'social worker';
+          break;
+      }
 
-			this.$emit('update:type', type);
-		}
-	},
+      this.$emit('update:type', type);
+    },
+  },
 };
 </script>
 

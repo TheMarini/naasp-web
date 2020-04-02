@@ -36,7 +36,7 @@
 <script>
 
 export default {
-	name: 'form-step-5',
+  name: 'form-step-5',
 };
 </script>
 

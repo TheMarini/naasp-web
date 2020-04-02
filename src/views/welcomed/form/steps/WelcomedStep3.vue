@@ -43,11 +43,11 @@
 <script>
 
 export default {
-	name: 'form-step-3',
-	mounted () {
-		this.$emit('update:qtdCigarettes', 0)
-		this.$emit('update:qtdDrinks', 0)
-	}
+  name: 'form-step-3',
+  mounted() {
+    this.$emit('update:qtdCigarettes', 0);
+    this.$emit('update:qtdDrinks', 0);
+  },
 };
 </script>
 

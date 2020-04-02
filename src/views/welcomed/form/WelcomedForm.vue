@@ -135,96 +135,96 @@ import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
 import FormStep5 from '@/views/welcomed/form/steps/WelcomedStep5.vue';
 
 // Icons
-import { UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon } from 'vue-feather-icons'
+import {
+  UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon,
+} from 'vue-feather-icons';
 
 import axios from 'axios';
 // BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
-	name: 'acolhidoControl',
-	components: {
-		VueCodeHighlight,
-		Step,
-		UsersIcon,
-		PlusIcon,
-		ChevronRightIcon,
-		ArrowLeftIcon,
-		HeartIcon,
-		EditIcon,
-		PersonalDataForm,
-		FormStep2,
-		FormStep3,
-		FormStep4,
-		FormStep5,
-	},
-	props: {
-		// Add or edit method
-		addMethod: {
-			type: Boolean,
-			default: true,
-		},
-	},
-	mounted () {
-		if (!this.addMethod) {
-			this.getWelcomed(parseInt(this.$route.params.id)).then(welcomed => {
-				this.welcomed = welcomed;
-				console.log("Welcomed:", this.welcomed);
-			});
-		}
-	},
-	data() {
-		return {
-			acolhidoId: null,
-			steps: 5,
-			currentStep: 1,
-			welcomed: {
-				address: {},
-				contact: {
-					phoneNumber: {},
-				},
-				responsible: {},
-				family: {},
-				money: {
-					governmentBenefit: {},
-				},
-				home: {},
-				health: {
-					family: {},
-				},
-				affiliation: {},
-				others: {},
-			},
-		}
-	},
-	methods: {
-		async getWelcomed (id) {
-			try {
-				await axios.get(`/welcomed/${id}`)
-					.then(response => {
-						return response.data;
-					})
-			} catch (e) {
-				console.error(e);
-				console.warn("[WARN]", "Error with request, using fake databse...");
+  name: 'acolhidoControl',
+  components: {
+    VueCodeHighlight,
+    Step,
+    UsersIcon,
+    PlusIcon,
+    ChevronRightIcon,
+    ArrowLeftIcon,
+    HeartIcon,
+    EditIcon,
+    PersonalDataForm,
+    FormStep2,
+    FormStep3,
+    FormStep4,
+    FormStep5,
+  },
+  props: {
+    // Add or edit method
+    addMethod: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  mounted() {
+    if (!this.addMethod) {
+      this.getWelcomed(parseInt(this.$route.params.id)).then((welcomed) => {
+        this.welcomed = welcomed;
+        console.log('Welcomed:', this.welcomed);
+      });
+    }
+  },
+  data() {
+    return {
+      acolhidoId: null,
+      steps: 5,
+      currentStep: 1,
+      welcomed: {
+        address: {},
+        contact: {
+          phoneNumber: {},
+        },
+        responsible: {},
+        family: {},
+        money: {
+          governmentBenefit: {},
+        },
+        home: {},
+        health: {
+          family: {},
+        },
+        affiliation: {},
+        others: {},
+      },
+    };
+  },
+  methods: {
+    async getWelcomed(id) {
+      try {
+        await axios.get(`/welcomed/${id}`)
+          .then((response) => response.data);
+      } catch (e) {
+        console.error(e);
+        console.warn('[WARN]', 'Error with request, using fake databse...');
 
-				return fakedb.find(w => w.id === id);
-			}
-		},
-		adicionar () {
-			axios.post('/welcomed', this.form)
-				.then(response => {
-					console.log(response);
+        return fakedb.find((w) => w.id === id);
+      }
+    },
+    adicionar() {
+      axios.post('/welcomed', this.form)
+        .then((response) => {
+          console.log(response);
 
-					if (response.status == 200) {
-						this.$destroy();
-						this.$router.push('/acolhido')
-					}
-				})
-				.catch(console.log)
-		},
-		editar () { },
-	},
+          if (response.status == 200) {
+            this.$destroy();
+            this.$router.push('/acolhido');
+          }
+        })
+        .catch(console.log);
+    },
+    editar() { },
+  },
 };
 </script>
 

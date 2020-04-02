@@ -33,15 +33,15 @@
 </template>
 
 <script>
-import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons'
+import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons';
 
 export default {
-	name: 'form-step-3',
-	components: {
-		ActivityIcon,
-		BookOpenIcon,
-		ClipboardIcon
-	},
+  name: 'form-step-3',
+  components: {
+    ActivityIcon,
+    BookOpenIcon,
+    ClipboardIcon,
+  },
 };
 </script>
 
