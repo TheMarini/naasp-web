@@ -24,6 +24,22 @@ Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
 Vue.use(VueTheMask);
 
+// --- GLOBALS ---
+// SweetAlert toast
+Vue.prototype.$toast = function swalToast(object) {
+  this.$swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', this.$swal.stopTimer);
+      toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+    },
+  }).fire(object);
+};
+
 // --- CONFIGS ---
 // Prevent the production tip on Vue startup
 Vue.config.productionTip = false;
