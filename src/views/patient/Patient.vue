@@ -18,7 +18,7 @@
     <article class="mt-4">
       <b-table
         class="table _rounded bg-white"
-        :items="welcomed"
+        :items="patients"
         :fields="fields"
         :busy="isBusy"
         :sort-by.sync="sortBy"
@@ -62,19 +62,22 @@
 </template>
 
 <script>
-// FakeDB
-import fakedb from '@/fakedb/welcomed.json';
-
+// Icons
 import {
   UsersIcon, PlusIcon, EditIcon, Trash2Icon,
 } from 'vue-feather-icons';
 
+// Axios
 import axios from 'axios';
+
+// FakeDB
+import fakedb from '@/fakedb/welcomed.json';
+
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
-  name: 'welcomed',
+  name: 'Patient',
   components: {
     UsersIcon,
     PlusIcon,
@@ -91,7 +94,7 @@ export default {
   },
   data() {
     return {
-      welcomed: [],
+      patients: [],
       sortBy: 'priority',
       sortDesc: false,
       fields: [
@@ -136,16 +139,16 @@ export default {
       try {
         await axios.get('/welcomed')
           .then((response) => {
-            this.welcomed = response.data;
+            this.patients = response.data;
           });
       } catch (e) {
         console.error(e);
         console.warn('[WARN]', 'Error with request, using fake databse...');
 
-        this.welcomed = fakedb;
+        this.patients = fakedb;
         this.isBusy = false;
       } finally {
-        console.log('Welcomed:', this.welcomed);
+        console.log('Patients:', this.patients);
       }
     },
     deleteData(index) {
