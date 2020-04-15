@@ -46,6 +46,13 @@ a, a:hover {
   color: inherit;
   text-decoration: inherit !important;
 }
+/* --- OVERRIDES --- */
+.swal2-popup {
+  border-radius: 10px
+}
+.swal2-actions button {
+  border-radius: 10px !important
+}
 
 /* --- TRANSITIONS --- */
 .fade-enter-active, .fade-leave-active {
