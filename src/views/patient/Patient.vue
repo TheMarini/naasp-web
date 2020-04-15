@@ -25,7 +25,7 @@
         :sort-desc.sync="sortDesc"
         primary-key="id"
         head-variant="dark"
-        responsive bordered hover
+        responsive bordered hover show-empty
       >
         <template v-slot:cell(priority)="data">
           <b-badge :variant="priorityClass(data.item.priority)">
@@ -44,7 +44,7 @@
             </button>
           </router-link>
           <button
-            @click="deleteData(data.index)" type="button" name="button"
+            @click="deleteData(data.item.id)" type="button" name="button"
             class="edit-btn btn" title="Deletar"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
@@ -55,6 +55,9 @@
             <b-spinner class="align-middle"></b-spinner>
             <strong>Carregando...</strong>
           </div>
+        </template>
+        <template v-slot:empty>
+          <p class="text-muted mb-0">Não há nenhum acolhido a ser exibido.</p>
         </template>
       </b-table>
     </article>
@@ -88,15 +91,13 @@ export default {
     this.update();
   },
   watch: {
-    $route() {
-      this.update();
-    },
+    // $route() {
+    //   this.update();
+    // },
   },
   data() {
     return {
       patients: [],
-      sortBy: 'priority',
-      sortDesc: false,
       fields: [
         {
           key: 'name',
@@ -131,33 +132,94 @@ export default {
         },
       ],
       isBusy: true,
+      sortBy: 'priority',
+      sortDesc: false,
     };
   },
   methods: {
-    async update() {
+    update() {
       this.isBusy = true;
-      try {
-        await axios.get('/welcomed')
-          .then((response) => {
-            this.patients = response.data;
-          });
-      } catch (e) {
-        console.error(e);
-        console.warn('[WARN]', 'Error with request, using fake databse...');
 
-        this.patients = fakedb;
-        this.isBusy = false;
-      } finally {
-        console.log('Patients:', this.patients);
-      }
-    },
-    deleteData(index) {
-      const acolhido = this.acolhidos[index];
-      axios.delete(`/welcomed/?id=${acolhido.idWelcomed}`)
+      axios.get('/welcomed')
         .then((response) => {
-          if (response.status === 200) this.update();
-        })
-        .catch(console.log);
+          this.patients = response.data;
+        }).catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+
+          // DEBUG
+          console.error(fakedb);
+          console.warn('[WARN]', 'Error with request, using fake databse...');
+          this.patients = fakedb;
+        });
+
+      this.isBusy = false;
+    },
+    deleteData(id) {
+      this.$swal({
+        title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
+        text: 'Esta ação não poderá ser revertida!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'indianred',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.value) {
+          axios.delete(`/patient/${id}`)
+            .then(() => {
+              this.$toast({
+                icon: 'success',
+                title: 'Acolhido deletado com sucesso',
+              });
+            }).catch((error) => {
+              if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o acolhido',
+                  text: `${error.response.status} - ${error.response.statusText}`,
+                });
+              } else if (error.request) {
+                // The request was made but no response was received
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o acolhido',
+                  text: 'Não houve resposta da requisição',
+                });
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o acolhido',
+                  text: 'Problema na configuração da requisição',
+                });
+              }
+            });
+        }
+      });
     },
     priorityClass(level) {
       switch (level) {
