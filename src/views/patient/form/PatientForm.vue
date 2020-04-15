@@ -296,15 +296,39 @@ export default {
     },
     create() {
       axios.post('/patient', this.form)
-        .then((response) => {
-          console.log(response);
-
-          if (response.status === 200) {
-            this.$destroy();
-            this.$router.push('/acolhido');
-          }
+        .then(() => {
+          this.$toast({
+            icon: 'success',
+            title: 'Acolhido adicionado com sucesso',
+          });
+          // this.$destroy();
+          this.$router.push('/acolhido');
         })
-        .catch(console.log);
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o acolhido',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o acolhido',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o acolhido',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
     },
     update() { },
   },
