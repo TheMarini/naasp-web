@@ -3,13 +3,18 @@
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0"><b>{{addMethod ? 'Adicionar' : 'Editar' }} voluntário</b></h2>
+        <h2 class="ml-3 mb-0"><b>{{updateMode ? 'Editar' : 'Adicionar' }} voluntário</b></h2>
       </div>
       <div class="steps d-flex">
-        <step v-for="index of steps" :key="index" @click.native="currentStep = index"
-          :number="index" :active="index <= currentStep"
-          :addMethod="addMethod" class="step ml-2">
-        </step>
+        <step
+          class="step ml-2"
+          v-for="index of steps"
+          :key="index"
+          :number="index"
+          :active="index <= currentStep"
+          :updateMode="updateMode"
+          @click.native="currentStep = index"
+        ></step>
       </div>
     </header>
     <div class="wrapper pt-4">
@@ -73,23 +78,23 @@
         </button>
       </router-link>
       <button v-if="currentStep < steps" @click="currentStep++"
-        :style="[addMethod ? {} : { color: '#000', backgroundColor: '#E3DB4A' }]" type="button"
-        name="button" class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        :style="[updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
+        type="button" name="button" class="next-btn btn py-2 px-3 d-flex
+        align-items-center _rounded-100"
       >
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
         <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
       </button>
-      <button v-else-if="addMethod" @click="adicionar" type="button" name="button"
+      <button v-else-if="updateMode" @click="update" type="button" name="button"
+        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
+        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
+        <h5 class="mb-0 px-2"><b>Editar</b></h5>
+      </button>
+      <button v-else @click="create" type="button" name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
       >
         <plus-icon size="1.5x" class="add-icon"></plus-icon>
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-      </button>
-      <button v-else @click="editar" type="button" name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100"
-      >
-        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
-        <h5 class="mb-0 px-2"><b>Editar</b></h5>
       </button>
     </footer>
   </div>
@@ -130,10 +135,18 @@ export default {
     // FormStep3,
   },
   props: {
-    // Add or edit method
-    addMethod: {
+    // Create or update mode
+    updateMode: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    steps: {
+      type: Number,
+      default: 2,
+    },
+    currentStep: {
+      type: Number,
+      default: 1,
     },
     // form: {
     //   type: Object,
@@ -146,8 +159,6 @@ export default {
   },
   data() {
     return {
-      steps: 2,
-      currentStep: 1,
       volunteer: {
         address: {},
         contact: {
@@ -155,6 +166,14 @@ export default {
         },
       },
     };
+  },
+  mounted() {
+    if (this.updateMode || this.$route.params.id != null) {
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
+        this.volunteer = volunteer;
+        console.log('Patient:', this.volunteer);
+      });
+    }
   },
   methods: {
     adicionar() {
@@ -169,7 +188,7 @@ export default {
         })
         .catch(console.log);
     },
-    editar() { },
+    update() { },
   },
 };
 </script>
