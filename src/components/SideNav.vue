@@ -57,7 +57,7 @@ export default {
   height: 100vh;
   width: 200px;
   background-color: #fff;
-  z-index: 99999
+  z-index: 999
 }
 
 .side-nav-title {
