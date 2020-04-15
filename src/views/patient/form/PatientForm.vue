@@ -31,68 +31,69 @@
          {{JSON.stringify(welcomed, null, 2)}}
         </VueCodeHighlight> -->
 
+        <!-- TODO: consider switch to a nested vue-router -->
         <PersonalDataForm
           v-show="currentStep === 1"
           :responsibleForm="true"
-          :name.sync="welcomed.name"
-          :rg.sync="welcomed.rg"
-          :cpf.sync="welcomed.cpf"
-          :sex.sync="welcomed.sex"
-          :matrialStatus.sync="welcomed.matrialStatus"
-          :educationLevel.sync="welcomed.educationLevel"
-          :jobRole.sync="welcomed.jobRole"
-          :birthDate.sync="welcomed.birthDate"
-          :age.sync="welcomed.age"
-          :isUnderAge.sync="welcomed.isUnderAge"
-          :religion.sync="welcomed.religion"
-          :placeOfBirth.sync="welcomed.placeOfBirth"
-          :nationality.sync="welcomed.nationality"
-          :publicPlace.sync="welcomed.address.publicPlace"
-          :addressNumber.sync="welcomed.address.number"
-          :addressComplement.sync="welcomed.address.complement"
-          :neighborhood.sync="welcomed.address.neighborhood"
-          :city.sync="welcomed.address.city"
-          :state.sync="welcomed.address.state"
-          :cep.sync="welcomed.address.cep"
-          :cellPhoneNumber.sync="welcomed.cellPhoneNumber"
-          :homePhoneNumber.sync="welcomed.homePhoneNumber"
-          :businessPhoneNumber.sync="welcomed.businessPhoneNumber"
-          :email.sync="welcomed.email"
-          :responsibleName.sync="welcomed.responsible.name"
-          :responsibleRg.sync="welcomed.responsible.rg"
-          :responsibleCpf.sync="welcomed.responsible.cpf"
+          :name.sync="patient.name"
+          :rg.sync="patient.rg"
+          :cpf.sync="patient.cpf"
+          :sex.sync="patient.sex"
+          :matrialStatus.sync="patient.matrialStatus"
+          :educationLevel.sync="patient.educationLevel"
+          :jobRole.sync="patient.jobRole"
+          :birthDate.sync="patient.birthDate"
+          :age.sync="patient.age"
+          :isUnderAge.sync="patient.isUnderAge"
+          :religion.sync="patient.religion"
+          :placeOfBirth.sync="patient.placeOfBirth"
+          :nationality.sync="patient.nationality"
+          :publicPlace.sync="patient.address.publicPlace"
+          :addressNumber.sync="patient.address.number"
+          :addressComplement.sync="patient.address.complement"
+          :neighborhood.sync="patient.address.neighborhood"
+          :city.sync="patient.address.city"
+          :state.sync="patient.address.state"
+          :cep.sync="patient.address.cep"
+          :cellPhoneNumber.sync="patient.cellPhoneNumber"
+          :homePhoneNumber.sync="patient.homePhoneNumber"
+          :businessPhoneNumber.sync="patient.businessPhoneNumber"
+          :email.sync="patient.email"
+          :responsibleName.sync="patient.responsible.name"
+          :responsibleRg.sync="patient.responsible.rg"
+          :responsibleCpf.sync="patient.responsible.cpf"
         ></PersonalDataForm>
 
         <form-step-2
           v-show="currentStep === 2"
-          :governmentBenefitName.sync="welcomed.money.governmentBenefit.name"
-          :governmentBenefitValue.sync="welcomed.money.governmentBenefit.value"
-          :familyIncomeComments.sync="welcomed.money.familyIncomeComments"
-          :housingCondition.sync="welcomed.home.housingCondition"
+          :governmentBenefitName.sync="patient.money.governmentBenefit.name"
+          :governmentBenefitValue.sync="patient.money.governmentBenefit.value"
+          :familyIncomeComments.sync="patient.money.familyIncomeComments"
+          :housingCondition.sync="patient.home.housingCondition"
         ></form-step-2>
 
         <form-step-3
           v-show="currentStep === 3"
-          :physicalActivity.sync="welcomed.health.physicalActivity"
-          :medicines.sync="welcomed.health.medicines"
-          :qtdCigarettes.sync="welcomed.health.qtdCigarettes"
-          :qtdDrinks.sync="welcomed.health.qtdDrinks"
-          :familyAlcoholAbuse.sync="welcomed.health.family.alcoholAbuse"
-          :familyDiseases.sync="welcomed.health.family.diseases"
-          :familyMedicines.sync="welcomed.health.family.medicines"
+          :physicalActivity.sync="patient.health.physicalActivity"
+          :medicines.sync="patient.health.medicines"
+          :qtdCigarettes.sync="patient.health.qtdCigarettes"
+          :qtdDrinks.sync="patient.health.qtdDrinks"
+          :familyAlcoholAbuse.sync="patient.health.family.alcoholAbuse"
+          :familyDiseases.sync="patient.health.family.diseases"
+          :familyMedicines.sync="patient.health.family.medicines"
         ></form-step-3>
 
         <form-step-4
           v-show="currentStep === 4"
-          :parish.sync="welcomed.affiliation.parish"
-          :religiousActivities.sync="welcomed.affiliation.religiousActivities"
+          :parish.sync="patient.affiliation.parish"
+          :religiousActivities.sync="patient.affiliation.religiousActivities"
         ></form-step-4>
 
         <form-step-5
           v-show="currentStep === 5"
-          :priority.sync="welcomed.priority"
-          :demands.sync="welcomed.others.demands"
-          :comments.sync="welcomed.others.comments"
+          :priority.sync="patient.priority"
+          :demands.sync="patient.others.demands"
+          :comments.sync="patient.others.comments"
         ></form-step-5>
       </article>
     </div>
@@ -112,13 +113,13 @@
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
         <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
       </button>
-      <button v-else-if="addMethod" @click="adicionar" type="button" name="button"
+      <button v-else-if="addMethod" @click="create" type="button" name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
       >
         <plus-icon size="1.5x" class="add-icon"></plus-icon>
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
-      <button v-else @click="editar" type="button" name="button"
+      <button v-else @click="update" type="button" name="button"
         class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
         <edit-icon size="1.5x" class="edit-icon"></edit-icon>
         <h5 class="mb-0 px-2"><b>Editar</b></h5>
@@ -128,8 +129,10 @@
 </template>
 
 <script>
-// FakeDB
-import fakedb from '@/fakedb/welcomed.json';
+// Icons
+import {
+  PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon,
+} from 'vue-feather-icons';
 
 // Step dot
 import Step from '@/components/Step.vue';
@@ -141,17 +144,20 @@ import FormStep3 from '@/views/patient/form/steps/PatientStep3.vue';
 import FormStep4 from '@/views/patient/form/steps/PatientStep4.vue';
 import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 
-// Icons
-import {
-  PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon,
-} from 'vue-feather-icons';
-
+// Axios
 import axios from 'axios';
+
+// FakeDB
+import fakedb from '@/fakedb/welcomed.json';
+
+// Code highlight
+// import { component as VueCodeHighlight } from 'vue-code-highlight';
+
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
-  name: 'acolhidoControl',
+  name: 'PatientForm',
   components: {
     Step,
     PlusIcon,
@@ -164,6 +170,7 @@ export default {
     FormStep3,
     FormStep4,
     FormStep5,
+    // VueCodeHighlight,
   },
   props: {
     // Add or edit method
@@ -174,18 +181,15 @@ export default {
   },
   mounted() {
     if (!this.addMethod) {
-      this.getWelcomed(parseInt(this.$route.params.id, 10)).then((welcomed) => {
-        this.welcomed = welcomed;
-        console.log('Welcomed:', this.welcomed);
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
+        this.patient = patient;
+        console.log('Patient:', this.patient);
       });
     }
   },
   data() {
     return {
-      acolhidoId: null,
-      steps: 5,
-      currentStep: 1,
-      welcomed: {
+      patient: {
         address: {},
         contact: {
           phoneNumber: {},
@@ -202,12 +206,15 @@ export default {
         affiliation: {},
         others: {},
       },
+      steps: 5,
+      currentStep: 1,
+      patientId: null,
     };
   },
   methods: {
-    async getWelcomed(id) {
+    async retrieve(id) {
       try {
-        return await axios.get(`/welcomed/${id}`)
+        return await axios.get(`/patient/${id}`)
           .then((response) => response.data);
       } catch (e) {
         console.error(e);
@@ -216,8 +223,8 @@ export default {
         return fakedb.find((w) => w.id === id);
       }
     },
-    adicionar() {
-      axios.post('/welcomed', this.form)
+    create() {
+      axios.post('/patient', this.form)
         .then((response) => {
           console.log(response);
 
@@ -228,7 +235,7 @@ export default {
         })
         .catch(console.log);
     },
-    editar() { },
+    update() { },
   },
 };
 </script>
