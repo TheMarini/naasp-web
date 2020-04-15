@@ -129,10 +129,10 @@ import Step from '@/components/Step.vue';
 
 // Form Steps
 import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
-import FormStep2 from '@/views/welcomed/form/steps/WelcomedStep2.vue';
-import FormStep3 from '@/views/welcomed/form/steps/WelcomedStep3.vue';
-import FormStep4 from '@/views/welcomed/form/steps/WelcomedStep4.vue';
-import FormStep5 from '@/views/welcomed/form/steps/WelcomedStep5.vue';
+import FormStep2 from '@/views/patient/form/steps/PatientStep2.vue';
+import FormStep3 from '@/views/patient/form/steps/PatientStep3.vue';
+import FormStep4 from '@/views/patient/form/steps/PatientStep4.vue';
+import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 
 // Icons
 import {

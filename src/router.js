@@ -10,9 +10,9 @@ import Home from './views/Home.vue';
 import Volunteer from './views/volunteer/Volunteer.vue';
 import VolunteerForm from './views/volunteer/form/VolunteerForm.vue';
 
-// Welcomed
-import Welcomed from './views/welcomed/Welcomed.vue';
-import WelcomedForm from './views/welcomed/form/WelcomedForm.vue';
+// Patient
+import Patient from './views/patient/Patient.vue';
+import PatientForm from './views/patient/form/PatientForm.vue';
 
 // Use vue-router
 Vue.use(Router);
@@ -40,21 +40,21 @@ const volunteer = [
   },
 ];
 
-const welcomed = [
+const patient = [
   {
     path: '/acolhido',
-    name: 'welcomed',
-    component: Welcomed,
+    name: 'patient',
+    component: Patient,
   },
   {
     path: '/acolhido/adicionar',
-    name: 'welcomedAdd',
-    component: WelcomedForm,
+    name: 'patientAdd',
+    component: PatientForm,
   },
   {
     path: '/acolhido/editar/:id',
-    name: 'welcomedEdit',
-    component: WelcomedForm,
+    name: 'patientEdit',
+    component: PatientForm,
     props: {
       addMethod: false,
     },
@@ -72,6 +72,6 @@ export default new Router({
       component: Home,
     },
     ...volunteer,
-    ...welcomed,
+    ...patient,
   ],
 });
