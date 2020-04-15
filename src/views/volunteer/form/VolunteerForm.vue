@@ -176,7 +176,7 @@ export default {
     }
   },
   methods: {
-    adicionar() {
+    create() {
       axios.post('/employee', this.volunteer)
         .then((response) => {
           console.log(response);
