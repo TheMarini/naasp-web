@@ -145,6 +145,51 @@ export default {
 
       this.isBusy = false;
     },
+    deleteData(id) {
+      this.$swal({
+        title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
+        text: 'Esta ação não poderá ser revertida!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'indianred',
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.value) {
+          axios.delete(`/patient/${id}`)
+            .then(() => {
+              this.$toast({
+                icon: 'success',
+                title: 'Voluntário deletado com sucesso',
+              });
+            }).catch((error) => {
+              if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o voluntário',
+                  text: `${error.response.status} - ${error.response.statusText}`,
+                });
+              } else if (error.request) {
+                // The request was made but no response was received
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o voluntário',
+                  text: 'Não houve resposta da requisição',
+                });
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                this.$toast({
+                  icon: 'error',
+                  title: 'Erro ao deletar o voluntário',
+                  text: 'Problema na configuração da requisição',
+                });
+              }
+            });
+        }
+      });
+    },
   },
 };
 </script>
