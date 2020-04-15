@@ -176,17 +176,70 @@ export default {
     }
   },
   methods: {
-    create() {
-      axios.post('/employee', this.volunteer)
-        .then((response) => {
-          console.log(response);
-
-          if (response.status === 200) {
-            this.$destroy();
-            this.$router.push('/voluntario');
+    retrieve(id) {
+      axios.get(`/volunteer/${id}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o voluntário',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o voluntário',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o voluntário',
+              text: 'Problema na configuração da requisição',
+            });
           }
+        });
+    },
+    create() {
+      axios.post('/patient', this.form)
+        .then(() => {
+          this.$toast({
+            icon: 'success',
+            title: 'Voluntário adicionado com sucesso',
+          });
+          // this.$destroy();
+          this.$router.push('/voluntário');
         })
-        .catch(console.log);
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o voluntário',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o voluntário',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao adicionar o voluntário',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
     },
     update() { },
   },
