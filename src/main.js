@@ -5,6 +5,9 @@ import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
+// SweetAlert2
+import VueSweetalert2 from 'vue-sweetalert2';
+
 // Mask
 import VueTheMask from 'vue-the-mask';
 
@@ -18,6 +21,7 @@ import App from './App.vue';
 
 // --- USES ---
 Vue.use(BootstrapVue);
+Vue.use(VueSweetalert2);
 Vue.use(VueTheMask);
 
 // --- CONFIGS ---
