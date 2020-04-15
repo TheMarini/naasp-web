@@ -194,7 +194,7 @@ import axios from 'axios';
 // import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:4242';
+axios.defaults.baseURL = 'http://localhost:32807';
 
 export default {
   name: 'PatientForm',

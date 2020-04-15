@@ -118,7 +118,7 @@ import {
 
 import axios from 'axios';
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:4242';
+axios.defaults.baseURL = 'http://localhost:32807';
 
 export default {
   name: 'voluntario',
