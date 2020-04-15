@@ -5,15 +5,24 @@
         <users-icon size="2.3x" class="title-icon"></users-icon>
         <h2 class="ml-3 mb-0"><b>Acolhidos</b></h2>
       </div>
-      <router-link :to="'/acolhido/adicionar'">
-        <button
-          type="button" name="button"
-          class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        >
-          <plus-icon size="1.5x" class="add-icon"></plus-icon>
-          <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-        </button>
-      </router-link>
+      <div class="d-flex justify-content-between align-items-center">
+        <router-link :to="'/acolhido/rapido'" class="ml-2">
+          <button type="button" name="button" class="quick-btn btn py-2 px-3
+            d-flex align-items-center _rounded-100"
+          >
+            <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
+            <h5 class="mb-0 px-2"><b>Pré-cadastro</b></h5>
+          </button>
+        </router-link>
+        <router-link :to="'/acolhido/adicionar'" class="ml-2">
+          <button type="button" name="button" class="add-btn btn py-2 px-3
+            d-flex align-items-center _rounded-100"
+          >
+            <plus-icon size="1.5x" class="add-icon"></plus-icon>
+            <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+          </button>
+        </router-link>
+      </div>
     </header>
     <article class="mt-4">
       <b-table
@@ -67,7 +76,7 @@
 <script>
 // Icons
 import {
-  UsersIcon, PlusIcon, EditIcon, Trash2Icon,
+  UsersIcon, PlusIcon, EditIcon, Trash2Icon, ClipboardIcon,
 } from 'vue-feather-icons';
 
 // Axios
@@ -86,6 +95,7 @@ export default {
     PlusIcon,
     EditIcon,
     Trash2Icon,
+    ClipboardIcon,
   },
   mounted() {
     this.update();
@@ -283,6 +293,11 @@ header {
 
 .title-icon {
   stroke-width: 3px
+}
+
+.quick-btn {
+  color: #175D2B;
+  border: 3px solid #175D2B;
 }
 
 .add-btn {

@@ -3,7 +3,9 @@
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
-        <h2 class="ml-3 mb-0"><b>{{editMode ? 'Editar' :  'Adicionar' }} acolhido</b></h2>
+        <h2 class="ml-3 mb-0">
+          <b>{{quickMode ? 'Pré-cadastrar' : editMode ? 'Editar' :  'Adicionar' }} acolhido</b>
+        </h2>
       </div>
       <div class="steps d-flex">
         <step
@@ -32,8 +34,40 @@
         </VueCodeHighlight> -->
 
         <!-- TODO: consider switch to a nested vue-router -->
+        <QuickForm
+          v-show="quickMode"
+          :responsibleForm="true"
+          :name.sync="patient.name"
+          :rg.sync="patient.rg"
+          :cpf.sync="patient.cpf"
+          :sex.sync="patient.sex"
+          :matrialStatus.sync="patient.matrialStatus"
+          :educationLevel.sync="patient.educationLevel"
+          :jobRole.sync="patient.jobRole"
+          :birthDate.sync="patient.birthDate"
+          :age.sync="patient.age"
+          :isUnderAge.sync="patient.isUnderAge"
+          :religion.sync="patient.religion"
+          :placeOfBirth.sync="patient.placeOfBirth"
+          :nationality.sync="patient.nationality"
+          :publicPlace.sync="patient.address.publicPlace"
+          :addressNumber.sync="patient.address.number"
+          :addressComplement.sync="patient.address.complement"
+          :neighborhood.sync="patient.address.neighborhood"
+          :city.sync="patient.address.city"
+          :state.sync="patient.address.state"
+          :cep.sync="patient.address.cep"
+          :cellPhoneNumber.sync="patient.cellPhoneNumber"
+          :homePhoneNumber.sync="patient.homePhoneNumber"
+          :businessPhoneNumber.sync="patient.businessPhoneNumber"
+          :email.sync="patient.email"
+          :responsibleName.sync="patient.responsible.name"
+          :responsibleRg.sync="patient.responsible.rg"
+          :responsibleCpf.sync="patient.responsible.cpf"
+        ></QuickForm>
+
         <PersonalDataForm
-          v-show="currentStep === 1"
+          v-show="currentStep === 1 && !quickMode"
           :responsibleForm="true"
           :name.sync="patient.name"
           :rg.sync="patient.rg"
@@ -113,6 +147,12 @@
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
         <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
       </button>
+      <button  v-else-if="quickMode" @click="create" type="button" name="button"
+        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+      >
+        <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
+        <h5 class="mb-0 px-2"><b>Pré-cadastrar</b></h5>
+      </button>
       <button v-else-if="editMode" @click="update" type="button" name="button"
         class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
         <edit-icon size="1.5x" class="edit-icon"></edit-icon>
@@ -131,11 +171,14 @@
 <script>
 // Icons
 import {
-  PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon,
+  PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon, ClipboardIcon,
 } from 'vue-feather-icons';
 
 // Step dot
 import Step from '@/components/Step.vue';
+
+// Quick form
+import QuickForm from '@/components/forms/QuickForm.vue';
 
 // Form Steps
 import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
@@ -162,6 +205,8 @@ export default {
     ArrowLeftIcon,
     HeartIcon,
     EditIcon,
+    ClipboardIcon,
+    QuickForm,
     PersonalDataForm,
     FormStep2,
     FormStep3,
@@ -175,6 +220,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    quickMode: {
+      type: Boolean,
+      default: false,
+    },
+    steps: {
+      type: Number,
+      default: 5,
+    },
+    currentStep: {
+      type: Number,
+      default: 1,
+    },
   },
   mounted() {
     if (this.editMode || this.$route.params.id != null) {
@@ -183,6 +240,8 @@ export default {
         console.log('Patient:', this.patient);
       });
     }
+
+    if (this.quickMode) this.steps = 1;
   },
   data() {
     return {
@@ -203,8 +262,6 @@ export default {
         affiliation: {},
         others: {},
       },
-      steps: 5,
-      currentStep: 1,
     };
   },
   methods: {

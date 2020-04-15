@@ -47,6 +47,14 @@ const patient = [
     component: Patient,
   },
   {
+    path: '/acolhido/rapido',
+    name: 'patientQuickForm',
+    component: PatientForm,
+    props: {
+      quickMode: true,
+    },
+  },
+  {
     path: '/acolhido/adicionar',
     name: 'patientAdd',
     component: PatientForm,
