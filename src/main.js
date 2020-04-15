@@ -29,7 +29,7 @@ Vue.use(VueTheMask);
 Vue.prototype.$toast = function swalToast(object) {
   this.$swal.mixin({
     toast: true,
-    position: 'bottom-end',
+    position: 'bottom-start',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
