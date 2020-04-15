@@ -176,11 +176,6 @@ export default {
       default: false,
     },
   },
-  watch: {
-    $route() {
-      // this.$destroy();
-    },
-  },
   mounted() {
     if (this.editMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {

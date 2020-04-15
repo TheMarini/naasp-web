@@ -90,11 +90,6 @@ export default {
   mounted() {
     this.update();
   },
-  watch: {
-    // $route() {
-    //   this.update();
-    // },
-  },
   data() {
     return {
       patients: [],
