@@ -17,57 +17,72 @@
     <article class="mt-4">
       <b-table
         class="_rounded bg-white"
-        :items="items"
+        :items="volunteers"
         :fields="fields"
         :busy="isBusy"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
         primary-key="id"
         head-variant="dark"
-        responsive bordered hover
+        responsive bordered hover show-empty
       >
-      <template v-slot:cell(actions)="data">
-        <router-link :to="`/acolhido/editar/${data.item.idPerson}`">
-          <button type="button" name="button" class="edit-btn btn" title="Editar">
-            <edit-icon size="1.5x" class="edit-icon"></edit-icon>
+        <template v-slot:cell(actions)="data">
+          <router-link :to="`/acolhido/editar/${data.item.idPerson}`">
+            <button type="button" name="button" class="edit-btn btn" title="Editar">
+              <edit-icon size="1.5x" class="edit-icon"></edit-icon>
+            </button>
+          </router-link>
+          <button
+            @click="deleteData(data.index)"
+            class="edit-btn btn" title="Deletar"
+            type="button" name="button"
+          >
+            <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
           </button>
-        </router-link>
-        <button
-          @click="deleteData(data.index)"
-          class="edit-btn btn" title="Deletar"
-          type="button" name="button"
-        >
-          <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
-        </button>
-      </template>
-      <template v-slot:table-busy>
-        <div class="text-center text-dark my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Carregando...</strong>
-        </div>
-      </template>
+        </template>
+        <template v-slot:table-busy>
+          <div class="text-center text-dark my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Carregando...</strong>
+          </div>
+        </template>
+        <template v-slot:empty>
+          <p class="text-muted mb-0">Não há nenhum acolhido a ser exibido.</p>
+        </template>
       </b-table>
     </article>
   </div>
 </template>
 
 <script>
+// Icons
 import {
   UsersIcon, PlusIcon, EditIcon, Trash2Icon,
 } from 'vue-feather-icons';
 
+// Axios
 import axios from 'axios';
+
+// FakeDB
+import fakedb from '@/fakedb/welcomed.json';
+
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
-  name: 'voluntario',
+  name: 'Volunteer',
   components: {
     UsersIcon,
     PlusIcon,
     EditIcon,
     Trash2Icon,
   },
+  mounted() {
+    this.update();
+  },
   data() {
     return {
+      volunteers: [],
       fields: [
         {
           key: 'name',
@@ -87,43 +102,71 @@ export default {
           label: 'Ações',
         },
       ],
-      items: [],
-      isBusy: false,
+      isBusy: true,
+      sortBy: 'priority',
+      sortDesc: false,
     };
   },
-  watch: {
-    $route() {
-      this.updateData();
-    },
-  },
-  mounted() {
-    this.updateData();
-  },
   methods: {
-    async updateData() {
-      this.isBusy = true;
-      axios.get('/employee')
-        .then(async (response) => {
-          this.voluntarios = response.data;
-          console.log(this.voluntarios);
-          const voluntarios = response.data;
-          const persons = [];
+    update() {
+      axios.get('/volunteer')
+        .then((response) => {
+          this.patients = response.data;
+        }).catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de voluntários',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de voluntários',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de voluntários',
+              text: 'Problema na configuração da requisição',
+            });
+          }
 
-          // for (var i = 0; i < voluntarios.length; i++) {
-          //   await axios.get(`/person/?id=${acolhidos[i].idWelcomed}`)
-          //     .then(response => {
-          //       response.data.age = moment().diff(new Date(response.data.birthDate), 'years');
-          //       persons.push(response.data);
-          //     })
-          //     .catch(console.log)
-          // }
-          setTimeout(() => {
-            this.items = persons;
-            this.isBusy = false;
-            console.log(this.items);
-          }, 1000);
-        })
-        .catch(console.log);
+          // DEBUG
+          console.error(error);
+          console.warn('[WARN]', 'Error with request, using fake databse...');
+          this.volunteers = fakedb;
+        });
+
+      this.isBusy = false;
+
+      // axios.get('/employee')
+      //   .then(async (response) => {
+      //     this.voluntarios = response.data;
+      //     console.log(this.voluntarios);
+      //     const voluntarios = response.data;
+      //     const persons = [];
+      //
+      //     // for (var i = 0; i < voluntarios.length; i++) {
+      //     //   await axios.get(`/person/?id=${acolhidos[i].idWelcomed}`)
+      //     //     .then(response => {
+      //     //       response.data.age = moment().diff(new Date(response.data.birthDate), 'years');
+      //     //       persons.push(response.data);
+      //     //     })
+      //     //     .catch(console.log)
+      //     // }
+      //     setTimeout(() => {
+      //       this.volunteers = persons;
+      //       this.isBusy = false;
+      //       console.log(this.volunteers);
+      //     }, 1000);
+      //   })
+      //   .catch(console.log);
     },
     //
     // updateData () {
@@ -186,6 +229,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+/* Busy table styling */
+table.b-table[aria-busy='true'] {
+  opacity: 0.6;
+}
+
 header {
   color: #707070
 }
