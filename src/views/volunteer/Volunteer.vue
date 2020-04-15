@@ -27,7 +27,7 @@
         responsive bordered hover show-empty
       >
         <template v-slot:cell(actions)="data">
-          <router-link :to="`/acolhido/editar/${data.item.idPerson}`">
+          <router-link :to="`/voluntario/editar/${data.item.idPerson}`">
             <button type="button" name="button" class="edit-btn btn" title="Editar">
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
             </button>
