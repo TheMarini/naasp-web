@@ -55,7 +55,7 @@ import {
 } from 'vue-feather-icons';
 
 import axios from 'axios';
-// BUGFIX: same Vue CLI Service URL for CORS with Cue CLI proxy (look at "vue.config.js" file)
+// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:4242';
 
 export default {
