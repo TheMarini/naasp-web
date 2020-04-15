@@ -3,7 +3,7 @@
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
-        <h2 class="ml-3 mb-0"><b>{{addMethod ? 'Adicionar' : 'Editar' }} acolhido</b></h2>
+        <h2 class="ml-3 mb-0"><b>{{editMode ? 'Editar' :  'Adicionar' }} acolhido</b></h2>
       </div>
       <div class="steps d-flex">
         <step
@@ -12,7 +12,7 @@
           :key="index"
           :number="index"
           :active="index <= currentStep"
-          :addMethod="addMethod"
+          :editMode="editMode"
           @click.native="currentStep = index"
         ></step>
       </div>
@@ -106,23 +106,23 @@
         </button>
       </router-link>
       <button v-if="currentStep < steps" @click="currentStep++"
-        :style="[addMethod ? {} : { color: '#000', backgroundColor: '#E3DB4A' }]"
+        :style="[editMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
         type="button" name="button" class="next-btn btn py-2 px-3 d-flex
         align-items-center _rounded-100"
       >
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
         <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
       </button>
-      <button v-else-if="addMethod" @click="create" type="button" name="button"
+      <button v-else-if="editMode" @click="update" type="button" name="button"
+        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
+        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
+        <h5 class="mb-0 px-2"><b>Editar</b></h5>
+      </button>
+      <button v-else @click="create" type="button" name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
       >
         <plus-icon size="1.5x" class="add-icon"></plus-icon>
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-      </button>
-      <button v-else @click="update" type="button" name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
-        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
-        <h5 class="mb-0 px-2"><b>Editar</b></h5>
       </button>
     </footer>
   </div>
@@ -146,9 +146,6 @@ import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 
 // Axios
 import axios from 'axios';
-
-// FakeDB
-import fakedb from '@/fakedb/welcomed.json';
 
 // Code highlight
 // import { component as VueCodeHighlight } from 'vue-code-highlight';
@@ -174,13 +171,18 @@ export default {
   },
   props: {
     // Add or edit method
-    addMethod: {
+    editMode: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+  },
+  watch: {
+    $route() {
+      // this.$destroy();
     },
   },
   mounted() {
-    if (!this.addMethod) {
+    if (this.editMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
         this.patient = patient;
         console.log('Patient:', this.patient);
@@ -208,20 +210,37 @@ export default {
       },
       steps: 5,
       currentStep: 1,
-      patientId: null,
     };
   },
   methods: {
-    async retrieve(id) {
-      try {
-        return await axios.get(`/patient/${id}`)
-          .then((response) => response.data);
-      } catch (e) {
-        console.error(e);
-        console.warn('[WARN]', 'Error with request, using fake databse...');
-
-        return fakedb.find((w) => w.id === id);
-      }
+    retrieve(id) {
+      axios.get(`/welcomed/${id}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o acolhido',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o acolhido',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter o acolhido',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
     },
     create() {
       axios.post('/patient', this.form)

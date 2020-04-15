@@ -15,9 +15,9 @@ export default {
       type: Number,
       required: true,
     },
-    addMethod: {
+    editMode: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     active: {
       type: Boolean,
@@ -26,9 +26,9 @@ export default {
     activeStyle: {
       type: Object,
       default() {
-        if (this.addMethod) return { color: '#fff', backgroundColor: '#175D2B' };
+        if (this.editMode) return { color: '#000', backgroundColor: '#E3DB4A' };
 
-        return { color: '#000', backgroundColor: '#E3DB4A' };
+        return { color: '#fff', backgroundColor: '#175D2B' };
       },
     },
     defaultStyle: {

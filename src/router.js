@@ -56,7 +56,7 @@ const patient = [
     name: 'patientEdit',
     component: PatientForm,
     props: {
-      addMethod: false,
+      editMode: true,
     },
   },
 ];
