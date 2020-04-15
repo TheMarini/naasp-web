@@ -35,7 +35,7 @@ const volunteer = [
     name: 'volunteerEdit',
     component: VolunteerForm,
     props: {
-      addMethod: false,
+      updateMode: true,
     },
   },
 ];
@@ -64,7 +64,7 @@ const patient = [
     name: 'patientEdit',
     component: PatientForm,
     props: {
-      editMode: true,
+      updateMode: true,
     },
   },
 ];

@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center">
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
         <h2 class="ml-3 mb-0">
-          <b>{{quickMode ? 'Pré-cadastrar' : editMode ? 'Editar' :  'Adicionar' }} acolhido</b>
+          <b>{{quickMode ? 'Pré-cadastrar' : updateMode ? 'Editar' :  'Adicionar' }} acolhido</b>
         </h2>
       </div>
       <div class="steps d-flex">
@@ -14,7 +14,7 @@
           :key="index"
           :number="index"
           :active="index <= currentStep"
-          :editMode="editMode"
+          :updateMode="updateMode"
           @click.native="currentStep = index"
         ></step>
       </div>
@@ -140,7 +140,7 @@
         </button>
       </router-link>
       <button v-if="currentStep < steps" @click="currentStep++"
-        :style="[editMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
+        :style="[updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
         type="button" name="button" class="next-btn btn py-2 px-3 d-flex
         align-items-center _rounded-100"
       >
@@ -153,7 +153,7 @@
         <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
         <h5 class="mb-0 px-2"><b>Pré-cadastrar</b></h5>
       </button>
-      <button v-else-if="editMode" @click="update" type="button" name="button"
+      <button v-else-if="updateMode" @click="update" type="button" name="button"
         class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
         <edit-icon size="1.5x" class="edit-icon"></edit-icon>
         <h5 class="mb-0 px-2"><b>Editar</b></h5>
@@ -215,8 +215,8 @@ export default {
     // VueCodeHighlight,
   },
   props: {
-    // Add or edit method
-    editMode: {
+    // Create or update mode
+    updateMode: {
       type: Boolean,
       default: false,
     },
@@ -234,7 +234,7 @@ export default {
     },
   },
   mounted() {
-    if (this.editMode || this.$route.params.id != null) {
+    if (this.updateMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
         this.patient = patient;
         console.log('Patient:', this.patient);

@@ -15,7 +15,7 @@ export default {
       type: Number,
       required: true,
     },
-    editMode: {
+    updateMode: {
       type: Boolean,
       default: false,
     },
@@ -26,7 +26,7 @@ export default {
     activeStyle: {
       type: Object,
       default() {
-        if (this.editMode) return { color: '#000', backgroundColor: '#E3DB4A' };
+        if (this.updateMode) return { color: '#000', backgroundColor: '#E3DB4A' };
 
         return { color: '#fff', backgroundColor: '#175D2B' };
       },
