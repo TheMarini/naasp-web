@@ -83,6 +83,31 @@
         </div>
       </form>
     </section>
+    <section v-if="isUnderAge && responsibleForm">
+      <hr class="my-4">
+      <h4 class="section-title">RESPONSÁVEL</h4>
+      <form>
+        <div class="form-row">
+          <div class="form-group mb-0 col-md-6">
+            <label for="resp-name">Nome completo</label>
+            <input @input="$emit('update:responsibleName', $event.target.value)" type="text"
+              class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
+          </div>
+          <div class="form-group mb-0 col-md-3">
+            <label for="resp-rg">RG</label>
+            <the-mask @input.native="$emit('update:responsibleRg', $event.target.value)"
+              id="resp-rg" type="text" class="form-control _rounded" mask="##.###.###-#"
+              placeholder="12.345.678-9" />
+          </div>
+          <div class="form-group mb-0 col-md-3">
+            <label for="resp-cpf">CPF</label>
+            <the-mask @input.native="$emit('update:responsibleCpf', $event.target.value)"
+              id="resp-cpf" type="text" class="form-control _rounded" mask="###.###.###-##"
+              placeholder="123.456.789-10" />
+          </div>
+        </div>
+      </form>
+    </section>
     <hr class="my-4">
     <section>
       <h4 class="section-title">ENDEREÇO</h4>
@@ -157,31 +182,6 @@
             <label for="email">E-mail</label>
             <input @input="$emit('update:email', $event.target.value)" type="email"
               class="form-control _rounded" id="email" placeholder="douglas@exemplo.com">
-          </div>
-        </div>
-      </form>
-    </section>
-    <section v-if="isUnderAge && responsibleForm">
-      <hr class="my-4">
-      <h4 class="section-title">RESPONSÁVEL</h4>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="resp-name">Nome completo</label>
-            <input @input="$emit('update:responsibleName', $event.target.value)" type="text"
-              class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
-          </div>
-          <div class="form-group col-md-3">
-            <label for="resp-rg">RG</label>
-            <the-mask @input.native="$emit('update:responsibleRg', $event.target.value)"
-              id="resp-rg" type="text" class="form-control _rounded" mask="##.###.###-#"
-              placeholder="12.345.678-9" />
-          </div>
-          <div class="form-group col-md-3">
-            <label for="resp-cpf">CPF</label>
-            <the-mask @input.native="$emit('update:responsibleCpf', $event.target.value)"
-              id="resp-cpf" type="text" class="form-control _rounded" mask="###.###.###-##"
-              placeholder="123.456.789-10" />
           </div>
         </div>
       </form>

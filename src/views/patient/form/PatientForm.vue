@@ -82,6 +82,9 @@
           :religion.sync="patient.religion"
           :placeOfBirth.sync="patient.placeOfBirth"
           :nationality.sync="patient.nationality"
+          :responsibleName.sync="patient.responsible.name"
+          :responsibleRg.sync="patient.responsible.rg"
+          :responsibleCpf.sync="patient.responsible.cpf"
           :publicPlace.sync="patient.address.publicPlace"
           :addressNumber.sync="patient.address.number"
           :addressComplement.sync="patient.address.complement"
@@ -93,9 +96,6 @@
           :homePhoneNumber.sync="patient.contact.homePhoneNumber"
           :businessPhoneNumber.sync="patient.contact.businessPhoneNumber"
           :email.sync="patient.email"
-          :responsibleName.sync="patient.responsible.name"
-          :responsibleRg.sync="patient.responsible.rg"
-          :responsibleCpf.sync="patient.responsible.cpf"
         ></PersonalDataForm>
 
         <form-step-2
