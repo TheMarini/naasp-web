@@ -89,9 +89,9 @@
           :city.sync="patient.address.city"
           :state.sync="patient.address.state"
           :cep.sync="patient.address.cep"
-          :cellPhoneNumber.sync="patient.cellPhoneNumber"
-          :homePhoneNumber.sync="patient.homePhoneNumber"
-          :businessPhoneNumber.sync="patient.businessPhoneNumber"
+          :cellPhoneNumber.sync="patient.contact.cellPhoneNumber"
+          :homePhoneNumber.sync="patient.contact.homePhoneNumber"
+          :businessPhoneNumber.sync="patient.contact.businessPhoneNumber"
           :email.sync="patient.email"
           :responsibleName.sync="patient.responsible.name"
           :responsibleRg.sync="patient.responsible.rg"
@@ -247,9 +247,7 @@ export default {
     return {
       patient: {
         address: {},
-        contact: {
-          phoneNumber: {},
-        },
+        contact: {},
         responsible: {},
         family: {},
         money: {
