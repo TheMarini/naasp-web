@@ -15,9 +15,10 @@
               class="form-control _rounded" id="government-benefit-name" placeholder="-">
           </div>
           <div class="form-group col-md-4">
-            <label for="government-benefit-value">Valor</label>
-            <input @input="$emit('update:governmentBenefitValue', $event.target.value)" type="text"
-              class="form-control _rounded" id="government-benefit-value" placeholder="-">
+            <label for="government-benefit-value">Valor (R$)</label>
+            <input @input="$emit('update:governmentBenefitValue', parseFloat($event.target.value))"
+              type="number" class="form-control _rounded"
+              id="government-benefit-value" placeholder="-">
           </div>
         </div>
         <div class="form-row">
