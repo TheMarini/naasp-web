@@ -6,7 +6,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="name">Nome completo</label>
-            <input v-model="name" @input="$emit('update:name', $event.target.value)"
+            <input @input="$emit('update:name', $event.target.value)"
               type="text" class="form-control _rounded" id="name" placeholder="Douglas Adams"
             >
           </div>
@@ -203,9 +203,6 @@ export default {
     underAgeLimit: {
       type: Number,
       default: 17,
-    },
-    name: {
-      type: String,
     },
   },
   data() {
