@@ -4,25 +4,20 @@
       <h4 class="section-title">DADOS PESSOAIS</h4>
       <form>
         <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group mb-0"
+            :class="isUnderAge && responsibleForm ? 'col-md-4' : 'col-md-8'"
+          >
             <label for="name">Nome completo</label>
             <input v-model="name" @input="$emit('update:name', $event.target.value)"
               type="text" class="form-control _rounded" id="name" placeholder="Douglas Adams">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group mb-0 col-md-4">
             <label for="birth-date">Data de nascimento</label>
             <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
           </div>
-        </div>
-      </form>
-    </section>
-    <section v-if="isUnderAge && responsibleForm">
-      <hr class="my-4">
-      <h4 class="section-title">RESPONSÁVEL</h4>
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="resp-name">Nome completo</label>
+          <div class="form-group mb-0 col-md-4" v-show="isUnderAge && responsibleForm">
+            <label for="resp-name">Nome completo <b>do responsável</b>
+            </label>
             <input @input="$emit('update:responsibleName', $event.target.value)"
               type="text" class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
           </div>
@@ -54,15 +49,15 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-8" :class="isUnderAge ?  'mb-0' : ''">
+          <div class="form-group mb-0 col-md-8" :class="isUnderAge ?  'mb-0' : ''">
             <label for="email">E-mail</label>
             <input @input="$emit('update:email', $event.target.value)" type="email"
               class="form-control _rounded" id="email" placeholder="douglas@exemplo.com">
           </div>
-          <div class="form-group col-md-4">
-            <label for="priority">Preferência de Atendimento</label>
-            <select @input="$emit('update:priority', $event.target.value)"
-              class="custom-select _rounded" id="priority">
+          <div class="form-group mb-0 col-md-4">
+            <label for="contactTimePreference">Preferência de Atendimento</label>
+            <select @input="$emit('update:contactTimePreference', $event.target.value)"
+              class="custom-select _rounded" id="contactTimePreference">
               <option selected disabled>Escolha uma opção</option>
               <option value="0">Dia Útil - Manhã</option>
               <option value="1">Dia Útil - Tarde</option>
