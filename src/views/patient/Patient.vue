@@ -2,7 +2,7 @@
   <div class="voluntarios p-4">
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
-        <users-icon size="2.3x" class="title-icon"></users-icon>
+        <heart-icon size="2.3x" class="title-icon"></heart-icon>
         <h2 class="ml-3 mb-0"><b>Acolhidos</b></h2>
       </div>
       <div class="d-flex justify-content-between align-items-center">
@@ -76,7 +76,7 @@
 <script>
 // Icons
 import {
-  UsersIcon, PlusIcon, EditIcon, Trash2Icon, ClipboardIcon,
+  PlusIcon, EditIcon, Trash2Icon, ClipboardIcon, HeartIcon,
 } from 'vue-feather-icons';
 
 // Axios
@@ -91,11 +91,11 @@ axios.defaults.baseURL = 'http://localhost:32807';
 export default {
   name: 'Patient',
   components: {
-    UsersIcon,
     PlusIcon,
     EditIcon,
     Trash2Icon,
     ClipboardIcon,
+    HeartIcon,
   },
   mounted() {
     this.update();
