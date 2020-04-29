@@ -56,7 +56,7 @@
           :name.sync="patient.name"
           :rg.sync="patient.rg"
           :cpf.sync="patient.cpf"
-          :sex.sync="patient.sex"
+          :gender.sync="patient.gender"
           :matrialStatus.sync="patient.matrialStatus"
           :educationLevel.sync="patient.educationLevel"
           :jobRole.sync="patient.jobRole"

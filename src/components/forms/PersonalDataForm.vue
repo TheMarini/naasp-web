@@ -25,13 +25,14 @@
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="sex">Sexo</label>
-            <select @input="$emit('update:sex', $event.target.value)"
-              class="custom-select _rounded" id="sex"
+            <label for="gender">Gênero</label>
+            <select @input="$emit('update:gender', $event.target.value)"
+              class="custom-select _rounded" id="gender"
             >
               <option selected disabled>Escolha uma opção</option>
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
+              <option value="O">Outro</option>
             </select>
           </div>
           <div class="form-group col-md-3">
