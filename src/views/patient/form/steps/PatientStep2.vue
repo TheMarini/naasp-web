@@ -6,9 +6,9 @@
         Pessoas relevantes na vida do acolhido, que suportam direta/indiretamente,
         coabitando na mesma casa ou não:
       </p>
-      <form class="family-form shadow-sm _rounded">
+      <form class="family-form">
         <!-- TODO: consider a transformation of the elements below into a component -->
-        <div class="family-member _card p-3" :class="family.length > 1 ? 'mb-2' : ''"
+        <div class="family-member shadow-sm _card p-3" :class="family.length > 1 ? 'mb-2' : ''"
           v-for="(member, index) in family" :key="index">
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -268,9 +268,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.family-form {
-  max-height: 100vh;
-  overflow-y: auto;
+.family-member {
+  border: 2px solid #343a40
 }
 
 .family-member:last-child {
