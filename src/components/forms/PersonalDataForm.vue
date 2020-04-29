@@ -4,11 +4,23 @@
       <h4 class="section-title">DADOS PESSOAIS</h4>
       <form>
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-9">
             <label for="name">Nome completo</label>
             <input @input="$emit('update:name', $event.target.value)"
               type="text" class="form-control _rounded" id="name" placeholder="Douglas Adams"
             >
+          </div>
+          <div class="form-group col-md-3">
+            <label for="birth-date">Data de nascimento</label>
+            <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="cpf">CPF</label>
+            <the-mask @input.native="$emit('update:cpf', $event.target.value)" id="cpf"
+              type="text" class="form-control _rounded" mask="###.###.###-##"
+              placeholder="123.456.789-10" />
           </div>
           <div class="form-group col-md-3">
             <label for="rg">RG</label>
@@ -16,14 +28,6 @@
               type="text" class="form-control _rounded" mask="##.###.###-#"
               placeholder="12.345.678-9" />
           </div>
-          <div class="form-group col-md-3">
-            <label for="cpf">CPF</label>
-            <the-mask @input.native="$emit('update:cpf', $event.target.value)" id="cpf"
-              type="text" class="form-control _rounded" mask="###.###.###-##"
-              placeholder="123.456.789-10" />
-          </div>
-        </div>
-        <div class="form-row">
           <div class="form-group col-md-3">
             <label for="gender">Gênero</label>
             <select @input="$emit('update:gender', $event.target.value)"
@@ -47,13 +51,38 @@
               <option value="Viúvo">Viúvo</option>
             </select>
           </div>
+        </div>
+        <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="education-level">Escolaridade</label>
-            <input @input="$emit('update:educationLevel', $event.target.value)" type="text"
-              class="form-control _rounded" id="education-level"
-              placeholder="Ensino médio, graduação...">
+            <label for="education-level">Grau de escolaridade</label>
+            <select @input="$emit('update:educationLevel', $event.target.value)"
+              class="custom-select _rounded" id="education-level"
+            >
+              <option selected disabled>Escolha uma opção</option>
+              <option value="Analfabeto">Analfabeto</option>
+              <option value="Educação Infantil">Educação Infantil</option>
+              <option value="Ensino Fundamental">Ensino Fundamental</option>
+              <option value="Ensino Médio">Ensino Médio</option>
+              <option value="Técnico">Técnico</option>
+              <option value="Graduação">Graduação</option>
+              <option value="Pós-Graduação">Pós-Graduação</option>
+              <option value="Mestrado">Mestrado</option>
+              <option value="Doutorado">Doutorado</option>
+              <option value="Pós-Doutorado">Pós-Doutorado</option>
+            </select>
           </div>
           <div class="form-group col-md-3">
+            <label for="education-status">Estado de escolaridade</label>
+            <select @input="$emit('update:educationStatus', $event.target.value)"
+              class="custom-select _rounded" id="education-status"
+            >
+              <option selected disabled>Escolha uma opção</option>
+              <option value="Incompleto">Incompleto</option>
+              <option value="Em curso">Em curso</option>
+              <option value="Completo">Completo</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
             <label for="job-role">Cargo de trabalho</label>
             <input @input="$emit('update:jobRole', $event.target.value)" type="text"
               class="form-control _rounded" id="job-role"
@@ -61,16 +90,6 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-3 mb-0">
-            <label for="birth-date">Data de nascimento</label>
-            <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
-          </div>
-          <div class="form-group col-md-3 mb-0">
-            <label for="religion">Religião</label>
-            <input @input="$emit('update:religion', $event.target.value)" type="text"
-              class="form-control _rounded" id="religion"
-              placeholder="Cristianismo, Catolicismo, Ateu...">
-          </div>
           <div class="form-group col-md-3 mb-0">
             <label for="place-of-birth">Naturalidade</label>
             <input @input="$emit('update:placeOfBirth', $event.target.value)" type="text"
@@ -80,6 +99,12 @@
             <label for="nationality">Nacionalidade</label>
             <input @input="$emit('update:nationality', $event.target.value)" type="text"
               class="form-control _rounded" id="nationality" placeholder="Brasileira">
+          </div>
+          <div class="form-group col-md-6 mb-0">
+            <label for="religion">Religião</label>
+            <input @input="$emit('update:religion', $event.target.value)" type="text"
+              class="form-control _rounded" id="religion"
+              placeholder="Cristianismo, Catolicismo, Ateu...">
           </div>
         </div>
       </form>
