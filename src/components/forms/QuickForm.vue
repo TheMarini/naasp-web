@@ -4,9 +4,7 @@
       <h4 class="section-title">DADOS PESSOAIS</h4>
       <form>
         <div class="form-row">
-          <div class="form-group mb-0"
-            :class="isUnderAge && responsibleForm ? 'col-md-4' : 'col-md-8'"
-          >
+          <div class="form-group mb-0 col-md-8">
             <label for="name">Nome completo</label>
             <input v-model="name" @input="$emit('update:name', $event.target.value)"
               type="text" class="form-control _rounded" id="name" placeholder="Douglas Adams">
@@ -15,8 +13,16 @@
             <label for="birth-date">Data de nascimento</label>
             <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
           </div>
-          <div class="form-group mb-0 col-md-4" v-show="isUnderAge && responsibleForm">
-            <label for="resp-name">Nome completo <b>do responsável</b>
+        </div>
+      </form>
+    </section>
+    <section v-show="isUnderAge && responsibleForm">
+      <hr class="my-4">
+      <h4 class="section-title">RESPONSÁVEL</h4>
+      <form>
+        <div class="form-row">
+          <div class="form-group mb-0 col-md-12" >
+            <label for="resp-name">Nome completo
             </label>
             <input @input="$emit('update:responsibleName', $event.target.value)"
               type="text" class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
