@@ -85,6 +85,7 @@
 
         <form-step-2
           v-show="currentStep === 2"
+          :family.sync="patient.family"
           :governmentBenefitName.sync="patient.money.governmentBenefit.name"
           :governmentBenefitValue.sync="patient.money.governmentBenefit.value"
           :familyIncomeComments.sync="patient.money.familyIncomeComments"
@@ -231,10 +232,11 @@ export default {
   data() {
     return {
       patient: {
+        education: {},
         address: {},
         contact: {},
         responsible: {},
-        family: {},
+        family: [],
         money: {
           governmentBenefit: {},
         },
