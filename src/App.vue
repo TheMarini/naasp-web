@@ -52,6 +52,14 @@ a, a:hover {
   border-radius: 10px !important
 }
 
+.delete-icon {
+  transition: .3s
+}
+
+.delete-icon:hover {
+  color: indianred
+}
+
 /* --- TRANSITIONS --- */
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s;
