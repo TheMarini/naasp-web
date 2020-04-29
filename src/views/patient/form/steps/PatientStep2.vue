@@ -115,13 +115,14 @@
           <div class="form-group col-md-8">
             <label for="government-benefit-name">Benefício financeiro governamental</label>
             <input @input="$emit('update:governmentBenefitName', $event.target.value)" type="text"
-              class="form-control _rounded" id="government-benefit-name" placeholder="-">
+              class="form-control _rounded" id="government-benefit-name"
+              placeholder="Bolsa Família">
           </div>
           <div class="form-group col-md-4">
             <label for="government-benefit-value">Valor (R$)</label>
             <input @input="$emit('update:governmentBenefitValue', parseFloat($event.target.value))"
               type="number" class="form-control _rounded"
-              id="government-benefit-value" placeholder="-">
+              id="government-benefit-value" placeholder="41,00">
           </div>
         </div>
         <div class="form-row">
