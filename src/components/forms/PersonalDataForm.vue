@@ -187,19 +187,19 @@
           <div class="form-group col-md-4">
             <label for="cell-phone-number">Telefone celular</label>
             <the-mask @input.native="$emit('update:cellPhoneNumber', $event.target.value)"
-              id="cell-phone-number" type="tel" class="form-control _rounded"
+              id="cell-phone-number" type="tel" class="form-control _rounded" masked
               :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 9 1234-5678" />
           </div>
           <div class="form-group col-md-4">
             <label for="home-phone-number">Telefone residencial</label>
             <the-mask @input.native="$emit('update:homePhoneNumber', $event.target.value)"
-              id="home-phone-number" type="tel" class="form-control _rounded"
+              id="home-phone-number" type="tel" class="form-control _rounded" masked
               :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
           </div>
           <div class="form-group col-md-4">
             <label for="business-phone-number">Telefone comercial</label>
             <the-mask @input.native="$emit('update:businessPhoneNumber', $event.target.value)"
-              id="business-phone-number" type="tel" class="form-control _rounded"
+              id="business-phone-number" type="tel" class="form-control _rounded" masked
               :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
           </div>
         </div>
