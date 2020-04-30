@@ -22,6 +22,8 @@ export default {
 };
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 <style>
 /* Change this import to the local font files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700,900&display=swap');
@@ -52,10 +54,17 @@ a, a:hover {
   border-radius: 10px !important
 }
 
+.multiselect__tags {
+  border-radius: 10px
+}
+.multiselect__content-wrapper {
+  border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 .delete-icon {
   transition: .3s
 }
-
 .delete-icon:hover {
   color: indianred
 }
