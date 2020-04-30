@@ -2,22 +2,32 @@
   <div class="voluntarios p-4">
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
-        <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
+        <heart-icon size="2.3x" class="title-icon"></heart-icon>
+        <h2 class="ml-3 mb-0"><b>Acolhidos</b></h2>
       </div>
-      <router-link :to="'/voluntario/adicionar'">
-        <button type="button" name="button"
-          class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        >
-          <plus-icon size="1.5x" class="add-icon"></plus-icon>
-          <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-        </button>
-      </router-link>
+      <div class="d-flex justify-content-between align-items-center">
+        <router-link :to="'/acolhido/rapido'" class="ml-2">
+          <button type="button" name="button" class="quick-btn btn py-2 px-3
+            d-flex align-items-center _rounded-100"
+          >
+            <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
+            <h5 class="mb-0 px-2"><b>Pré-cadastro</b></h5>
+          </button>
+        </router-link>
+        <router-link :to="'/acolhido/adicionar'" class="ml-2">
+          <button type="button" name="button" class="add-btn btn py-2 px-3
+            d-flex align-items-center _rounded-100"
+          >
+            <plus-icon size="1.5x" class="add-icon"></plus-icon>
+            <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+          </button>
+        </router-link>
+      </div>
     </header>
     <article class="mt-4">
       <b-table
-        class="_rounded bg-white"
-        :items="volunteers"
+        class="table _rounded bg-white"
+        :items="patients"
         :fields="fields"
         :busy="isBusy"
         :sort-by.sync="sortBy"
@@ -26,16 +36,25 @@
         head-variant="dark"
         responsive bordered hover show-empty
       >
+        <template v-slot:cell(priority)="data">
+          <b-badge :variant="priorityClass(data.item.priority)">
+            {{priorityText(data.item.priority)}}
+          </b-badge>
+        </template>
+        <template v-slot:cell(status)="data">
+          <b-badge pill variant="light">
+            {{data.item.status}} - {{statusText(data.item.status)}}
+          </b-badge>
+        </template>
         <template v-slot:cell(actions)="data">
-          <router-link :to="`/voluntario/editar/${data.item.idPerson}`">
+          <router-link :to="`/acolhido/editar/${data.item.id}`">
             <button type="button" name="button" class="edit-btn btn" title="Editar">
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
             </button>
           </router-link>
           <button
-            @click="deleteData(data.index)"
+            @click="deleteData(data.item.id)" type="button" name="button"
             class="edit-btn btn" title="Deletar"
-            type="button" name="button"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
           </button>
@@ -57,7 +76,7 @@
 <script>
 // Icons
 import {
-  UsersIcon, PlusIcon, EditIcon, Trash2Icon,
+  PlusIcon, EditIcon, Trash2Icon, ClipboardIcon, HeartIcon,
 } from 'vue-feather-icons';
 
 // Axios
@@ -70,19 +89,20 @@ import fakedb from '@/fakedb/welcomed.json';
 axios.defaults.baseURL = 'http://localhost:32807';
 
 export default {
-  name: 'Volunteer',
+  name: 'Patient',
   components: {
-    UsersIcon,
     PlusIcon,
     EditIcon,
     Trash2Icon,
+    ClipboardIcon,
+    HeartIcon,
   },
   mounted() {
     this.update();
   },
   data() {
     return {
-      volunteers: [],
+      patients: [],
       fields: [
         {
           key: 'name',
@@ -90,13 +110,27 @@ export default {
           sortable: true,
         },
         {
-          key: 'age',
-          label: 'Idade',
+          key: 'cpf',
+          label: 'CPF',
+        },
+        {
+          key: 'cellPhoneNumber',
+          label: 'Telefone Celular',
+        },
+        {
+          key: 'email',
+          label: 'E-mail',
+        },
+        {
+          key: 'priority',
+          label: 'Prioridade',
           sortable: true,
         },
-        'RG',
-        'CPF',
-        'email',
+        {
+          key: 'status',
+          label: 'Estado',
+          sortable: true,
+        },
         {
           key: 'actions',
           label: 'Ações',
@@ -109,7 +143,9 @@ export default {
   },
   methods: {
     update() {
-      axios.get('/volunteer')
+      this.isBusy = true;
+
+      axios.get('/welcomed')
         .then((response) => {
           this.patients = response.data;
         }).catch((error) => {
@@ -118,21 +154,21 @@ export default {
             // that falls out of the range of 2xx
             this.$toast({
               icon: 'error',
-              title: 'Erro ao obter a lista de voluntários',
+              title: 'Erro ao obter a lista de acolhidos',
               text: `${error.response.status} - ${error.response.statusText}`,
             });
           } else if (error.request) {
             // The request was made but no response was received
             this.$toast({
               icon: 'error',
-              title: 'Erro ao obter a lista de voluntários',
+              title: 'Erro ao obter a lista de acolhidos',
               text: 'Não houve resposta da requisição',
             });
           } else {
             // Something happened in setting up the request that triggered an Error
             this.$toast({
               icon: 'error',
-              title: 'Erro ao obter a lista de voluntários',
+              title: 'Erro ao obter a lista de acolhidos',
               text: 'Problema na configuração da requisição',
             });
           }
@@ -140,7 +176,7 @@ export default {
           // DEBUG
           // console.error(error);
           // console.warn('[WARN]', 'Error with request, using fake databse...');
-          this.volunteers = fakedb;
+          this.patients = fakedb;
         });
 
       this.isBusy = false;
@@ -160,7 +196,7 @@ export default {
             .then(() => {
               this.$toast({
                 icon: 'success',
-                title: 'Voluntário deletado com sucesso',
+                title: 'Acolhido deletado com sucesso',
               });
             }).catch((error) => {
               if (error.response) {
@@ -168,27 +204,78 @@ export default {
                 // that falls out of the range of 2xx
                 this.$toast({
                   icon: 'error',
-                  title: 'Erro ao deletar o voluntário',
+                  title: 'Erro ao deletar o acolhido',
                   text: `${error.response.status} - ${error.response.statusText}`,
                 });
               } else if (error.request) {
                 // The request was made but no response was received
                 this.$toast({
                   icon: 'error',
-                  title: 'Erro ao deletar o voluntário',
+                  title: 'Erro ao deletar o acolhido',
                   text: 'Não houve resposta da requisição',
                 });
               } else {
                 // Something happened in setting up the request that triggered an Error
                 this.$toast({
                   icon: 'error',
-                  title: 'Erro ao deletar o voluntário',
+                  title: 'Erro ao deletar o acolhido',
                   text: 'Problema na configuração da requisição',
                 });
               }
             });
         }
       });
+    },
+    priorityClass(level) {
+      switch (level) {
+        case 0:
+          return 'danger';
+        case 1:
+          return 'warning';
+        case 2:
+          return 'secondary';
+        case 3:
+          return 'info';
+        default:
+          return 'light';
+      }
+    },
+    // TODO: This info bellow should be in the database
+    priorityText(level) {
+      switch (level) {
+        case 0:
+          return 'Urgente';
+        case 1:
+          return 'Alta';
+        case 2:
+          return 'Média';
+        case 3:
+          return 'Baixa';
+        default:
+          return '';
+      }
+    },
+    // TODO: This info bellow should be in the database
+    statusText(level) {
+      switch (level) {
+        case 1:
+          return 'Desistente';
+        case 2:
+          return 'Primeiro contato';
+        case 3:
+          return 'Esperando triagem';
+        case 4:
+          return 'Em triagem';
+        case 5:
+          return 'Esperando atendimento';
+        case 6:
+          return 'Em atendimento';
+        case 7:
+          return 'Alta médica';
+        case 0:
+        default:
+          return 'Indefinido';
+      }
     },
   },
 };
@@ -208,8 +295,18 @@ header {
   stroke-width: 3px
 }
 
+.quick-btn {
+  color: #175D2B;
+  border: 3px solid #175D2B;
+}
+
 .add-btn {
   color: white;
   background-color: #175D2B;
+}
+
+/* Table */
+.table >>> tr[role="row"]:not(.b-table-details) {
+  cursor: pointer !important;
 }
 </style>

@@ -3,60 +3,70 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // ~ Pages ~
+// Home
 import Home from './views/Home.vue';
 
 // Volunteer
 import Volunteer from './views/volunteer/Volunteer.vue';
 import VolunteerForm from './views/volunteer/form/VolunteerForm.vue';
 
-// Welcomed
-import Welcomed from './views/welcomed/Welcomed.vue';
-import WelcomedForm from './views/welcomed/form/WelcomedForm.vue';
+// Patient
+import Patient from './views/patient/Patient.vue';
+import PatientForm from './views/patient/form/PatientForm.vue';
 
 // Use vue-router
 Vue.use(Router);
 
+// --- PATHS ---
 // TODO: check a better way to do this
-let volunteer = [
-	{
-		path: '/voluntario',
-		name: 'volunteer',
-		component: Volunteer,
-	},
-	{
-		path: '/voluntario/adicionar',
-		name: 'volunteerAdd',
-		component: VolunteerForm,
-	},
-	{
-		path: '/voluntario/editar/:id',
-		name: 'volunteerEdit',
-		component: VolunteerForm,
-		props: {
-			addMethod: false
-		}
-	}
+const volunteer = [
+  {
+    path: '/voluntario',
+    name: 'volunteer',
+    component: Volunteer,
+  },
+  {
+    path: '/voluntario/adicionar',
+    name: 'volunteerAdd',
+    component: VolunteerForm,
+  },
+  {
+    path: '/voluntario/editar/:id',
+    name: 'volunteerEdit',
+    component: VolunteerForm,
+    props: {
+      updateMode: true,
+    },
+  },
 ];
 
-let welcomed = [
-	{
-		path: '/acolhido',
-		name: 'welcomed',
-		component: Welcomed,
-	},
-	{
-		path: '/acolhido/adicionar',
-		name: 'welcomedAdd',
-		component: WelcomedForm,
-	},
-	{
-		path: '/acolhido/editar/:id',
-		name: 'welcomedEdit',
-		component: WelcomedForm,
-		props: {
-			addMethod: false
-		}
-	}
+const patient = [
+  {
+    path: '/acolhido',
+    name: 'patient',
+    component: Patient,
+  },
+  {
+    path: '/acolhido/rapido',
+    name: 'patientQuickForm',
+    component: PatientForm,
+    props: {
+      quickMode: true,
+    },
+  },
+  {
+    path: '/acolhido/adicionar',
+    name: 'patientAdd',
+    component: PatientForm,
+  },
+  {
+    path: '/acolhido/editar/:id',
+    name: 'patientEdit',
+    component: PatientForm,
+    props: {
+      updateMode: true,
+    },
+  },
 ];
 
 // --- EXPORT ---
@@ -69,7 +79,7 @@ export default new Router({
       name: 'home',
       component: Home,
     },
-		...volunteer,
-		...welcomed,
+    ...volunteer,
+    ...patient,
   ],
 });

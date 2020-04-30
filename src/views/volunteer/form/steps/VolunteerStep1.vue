@@ -1,73 +1,162 @@
 <template lang="html">
-	<div class="form-step">
-		<section>
-			<h4 class="section-title">PAPEL</h4>
-			<div class="d-flex">
-				<button @click="userType = 0" :class="userType === 0 ? 'active' : ''" class="_card btn btn-light text-center d-flex flex-column justify-content-center align-items-center">
-					<activity-icon size="1.5x" class="custom-class"></activity-icon>
-					<p class="mb-0 mt-2">Médica</p>
-				</button>
-				<button @click="userType = 1" :class="userType === 1 ? 'active' : ''" class="_card btn btn-light ml-3 text-center d-flex flex-column justify-content-center align-items-center">
-					<book-open-icon size="1.5x" class="custom-class"></book-open-icon>
-					<p class="mb-0 mt-2">Secretária</p>
-				</button>
-				<button @click="userType = 2" :class="userType === 2 ? 'active' : ''" class="_card btn btn-light ml-3 text-center d-flex flex-column justify-content-center align-items-center">
-					<clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
-					<p class="mb-0 mt-2">Assitente <br> Social</p>
-				</button>
-			</div>
-		</section>
-	</div>
+  <div class="form-step">
+    <section>
+      <h4 class="section-title">PAPEL</h4>
+      <p>Qual será o papel do voluntário na NAASP?</p>
+      <div class="row">
+        <div class="col-auto">
+          <button @click="user.type = 0" :class="user.type === 0 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center
+            align-items-center"
+          >
+            <activity-icon size="1.5x" class="custom-class"></activity-icon>
+            <p class="mb-0 mt-2">Médica</p>
+          </button>
+        </div>
+        <div class="col-auto">
+          <button @click="user.type = 1" :class="user.type === 1 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center
+              align-items-center"
+            >
+            <book-open-icon size="1.5x" class="custom-class"></book-open-icon>
+            <p class="mb-0 mt-2">Secretária</p>
+          </button>
+        </div>
+        <div class="col-auto">
+          <button @click="user.type = 2" :class="user.type === 2 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center
+              align-items-center"
+            >
+            <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
+            <p class="mb-0 mt-2">Assitente <br> Social</p>
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="mt-4" v-if="user.type === 0">
+      <h4 class="section-title">ATENDIMENTO</h4>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="specialty">Especialidade</label>
+          <multiselect id="specialty" v-model="user.specialties" :options="specialtiesOptions"
+            track-by="id" label="name" :multiple="true" :taggable="true" @tag="createTag"
+            @remove="deleteUnnusedCreatedTags"
+            openDirection="bottom" tag-laceholder="Adicionar nova especialidade"
+            placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+            selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+          >
+          </multiselect>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="specialty">Faixa etária de atendimento</label>
+          <multiselect id="age-range" v-model="user.ageRangesOfCare"
+            :options="ageRangesOfCareOptions"
+            track-by="id" label="name" :multiple="true" openDirection="bottom" :searchable="false"
+            placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+            selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+          >
+          </multiselect>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
-import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons'
+// Icons
+import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons';
+
+// Multiselect
+import Multiselect from 'vue-multiselect';
 
 export default {
-	name: 'form-step-1',
-	components: {
-		ActivityIcon,
-		BookOpenIcon,
-		ClipboardIcon
-	},
-	data() {
-		return {
-			userType: null
-		}
-	},
-	watch: {
-		userType: function () {
-			let type;
+  name: 'form-step-1',
+  components: {
+    ActivityIcon,
+    BookOpenIcon,
+    ClipboardIcon,
+    Multiselect,
+  },
+  mounted() {
+    this.user.ageRangesOfCare = [...this.ageRangesOfCareOptions];
+  },
+  watch: {
+    'user.type': {
+      handler() {
+        let type;
 
-			switch (this.userType) {
-				case 0:
-					type = "medic";
-					break;
+        switch (this.user.type) {
+          case 0:
+            type = 'medic';
+            break;
 
-				case 1:
-					type = "secretary";
-					break;
+          case 1:
+            type = 'secretary';
+            break;
 
-				case 2:
-					type = "social worker";
-					break;
-			}
+          case 2:
+            type = 'social worker';
+            break;
 
-			this.$emit('update:type', type);
-		}
-	},
+          default:
+            type = null;
+            break;
+        }
+        this.$emit('update:type', type);
+      },
+    },
+  },
+  data() {
+    return {
+      user: {
+        type: null,
+        specialties: [],
+        ageRangesOfCare: [],
+      },
+      newTagsId: [],
+      specialtiesOptions: [
+        { id: 0, name: 'Psicólogo' },
+        { id: 1, name: 'Dentista' },
+        { id: 2, name: 'Ginecologista' },
+      ],
+      ageRangesOfCareOptions: [
+        { id: 0, name: 'Até 16 anos' },
+        { id: 1, name: 'De 17 a 65 anos' },
+        { id: 2, name: 'Acima de 66 anos' },
+      ],
+    };
+  },
+  methods: {
+    createTag(name) {
+      const tag = {
+        id: this.specialtiesOptions[this.specialtiesOptions.length - 1].id + 1,
+        name,
+      };
+      this.newTagsId.push(tag.id);
+      this.specialtiesOptions.push(tag);
+      this.user.specialties.push(tag);
+    },
+    deleteUnnusedCreatedTags(option) {
+      if (this.newTagsId.find((t) => t === option.id)) {
+        const index = this.specialtiesOptions.findIndex((s) => s.id === option.id);
+        this.specialtiesOptions.splice(index, 1);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="css" scoped>
 ._card {
-	height: 150px;
-	width: 150px;
-	cursor: pointer;
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
 }
 
 ._card.active {
-	color: #fff !important;
-	background-color: #707070 !important;
+  color: #fff !important;
+  background-color: #707070 !important;
 }
 </style>
