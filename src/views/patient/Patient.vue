@@ -145,7 +145,7 @@ export default {
     update() {
       this.isBusy = true;
 
-      axios.get('/welcomed')
+      axios.get('/acolhido')
         .then((response) => {
           this.patients = response.data;
         }).catch((error) => {
