@@ -33,22 +33,27 @@
 
         <form-step-1
           v-show="currentStep === 1"
-          :type.sync="volunteer.type"
+          :volunteerType.sync="volunteer.type"
+          :volunteerSpecialties.sync="volunteer.specialties"
+          :volunteerAgeRangesOfCare.sync="volunteer.ageRangesOfCare"
         ></form-step-1>
 
         <PersonalDataForm
           v-show="currentStep === 2"
           :name.sync="volunteer.name"
-          :rg.sync="volunteer.rg"
-          :cpf.sync="volunteer.cpf"
-          :sex.sync="volunteer.sex"
-          :matrialStatus.sync="volunteer.matrialStatus"
-          :educationLevel.sync="volunteer.educationLevel"
-          :jobRole.sync="volunteer.jobRole"
           :birthDate.sync="volunteer.birthDate"
-          :religion.sync="volunteer.religion"
+          :age.sync="volunteer.age"
+          :isUnderAge.sync="volunteer.isUnderAge"
+          :cpf.sync="volunteer.cpf"
+          :rg.sync="volunteer.rg"
+          :gender.sync="volunteer.gender"
+          :matrialStatus.sync="volunteer.matrialStatus"
+          :educationLevel.sync="volunteer.education.level"
+          :educationStatus.sync="volunteer.education.status"
+          :jobRole.sync="volunteer.jobRole"
           :placeOfBirth.sync="volunteer.placeOfBirth"
           :nationality.sync="volunteer.nationality"
+          :religion.sync="volunteer.religion"
           :publicPlace.sync="volunteer.address.publicPlace"
           :addressNumber.sync="volunteer.address.number"
           :addressComplement.sync="volunteer.address.complement"
@@ -56,10 +61,10 @@
           :city.sync="volunteer.address.city"
           :state.sync="volunteer.address.state"
           :cep.sync="volunteer.address.cep"
-          :cellPhoneNumber.sync="volunteer.contact.phoneNumber.cell"
-          :homePhoneNumber.sync="volunteer.contact.phoneNumber.home"
-          :businessPhoneNumber.sync="volunteer.contact.phoneNumber.business"
-          :email.sync="volunteer.contact.email"
+          :cellPhoneNumber.sync="volunteer.contact.cellPhoneNumber"
+          :homePhoneNumber.sync="volunteer.contact.homePhoneNumber"
+          :businessPhoneNumber.sync="volunteer.contact.businessPhoneNumber"
+          :email.sync="volunteer.email"
         ></PersonalDataForm>
 
         <!-- <form-step-3
@@ -160,10 +165,9 @@ export default {
   data() {
     return {
       volunteer: {
+        education: {},
         address: {},
-        contact: {
-          phoneNumber: {},
-        },
+        contact: {},
       },
     };
   },

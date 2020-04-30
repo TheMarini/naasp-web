@@ -5,7 +5,7 @@
       <p>Qual será o papel do voluntário na NAASP?</p>
       <div class="row">
         <div class="col-auto">
-          <button @click="user.type = 0" :class="user.type === 0 ? 'active' : ''"
+          <button @click="volunteer.type = 0" :class="volunteer.type === 0 ? 'active' : ''"
             class="_card btn btn-light text-center d-flex flex-column justify-content-center
             align-items-center"
           >
@@ -14,7 +14,7 @@
           </button>
         </div>
         <div class="col-auto">
-          <button @click="user.type = 1" :class="user.type === 1 ? 'active' : ''"
+          <button @click="volunteer.type = 1" :class="volunteer.type === 1 ? 'active' : ''"
             class="_card btn btn-light text-center d-flex flex-column justify-content-center
               align-items-center"
             >
@@ -23,7 +23,7 @@
           </button>
         </div>
         <div class="col-auto">
-          <button @click="user.type = 2" :class="user.type === 2 ? 'active' : ''"
+          <button @click="volunteer.type = 2" :class="volunteer.type === 2 ? 'active' : ''"
             class="_card btn btn-light text-center d-flex flex-column justify-content-center
               align-items-center"
             >
@@ -33,12 +33,12 @@
         </div>
       </div>
     </section>
-    <section class="mt-4" v-if="user.type === 0">
+    <section class="mt-4" v-if="volunteer.type === 0">
       <h4 class="section-title">ATENDIMENTO</h4>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="specialty">Especialidade</label>
-          <multiselect id="specialty" v-model="user.specialties" :options="specialtiesOptions"
+          <multiselect id="specialty" v-model="volunteer.specialties" :options="specialtiesOptions"
             track-by="id" label="name" :multiple="true" :taggable="true" @tag="createTag"
             @remove="deleteUnnusedCreatedTags"
             openDirection="bottom" tag-laceholder="Adicionar nova especialidade"
@@ -50,7 +50,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="specialty">Faixa etária de atendimento</label>
-          <multiselect id="age-range" v-model="user.ageRangesOfCare"
+          <multiselect id="age-range" v-model="volunteer.ageRangesOfCare"
             :options="ageRangesOfCareOptions"
             track-by="id" label="name" :multiple="true" openDirection="bottom" :searchable="false"
             placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
@@ -80,37 +80,52 @@ export default {
     Multiselect,
   },
   mounted() {
-    this.user.ageRangesOfCare = [...this.ageRangesOfCareOptions];
+    this.volunteer.ageRangesOfCare = [...this.ageRangesOfCareOptions];
   },
   watch: {
-    'user.type': {
-      handler() {
-        let type;
-
-        switch (this.user.type) {
-          case 0:
-            type = 'medic';
-            break;
-
-          case 1:
-            type = 'secretary';
-            break;
-
-          case 2:
-            type = 'social worker';
-            break;
-
-          default:
-            type = null;
-            break;
-        }
-        this.$emit('update:type', type);
+    'volunteer.type': {
+      handler(type) {
+        this.$emit('update:volunteerType', type);
       },
     },
+    'volunteer.specialties': {
+      handler(specialties) {
+        this.$emit('update:volunteerSpecialties', specialties);
+      },
+    },
+    'volunteer.ageRangesOfCare': {
+      handler(ageRangesOfCare) {
+        this.$emit('update:volunteerAgeRangesOfCare', ageRangesOfCare);
+      },
+    },
+    // 'user.type': {
+    //   handler() {
+    //     let type;
+    //
+    //     switch (this.user.type) {
+    //       case 0:
+    //         type = 'medic';
+    //         break;
+    //
+    //       case 1:
+    //         type = 'secretary';
+    //         break;
+    //
+    //       case 2:
+    //         type = 'social worker';
+    //         break;
+    //
+    //       default:
+    //         type = null;
+    //         break;
+    //     }
+    //     this.$emit('update:type', type);
+    //   },
+    // },
   },
   data() {
     return {
-      user: {
+      volunteer: {
         type: null,
         specialties: [],
         ageRangesOfCare: [],
@@ -136,7 +151,7 @@ export default {
       };
       this.newTagsId.push(tag.id);
       this.specialtiesOptions.push(tag);
-      this.user.specialties.push(tag);
+      this.volunteer.specialties.push(tag);
     },
     deleteUnnusedCreatedTags(option) {
       if (this.newTagsId.find((t) => t === option.id)) {
