@@ -29,10 +29,6 @@
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
 
-        <!-- <VueCodeHighlight>
-         {{JSON.stringify(welcomed, null, 2)}}
-        </VueCodeHighlight> -->
-
         <!-- TODO: consider switch to a nested vue-router -->
         <QuickForm
           v-show="quickMode"
@@ -151,6 +147,9 @@
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
     </footer>
+    <VueCodeHighlight v-show="false">
+     {{JSON.stringify(patient, null, 2)}}
+    </VueCodeHighlight>
   </div>
 </template>
 
@@ -177,7 +176,7 @@ import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 import axios from 'axios';
 
 // Code highlight
-// import { component as VueCodeHighlight } from 'vue-code-highlight';
+import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 // BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
 axios.defaults.baseURL = 'http://localhost:32807';
@@ -198,7 +197,7 @@ export default {
     FormStep3,
     FormStep4,
     FormStep5,
-    // VueCodeHighlight,
+    VueCodeHighlight,
   },
   props: {
     // Create or update mode

@@ -27,10 +27,6 @@
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
 
-        <!-- <VueCodeHighlight>
-         {{JSON.stringify(volunteer, null, 2)}}
-        </VueCodeHighlight> -->
-
         <form-step-1
           v-show="currentStep === 1"
           :volunteerType.sync="volunteer.type"
@@ -102,12 +98,16 @@
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
     </footer>
+
+    <VueCodeHighlight v-show="false">
+     {{JSON.stringify(volunteer, null, 2)}}
+    </VueCodeHighlight>
   </div>
 </template>
 
 <script>
 // Code highlight
-// import { component as VueCodeHighlight } from 'vue-code-highlight';
+import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 // Step dot
 import Step from '@/components/Step.vue';
@@ -128,7 +128,7 @@ axios.defaults.baseURL = 'http://localhost:32807';
 export default {
   name: 'voluntario',
   components: {
-    // VueCodeHighlight,
+    VueCodeHighlight,
     Step,
     UsersIcon,
     PlusIcon,
