@@ -174,8 +174,8 @@ export default {
           }
 
           // DEBUG
-          console.error(error);
-          console.warn('[WARN]', 'Error with request, using fake databse...');
+          // console.error(error);
+          // console.warn('[WARN]', 'Error with request, using fake databse...');
           this.patients = fakedb;
         });
 

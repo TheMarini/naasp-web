@@ -171,7 +171,6 @@ export default {
     if (this.updateMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
         this.volunteer = volunteer;
-        console.log('Patient:', this.volunteer);
       });
     }
   },

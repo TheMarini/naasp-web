@@ -223,7 +223,6 @@ export default {
     if (this.updateMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
         this.patient = patient;
-        console.log('Patient:', this.patient);
       });
     }
 
