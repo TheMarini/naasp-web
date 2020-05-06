@@ -79,14 +79,8 @@ import {
   PlusIcon, EditIcon, Trash2Icon, ClipboardIcon, HeartIcon,
 } from 'vue-feather-icons';
 
-// Axios
-import axios from 'axios';
-
 // FakeDB
 import fakedb from '@/fakedb/welcomed.json';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32769/api';
 
 export default {
   name: 'Patient',
@@ -145,7 +139,7 @@ export default {
     update() {
       this.isBusy = true;
 
-      axios.get('/acolhido')
+      this.$axios.get('/acolhido')
         .then((response) => {
           this.patients = response.data;
         }).catch((error) => {
@@ -192,7 +186,7 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          axios.delete(`/acolhido?id=${id}`)
+          this.$axios.delete(`/acolhido?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',

@@ -11,6 +11,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 // Mask
 import VueTheMask from 'vue-the-mask';
 
+// Axios
+import Axios from 'axios';
+
 // ~ Essentials ~
 import Vue from 'vue';
 import router from './router';
@@ -39,6 +42,10 @@ Vue.prototype.$toast = function swalToast(object) {
     },
   }).fire(object);
 };
+
+// Axios
+Axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+Vue.prototype.$axios = Axios;
 
 // --- CONFIGS ---
 // Prevent the production tip on Vue startup

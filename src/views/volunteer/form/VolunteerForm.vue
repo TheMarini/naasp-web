@@ -121,10 +121,6 @@ import {
   UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon,
 } from 'vue-feather-icons';
 
-import axios from 'axios';
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32769/api';
-
 export default {
   name: 'voluntario',
   components: {
@@ -205,7 +201,7 @@ export default {
   },
   methods: {
     retrieve(id) {
-      axios.get(`/volunteer/${id}`)
+      this.$axios.get(`/volunteer/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -234,7 +230,7 @@ export default {
         });
     },
     create() {
-      axios.post('/voluntario', this.volunteerTranslated)
+      this.$axios.post('/voluntario', this.volunteerTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',

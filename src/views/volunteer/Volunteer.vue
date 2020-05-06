@@ -60,14 +60,8 @@ import {
   UsersIcon, PlusIcon, EditIcon, Trash2Icon,
 } from 'vue-feather-icons';
 
-// Axios
-import axios from 'axios';
-
 // FakeDB
 import fakedb from '@/fakedb/welcomed.json';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32769/api';
 
 export default {
   name: 'Volunteer',
@@ -114,7 +108,7 @@ export default {
   },
   methods: {
     update() {
-      axios.get('/voluntario')
+      this.$axios.get('/voluntario')
         .then((response) => {
           this.volunteers = response.data;
         }).catch((error) => {
@@ -161,7 +155,7 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          axios.delete(`/voluntario?id=${id}`)
+          this.$axios.delete(`/voluntario?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',

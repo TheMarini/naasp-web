@@ -172,14 +172,8 @@ import FormStep3 from '@/views/patient/form/steps/PatientStep3.vue';
 import FormStep4 from '@/views/patient/form/steps/PatientStep4.vue';
 import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 
-// Axios
-import axios from 'axios';
-
 // Code highlight
 import { component as VueCodeHighlight } from 'vue-code-highlight';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32769/api';
 
 export default {
   name: 'PatientForm',
@@ -294,7 +288,7 @@ export default {
   },
   methods: {
     retrieve(id) {
-      axios.get(`/welcomed/${id}`)
+      this.$axios.get(`/welcomed/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -323,7 +317,7 @@ export default {
         });
     },
     create() {
-      axios.post('/acolhido', this.patientTranslated)
+      this.$axios.post('/acolhido', this.patientTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
