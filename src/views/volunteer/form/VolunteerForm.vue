@@ -173,6 +173,7 @@ export default {
         this.volunteer = volunteer;
       });
     }
+  },
   computed: {
     volunteerTranslated() {
       return {

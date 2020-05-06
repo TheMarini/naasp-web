@@ -220,6 +220,7 @@ export default {
     }
 
     if (this.quickMode) this.steps = 1;
+  },
   computed: {
     patientTranslated() {
       return {
