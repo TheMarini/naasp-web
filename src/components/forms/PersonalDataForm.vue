@@ -178,13 +178,29 @@
         <div class="form-row">
           <div class="form-group col-md-4 mb-0">
             <label for="state">Estado</label>
-            <input @input="$emit('update:state', $event.target.value)" type="text"
-            class="form-control _rounded" id="state" placeholder="Minas Gerais">
+            <multiselect id="state" v-model="state" :options="options.state"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('state', $event)"
+              @remove="destroyCreatedOption('state', $event)"
+              @select="destroyUnnusedCreatedOptions('state')"
+              openDirection="bottom" tag-placeholder="Adicionar novo estado"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
           <div class="form-group col-md-4 mb-0">
-            <label for="city">Cidade</label>
-            <input @input="$emit('update:city', $event.target.value)" type="text"
-              class="form-control _rounded" id="city" placeholder="Belo Horizonte">
+            <label for="city">Estado</label>
+            <multiselect id="city" v-model="city" :options="options.city"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('city', $event)"
+              @remove="destroyCreatedOption('city', $event)"
+              @select="destroyUnnusedCreatedOptions('city')"
+              openDirection="bottom" tag-placeholder="Adicionar nova cidade"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
           <div class="form-group col-md-4 mb-0">
             <label for="cep">CEP</label>
@@ -259,6 +275,8 @@ export default {
       isUnderAge: false,
       religion: null,
       neighborhood: null,
+      state: null,
+      city: null,
       options: {
         religion: [
           {
@@ -284,6 +302,26 @@ export default {
             name: 'Limoeiro',
           },
         ],
+        state: [
+          {
+            id: 0,
+            name: 'Minas Gerais',
+          },
+          {
+            id: 1,
+            name: 'São Paulo',
+          },
+        ],
+        city: [
+          {
+            id: 0,
+            name: 'Belo Horizonte',
+          },
+          {
+            id: 1,
+            name: 'Santos',
+          },
+        ],
       },
     };
   },
@@ -304,6 +342,12 @@ export default {
     },
     neighborhood() {
       this.$emit('update:neighborhood', this.neighborhood);
+    },
+    state() {
+      this.$emit('update:state', this.state);
+    },
+    city() {
+      this.$emit('update:city', this.city);
     },
   },
   methods: {
