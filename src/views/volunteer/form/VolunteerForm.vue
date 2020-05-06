@@ -27,28 +27,29 @@
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
 
-        <!-- <VueCodeHighlight>
-         {{JSON.stringify(volunteer, null, 2)}}
-        </VueCodeHighlight> -->
-
         <form-step-1
           v-show="currentStep === 1"
-          :type.sync="volunteer.type"
+          :volunteerType.sync="volunteer.type"
+          :volunteerSpecialties.sync="volunteer.specialties"
+          :volunteerAgeRangesOfCare.sync="volunteer.ageRangesOfCare"
         ></form-step-1>
 
         <PersonalDataForm
           v-show="currentStep === 2"
           :name.sync="volunteer.name"
-          :rg.sync="volunteer.rg"
-          :cpf.sync="volunteer.cpf"
-          :sex.sync="volunteer.sex"
-          :matrialStatus.sync="volunteer.matrialStatus"
-          :educationLevel.sync="volunteer.educationLevel"
-          :jobRole.sync="volunteer.jobRole"
           :birthDate.sync="volunteer.birthDate"
-          :religion.sync="volunteer.religion"
+          :age.sync="volunteer.age"
+          :isUnderAge.sync="volunteer.isUnderAge"
+          :cpf.sync="volunteer.cpf"
+          :rg.sync="volunteer.rg"
+          :gender.sync="volunteer.gender"
+          :matrialStatus.sync="volunteer.matrialStatus"
+          :educationLevel.sync="volunteer.education.level"
+          :educationStatus.sync="volunteer.education.status"
+          :jobRole.sync="volunteer.jobRole"
           :placeOfBirth.sync="volunteer.placeOfBirth"
           :nationality.sync="volunteer.nationality"
+          :religion.sync="volunteer.religion"
           :publicPlace.sync="volunteer.address.publicPlace"
           :addressNumber.sync="volunteer.address.number"
           :addressComplement.sync="volunteer.address.complement"
@@ -56,10 +57,10 @@
           :city.sync="volunteer.address.city"
           :state.sync="volunteer.address.state"
           :cep.sync="volunteer.address.cep"
-          :cellPhoneNumber.sync="volunteer.contact.phoneNumber.cell"
-          :homePhoneNumber.sync="volunteer.contact.phoneNumber.home"
-          :businessPhoneNumber.sync="volunteer.contact.phoneNumber.business"
-          :email.sync="volunteer.contact.email"
+          :cellPhoneNumber.sync="volunteer.contact.cellPhoneNumber"
+          :homePhoneNumber.sync="volunteer.contact.homePhoneNumber"
+          :businessPhoneNumber.sync="volunteer.contact.businessPhoneNumber"
+          :email.sync="volunteer.email"
         ></PersonalDataForm>
 
         <!-- <form-step-3
@@ -97,12 +98,16 @@
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
     </footer>
+
+    <VueCodeHighlight v-show="false">
+     {{JSON.stringify(volunteer, null, 2)}}
+    </VueCodeHighlight>
   </div>
 </template>
 
 <script>
 // Code highlight
-// import { component as VueCodeHighlight } from 'vue-code-highlight';
+import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 // Step dot
 import Step from '@/components/Step.vue';
@@ -116,14 +121,10 @@ import {
   UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon,
 } from 'vue-feather-icons';
 
-import axios from 'axios';
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32807';
-
 export default {
   name: 'voluntario',
   components: {
-    // VueCodeHighlight,
+    VueCodeHighlight,
     Step,
     UsersIcon,
     PlusIcon,
@@ -160,10 +161,9 @@ export default {
   data() {
     return {
       volunteer: {
+        education: {},
         address: {},
-        contact: {
-          phoneNumber: {},
-        },
+        contact: {},
       },
     };
   },
@@ -174,9 +174,35 @@ export default {
       });
     }
   },
+  computed: {
+    volunteerTranslated() {
+      return {
+        endereco: {
+          rua: this.volunteer.address.publicPlace,
+          numero: this.volunteer.address.number,
+          complemento: this.volunteer.address.complement,
+          // cep: this.volunteer.address.cep,
+        },
+        cidade: this.volunteer.address.city,
+        bairro: this.volunteer.address.neighborhood,
+        pessoa: {
+          estado_civil: this.volunteer.matrialStatus,
+          // cpf: this.volunteer.cpf,
+          sexo: this.volunteer.gender,
+          naturalidade: this.volunteer.placeOfBirth,
+          nacionalidade: this.volunteer.nationality,
+          situacao_profissional: this.volunteer.jobRole,
+          escolaridade: `${this.volunteer.education.level} - ${this.volunteer.education.status}`,
+          nome: this.volunteer.name,
+          data_nascimento: this.volunteer.birthDate,
+        },
+        especialidade: this.volunteer.specialties[0].name,
+      };
+    },
+  },
   methods: {
     retrieve(id) {
-      axios.get(`/volunteer/${id}`)
+      this.$axios.get(`/volunteer/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -205,14 +231,14 @@ export default {
         });
     },
     create() {
-      axios.post('/patient', this.form)
+      this.$axios.post('/voluntario', this.volunteerTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
             title: 'Voluntário adicionado com sucesso',
           });
           // this.$destroy();
-          this.$router.push('/voluntário');
+          this.$router.push('/voluntario');
         })
         .catch((error) => {
           if (error.response) {

@@ -33,7 +33,7 @@
             </button>
           </router-link>
           <button
-            @click="deleteData(data.index)"
+            @click="destroy(data.index)"
             class="edit-btn btn" title="Deletar"
             type="button" name="button"
           >
@@ -60,14 +60,8 @@ import {
   UsersIcon, PlusIcon, EditIcon, Trash2Icon,
 } from 'vue-feather-icons';
 
-// Axios
-import axios from 'axios';
-
 // FakeDB
 import fakedb from '@/fakedb/welcomed.json';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32807';
 
 export default {
   name: 'Volunteer',
@@ -85,13 +79,18 @@ export default {
       volunteers: [],
       fields: [
         {
-          key: 'name',
-          label: 'Nome',
+          key: 'id',
+          label: 'ID',
           sortable: true,
         },
         {
-          key: 'age',
-          label: 'Idade',
+          key: 'EspecialidadeId',
+          label: 'EspecialidadeId',
+          sortable: true,
+        },
+        {
+          key: 'PessoaId',
+          label: 'PessoaId',
           sortable: true,
         },
         'RG',
@@ -109,9 +108,9 @@ export default {
   },
   methods: {
     update() {
-      axios.get('/volunteer')
+      this.$axios.get('/voluntario')
         .then((response) => {
-          this.patients = response.data;
+          this.volunteers = response.data;
         }).catch((error) => {
           if (error.response) {
             // The request was made and the server responded with a status code
@@ -145,7 +144,7 @@ export default {
 
       this.isBusy = false;
     },
-    deleteData(id) {
+    destroy(id) {
       this.$swal({
         title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
         text: 'Esta ação não poderá ser revertida!',
@@ -156,12 +155,14 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          axios.delete(`/patient/${id}`)
+          this.$axios.delete(`/voluntario?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',
                 title: 'Voluntário deletado com sucesso',
               });
+
+              this.update();
             }).catch((error) => {
               if (error.response) {
                 // The request was made and the server responded with a status code

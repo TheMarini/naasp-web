@@ -29,10 +29,6 @@
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
 
-        <!-- <VueCodeHighlight>
-         {{JSON.stringify(welcomed, null, 2)}}
-        </VueCodeHighlight> -->
-
         <!-- TODO: consider switch to a nested vue-router -->
         <QuickForm
           v-show="quickMode"
@@ -151,6 +147,9 @@
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
     </footer>
+    <VueCodeHighlight v-show="false">
+     {{JSON.stringify(patient, null, 2)}}
+    </VueCodeHighlight>
   </div>
 </template>
 
@@ -173,14 +172,8 @@ import FormStep3 from '@/views/patient/form/steps/PatientStep3.vue';
 import FormStep4 from '@/views/patient/form/steps/PatientStep4.vue';
 import FormStep5 from '@/views/patient/form/steps/PatientStep5.vue';
 
-// Axios
-import axios from 'axios';
-
 // Code highlight
-// import { component as VueCodeHighlight } from 'vue-code-highlight';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32807';
+import { component as VueCodeHighlight } from 'vue-code-highlight';
 
 export default {
   name: 'PatientForm',
@@ -198,7 +191,7 @@ export default {
     FormStep3,
     FormStep4,
     FormStep5,
-    // VueCodeHighlight,
+    VueCodeHighlight,
   },
   props: {
     // Create or update mode
@@ -228,6 +221,52 @@ export default {
 
     if (this.quickMode) this.steps = 1;
   },
+  computed: {
+    patientTranslated() {
+      return {
+        religiao: this.patient.religion,
+        bairro: this.patient.address.neighborhood,
+        cidade: this.patient.address.city,
+        estado: this.patient.address.state,
+        endereco: {
+          rua: this.patient.address.publicPlace,
+          numero: this.patient.address.number,
+          complemento: this.patient.address.complement,
+          // cep: this.patient.address.cep,
+        },
+        pessoa: {
+          nome: this.patient.name,
+          estado_civil: this.patient.matrialStatus,
+          // cpf: this.patient.cpf,
+          data_nascimento: this.patient.birthDate,
+          sex: this.patient.gender,
+          naturalidade: this.patient.placeOfBirth,
+          nacionalidade: this.patient.nationality,
+          situacao_profissional: this.patient.jobRole,
+          escolaridade: `${this.patient.education.level} - ${this.patient.education.status}`,
+        },
+        acolhido: {
+          atividade_fisica: this.patient.health.physicalActivity,
+          bebida_quantidade: this.patient.health.qtdDrinks,
+          paroquia: this.patient.affiliation.parish,
+          atividades_religiosas: this.patient.affiliation.religiousActivities,
+          demanda: this.patient.others.demands,
+          observacao: this.patient.others.comments,
+        },
+        familiares: this.patient.family.map((member) => (
+          {
+            nome: member.name,
+            parentesco: member.kinship,
+            escolaridade: `${member.education.level} - ${member.education.status}`,
+            ocupacao: member.jobRole,
+            cohabita: member.isCohabiting,
+            // telefone: member.phoneNumber,
+            renda: member.income,
+          }
+        )),
+      };
+    },
+  },
   data() {
     return {
       patient: {
@@ -250,7 +289,7 @@ export default {
   },
   methods: {
     retrieve(id) {
-      axios.get(`/welcomed/${id}`)
+      this.$axios.get(`/welcomed/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -279,7 +318,7 @@ export default {
         });
     },
     create() {
-      axios.post('/patient', this.form)
+      this.$axios.post('/acolhido', this.patientTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',

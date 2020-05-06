@@ -53,7 +53,7 @@
             </button>
           </router-link>
           <button
-            @click="deleteData(data.item.id)" type="button" name="button"
+            @click="destroy(data.item.id)" type="button" name="button"
             class="edit-btn btn" title="Deletar"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
@@ -79,14 +79,8 @@ import {
   PlusIcon, EditIcon, Trash2Icon, ClipboardIcon, HeartIcon,
 } from 'vue-feather-icons';
 
-// Axios
-import axios from 'axios';
-
 // FakeDB
 import fakedb from '@/fakedb/welcomed.json';
-
-// BUGFIX: same URL as Vue CLI Service for CORS using proxy (look at "vue.config.js" file)
-axios.defaults.baseURL = 'http://localhost:32807';
 
 export default {
   name: 'Patient',
@@ -105,7 +99,7 @@ export default {
       patients: [],
       fields: [
         {
-          key: 'name',
+          key: 'Pessoa.nome',
           label: 'Nome',
           sortable: true,
         },
@@ -145,7 +139,7 @@ export default {
     update() {
       this.isBusy = true;
 
-      axios.get('/welcomed')
+      this.$axios.get('/acolhido')
         .then((response) => {
           this.patients = response.data;
         }).catch((error) => {
@@ -181,7 +175,7 @@ export default {
 
       this.isBusy = false;
     },
-    deleteData(id) {
+    destroy(id) {
       this.$swal({
         title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
         text: 'Esta ação não poderá ser revertida!',
@@ -192,12 +186,14 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          axios.delete(`/patient/${id}`)
+          this.$axios.delete(`/acolhido?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',
                 title: 'Acolhido deletado com sucesso',
               });
+
+              this.update();
             }).catch((error) => {
               if (error.response) {
                 // The request was made and the server responded with a status code

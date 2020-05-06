@@ -1,31 +1,58 @@
 {
-	"type": "social worker",
-	"name": "Bruno Marini",
-	"rg": "12.345.678-9",
-	"cpf": "123.456.789-10",
-	"sex": "M",
-	"matrialStatus": "Solteiro",
-	"educationLevel": "Graduando",
-	"jobRole": "Professor",
-	"birthDate": "2010-09-01",
-	"religion": "Agnóstico",
-	"placeOfBirth": "São Paulo, SP",
-	"nationality": "Brasileira",
+  "type": 0,
+  "name": "Bruno Marini",
+  "birthDate": "1998-02-01",
+  "age": 22,
+  "isUnderAge": false,
+  "cpf": "123.123.123-13",
+  "rg": "12.312.312-3",
+  "gender": "M",
+  "matrialStatus": "Solteiro",
+  "jobRole": "Desenvolvedor Full-Stack",
+  "placeOfBirth": "São Paulo, SP",
+  "nationality": "Brasileira",
+  "religion": "Agnóstico",
+  "email": "bruno@marini.com.br",
+  "education": {
+    "level": "Graduação",
+    "status": "Em curso"
+  },
   "address": {
     "publicPlace": "Rua do Limão",
-    "number": 42,
+    "number": 32,
     "complement": "Apto. 101",
     "neighborhood": "Limoeiro",
-    "city": "São Paulo",
-    "state": "São Paulo",
-    "cep": "12345-678"
+    "city": "Belo Horizonte",
+    "state": "Minas Gerais",
+    "cep": "12312-312"
   },
   "contact": {
-    "phoneNumber": {
-      "cell": "(31) 9 1234-5678",
-      "home": "(31) 1234-5678",
-      "business": "(31) 1234-5678"
+    "cellPhoneNumber": "(12) 3 1231-2312",
+    "homePhoneNumber": "(31) 2 3123-1231",
+    "businessPhoneNumber": "(31) 2 3123-1231"
+  },
+  "ageRangesOfCare": [
+    {
+      "id": 0,
+      "name": "Até 16 anos"
     },
-    "email": "bruno@marini.com"
-  }
+    {
+      "id": 1,
+      "name": "De 17 a 65 anos"
+    },
+    {
+      "id": 2,
+      "name": "Acima de 66 anos"
+    }
+  ],
+  "specialties": [
+    {
+      "id": 0,
+      "name": "Psicólogo"
+    },
+    {
+      "id": 3,
+      "name": "Psiquiatra"
+    }
+  ]
 }
