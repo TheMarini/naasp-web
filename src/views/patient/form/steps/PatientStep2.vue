@@ -16,16 +16,16 @@
               <input :id="`member-name-${index}`" v-model="member.name" type="text"
                 name="family-name" placeholder="Spike Jonze" class="form-control _rounded">
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-3">
               <label :for="`member-kinship-${index}`">Parentesco</label>
               <b-form-select :id="`member-kinship-${index}`" v-model="member.kinship"
                 :options="kinshipOptions">
               </b-form-select>
             </div>
-            <div class="form-group col-md-1">
-              <label :for="`member-age-${index}`">Idade</label>
-              <input :id="`member-age-${index}`" v-model.number="member.age" type="number"
-                name="family-age" placeholder="42" class="form-control _rounded">
+            <div class="form-group col-md-3">
+              <label :for="`member-birth-date-${index}`">Data de nascimento</label>
+              <input :id="`member-birth-date-${index}`" v-model="member.birthDate"
+                type="date" name="member-birth-date" placeholder="42" class="form-control _rounded">
             </div>
           </div>
           <div class="form-row">
@@ -231,7 +231,7 @@ export default {
       defaultFamilyMemberObject: {
         name: null,
         kinship: null,
-        age: null,
+        birthDate: null,
         education: {
           level: null,
           status: null,
