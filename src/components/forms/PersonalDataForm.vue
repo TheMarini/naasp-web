@@ -163,8 +163,16 @@
           </div>
           <div class="form-group col-md-4">
             <label for="neighborhood">Bairro</label>
-            <input @input="$emit('update:neighborhood', $event.target.value)" type="text"
-              class="form-control _rounded" id="neighborhood" placeholder="Limoeiro">
+            <multiselect id="neighborhood" v-model="neighborhood" :options="options.neighborhood"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('neighborhood', $event)"
+              @remove="destroyCreatedOption('neighborhood', $event)"
+              @select="destroyUnnusedCreatedOptions('neighborhood')"
+              openDirection="bottom" tag-placeholder="Adicionar novo bairro"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
         </div>
         <div class="form-row">
@@ -250,6 +258,7 @@ export default {
       age: null,
       isUnderAge: false,
       religion: null,
+      neighborhood: null,
       options: {
         religion: [
           {
@@ -269,6 +278,12 @@ export default {
             name: 'Catolicismo',
           },
         ],
+        neighborhood: [
+          {
+            id: 0,
+            name: 'Limoeiro',
+          },
+        ],
       },
     };
   },
@@ -286,6 +301,9 @@ export default {
     },
     religion() {
       this.$emit('update:religion', this.religion);
+    },
+    neighborhood() {
+      this.$emit('update:neighborhood', this.neighborhood);
     },
   },
   methods: {
