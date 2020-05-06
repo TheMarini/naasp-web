@@ -102,9 +102,16 @@
           </div>
           <div class="form-group col-md-6 mb-0">
             <label for="religion">Religião</label>
-            <input @input="$emit('update:religion', $event.target.value)" type="text"
-              class="form-control _rounded" id="religion"
-              placeholder="Cristianismo, Catolicismo, Ateu...">
+            <multiselect id="religion" v-model="religion" :options="options.religion"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('religion', $event)"
+              @remove="destroyCreatedOption('religion', $event)"
+              @select="destroyUnnusedCreatedOptions('religion')"
+              openDirection="bottom" tag-placeholder="Adicionar nova religião"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
         </div>
       </form>
@@ -156,20 +163,44 @@
           </div>
           <div class="form-group col-md-4">
             <label for="neighborhood">Bairro</label>
-            <input @input="$emit('update:neighborhood', $event.target.value)" type="text"
-              class="form-control _rounded" id="neighborhood" placeholder="Limoeiro">
+            <multiselect id="neighborhood" v-model="neighborhood" :options="options.neighborhood"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('neighborhood', $event)"
+              @remove="destroyCreatedOption('neighborhood', $event)"
+              @select="destroyUnnusedCreatedOptions('neighborhood')"
+              openDirection="bottom" tag-placeholder="Adicionar novo bairro"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-4 mb-0">
-            <label for="city">Cidade</label>
-            <input @input="$emit('update:city', $event.target.value)" type="text"
-              class="form-control _rounded" id="city" placeholder="Belo Horizonte">
+            <label for="state">Estado</label>
+            <multiselect id="state" v-model="state" :options="options.state"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('state', $event)"
+              @remove="destroyCreatedOption('state', $event)"
+              @select="destroyUnnusedCreatedOptions('state')"
+              openDirection="bottom" tag-placeholder="Adicionar novo estado"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
           <div class="form-group col-md-4 mb-0">
-            <label for="state">Estado</label>
-            <input @input="$emit('update:state', $event.target.value)" type="text"
-              class="form-control _rounded" id="state" placeholder="Minas Gerais">
+            <label for="city">Estado</label>
+            <multiselect id="city" v-model="city" :options="options.city"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('city', $event)"
+              @remove="destroyCreatedOption('city', $event)"
+              @select="destroyUnnusedCreatedOptions('city')"
+              openDirection="bottom" tag-placeholder="Adicionar nova cidade"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
           <div class="form-group col-md-4 mb-0">
             <label for="cep">CEP</label>
@@ -219,8 +250,14 @@
 // Moment
 import moment from 'moment';
 
+// Multiselect
+import Multiselect from 'vue-multiselect';
+
 export default {
   name: 'personal-data-form',
+  components: {
+    Multiselect,
+  },
   props: {
     responsibleForm: {
       type: Boolean,
@@ -236,6 +273,56 @@ export default {
       birthDate: null,
       age: null,
       isUnderAge: false,
+      religion: null,
+      neighborhood: null,
+      state: null,
+      city: null,
+      options: {
+        religion: [
+          {
+            id: 0,
+            name: 'Ateu',
+          },
+          {
+            id: 1,
+            name: 'Agnóstico',
+          },
+          {
+            id: 2,
+            name: 'Cristianismo',
+          },
+          {
+            id: 3,
+            name: 'Catolicismo',
+          },
+        ],
+        neighborhood: [
+          {
+            id: 0,
+            name: 'Limoeiro',
+          },
+        ],
+        state: [
+          {
+            id: 0,
+            name: 'Minas Gerais',
+          },
+          {
+            id: 1,
+            name: 'São Paulo',
+          },
+        ],
+        city: [
+          {
+            id: 0,
+            name: 'Belo Horizonte',
+          },
+          {
+            id: 1,
+            name: 'Santos',
+          },
+        ],
+      },
     };
   },
   watch: {
@@ -249,6 +336,52 @@ export default {
       // Calc if under age
       this.isUnderAge = this.age <= this.underAgeLimit;
       this.$emit('update:isUnderAge', this.isUnderAge);
+    },
+    religion() {
+      this.$emit('update:religion', this.religion);
+    },
+    neighborhood() {
+      this.$emit('update:neighborhood', this.neighborhood);
+    },
+    state() {
+      this.$emit('update:state', this.state);
+    },
+    city() {
+      this.$emit('update:city', this.city);
+    },
+  },
+  methods: {
+    createOption(attr, name) {
+      // Destroy option previously created
+      this.destroyUnnusedCreatedOptions(attr);
+
+      // New option
+      const option = {
+        id: this.options[attr][this.options[attr].length - 1].id + 1,
+        name,
+        new: true,
+      };
+
+      // Add to array of options
+      this.options[attr].push(option);
+      // Set to current option
+      this[attr] = option;
+    },
+    destroyCreatedOption(attr, option) {
+      // Check if its new
+      if (option.new) {
+        // Find it in the array of options
+        const index = this.options[attr].findIndex((o) => o.id === option.id);
+        // Destroy
+        this.options[attr].splice(index, 1);
+      }
+    },
+    destroyUnnusedCreatedOptions(attr) {
+      // For each option in array of options
+      this.options[attr].forEach((item) => {
+        // Destroy it if its new
+        this.destroyCreatedOption(attr, item);
+      });
     },
   },
 };
