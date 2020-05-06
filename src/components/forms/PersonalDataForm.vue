@@ -177,14 +177,14 @@
         </div>
         <div class="form-row">
           <div class="form-group col-md-4 mb-0">
+            <label for="state">Estado</label>
+            <input @input="$emit('update:state', $event.target.value)" type="text"
+            class="form-control _rounded" id="state" placeholder="Minas Gerais">
+          </div>
+          <div class="form-group col-md-4 mb-0">
             <label for="city">Cidade</label>
             <input @input="$emit('update:city', $event.target.value)" type="text"
               class="form-control _rounded" id="city" placeholder="Belo Horizonte">
-          </div>
-          <div class="form-group col-md-4 mb-0">
-            <label for="state">Estado</label>
-            <input @input="$emit('update:state', $event.target.value)" type="text"
-              class="form-control _rounded" id="state" placeholder="Minas Gerais">
           </div>
           <div class="form-group col-md-4 mb-0">
             <label for="cep">CEP</label>
