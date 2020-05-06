@@ -177,6 +177,31 @@ export default {
         this.volunteer = volunteer;
       });
     }
+  computed: {
+    volunteerTranslated() {
+      return {
+        endereco: {
+          rua: this.volunteer.address.publicPlace,
+          numero: this.volunteer.address.number,
+          complemento: this.volunteer.address.complement,
+          // cep: this.volunteer.address.cep,
+        },
+        cidade: this.volunteer.address.city,
+        bairro: this.volunteer.address.neighborhood,
+        pessoa: {
+          estado_civil: this.volunteer.matrialStatus,
+          // cpf: this.volunteer.cpf,
+          sexo: this.volunteer.gender,
+          naturalidade: this.volunteer.placeOfBirth,
+          nacionalidade: this.volunteer.nationality,
+          situacao_profissional: this.volunteer.jobRole,
+          escolaridade: `${this.volunteer.education.level} - ${this.volunteer.education.status}`,
+          nome: this.volunteer.name,
+          data_nascimento: this.volunteer.birthDate,
+        },
+        especialidade: this.volunteer.specialties[0].name,
+      };
+    },
   },
   methods: {
     retrieve(id) {
@@ -209,14 +234,14 @@ export default {
         });
     },
     create() {
-      axios.post('/patient', this.form)
+      axios.post('/voluntario', this.volunteerTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
             title: 'Voluntário adicionado com sucesso',
           });
           // this.$destroy();
-          this.$router.push('/voluntário');
+          this.$router.push('/voluntario');
         })
         .catch((error) => {
           if (error.response) {
