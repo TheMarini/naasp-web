@@ -53,7 +53,7 @@
             </button>
           </router-link>
           <button
-            @click="deleteData(data.item.id)" type="button" name="button"
+            @click="destroy(data.item.id)" type="button" name="button"
             class="edit-btn btn" title="Deletar"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
@@ -105,7 +105,7 @@ export default {
       patients: [],
       fields: [
         {
-          key: 'name',
+          key: 'Pessoa.nome',
           label: 'Nome',
           sortable: true,
         },
@@ -181,7 +181,7 @@ export default {
 
       this.isBusy = false;
     },
-    deleteData(id) {
+    destroy(id) {
       this.$swal({
         title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
         text: 'Esta ação não poderá ser revertida!',
@@ -192,12 +192,14 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          axios.delete(`/patient/${id}`)
+          axios.delete(`/acolhido?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',
                 title: 'Acolhido deletado com sucesso',
               });
+
+              this.update();
             }).catch((error) => {
               if (error.response) {
                 // The request was made and the server responded with a status code
