@@ -226,6 +226,51 @@ export default {
     }
 
     if (this.quickMode) this.steps = 1;
+  computed: {
+    patientTranslated() {
+      return {
+        religiao: this.patient.religion,
+        bairro: this.patient.address.neighborhood,
+        cidade: this.patient.address.city,
+        estado: this.patient.address.state,
+        endereco: {
+          rua: this.patient.address.publicPlace,
+          numero: this.patient.address.number,
+          complemento: this.patient.address.complement,
+          // cep: this.patient.address.cep,
+        },
+        pessoa: {
+          nome: this.patient.name,
+          estado_civil: this.patient.matrialStatus,
+          // cpf: this.patient.cpf,
+          data_nascimento: this.patient.birthDate,
+          sex: this.patient.gender,
+          naturalidade: this.patient.placeOfBirth,
+          nacionalidade: this.patient.nationality,
+          situacao_profissional: this.patient.jobRole,
+          escolaridade: `${this.patient.education.level} - ${this.patient.education.status}`,
+        },
+        acolhido: {
+          atividade_fisica: this.patient.health.physicalActivity,
+          bebida_quantidade: this.patient.health.qtdDrinks,
+          paroquia: this.patient.affiliation.parish,
+          atividades_religiosas: this.patient.affiliation.religiousActivities,
+          demanda: this.patient.others.demands,
+          observacao: this.patient.others.comments,
+        },
+        familiares: this.patient.family.map((member) => (
+          {
+            nome: member.name,
+            parentesco: member.kinship,
+            escolaridade: `${member.education.level} - ${member.education.status}`,
+            ocupacao: member.jobRole,
+            cohabita: member.isCohabiting,
+            // telefone: member.phoneNumber,
+            renda: member.income,
+          }
+        )),
+      };
+    },
   },
   data() {
     return {
@@ -278,7 +323,7 @@ export default {
         });
     },
     create() {
-      axios.post('/patient', this.form)
+      axios.post('/acolhido', this.patientTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
