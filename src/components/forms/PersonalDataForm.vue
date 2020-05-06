@@ -102,9 +102,16 @@
           </div>
           <div class="form-group col-md-6 mb-0">
             <label for="religion">Religião</label>
-            <input @input="$emit('update:religion', $event.target.value)" type="text"
-              class="form-control _rounded" id="religion"
-              placeholder="Cristianismo, Catolicismo, Ateu...">
+            <multiselect id="religion" v-model="religion" :options="options.religion"
+              track-by="id" label="name" :taggable="true"
+              @tag="createOption('religion', $event)"
+              @remove="destroyCreatedOption('religion', $event)"
+              @select="destroyUnnusedCreatedOptions('religion')"
+              openDirection="bottom" tag-placeholder="Adicionar nova religião"
+              placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
+              selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
+            >
+            </multiselect>
           </div>
         </div>
       </form>
@@ -219,8 +226,14 @@
 // Moment
 import moment from 'moment';
 
+// Multiselect
+import Multiselect from 'vue-multiselect';
+
 export default {
   name: 'personal-data-form',
+  components: {
+    Multiselect,
+  },
   props: {
     responsibleForm: {
       type: Boolean,
@@ -236,6 +249,27 @@ export default {
       birthDate: null,
       age: null,
       isUnderAge: false,
+      religion: null,
+      options: {
+        religion: [
+          {
+            id: 0,
+            name: 'Ateu',
+          },
+          {
+            id: 1,
+            name: 'Agnóstico',
+          },
+          {
+            id: 2,
+            name: 'Cristianismo',
+          },
+          {
+            id: 3,
+            name: 'Catolicismo',
+          },
+        ],
+      },
     };
   },
   watch: {
@@ -249,6 +283,43 @@ export default {
       // Calc if under age
       this.isUnderAge = this.age <= this.underAgeLimit;
       this.$emit('update:isUnderAge', this.isUnderAge);
+    },
+    religion() {
+      this.$emit('update:religion', this.religion);
+    },
+  },
+  methods: {
+    createOption(attr, name) {
+      // Destroy option previously created
+      this.destroyUnnusedCreatedOptions(attr);
+
+      // New option
+      const option = {
+        id: this.options[attr][this.options[attr].length - 1].id + 1,
+        name,
+        new: true,
+      };
+
+      // Add to array of options
+      this.options[attr].push(option);
+      // Set to current option
+      this[attr] = option;
+    },
+    destroyCreatedOption(attr, option) {
+      // Check if its new
+      if (option.new) {
+        // Find it in the array of options
+        const index = this.options[attr].findIndex((o) => o.id === option.id);
+        // Destroy
+        this.options[attr].splice(index, 1);
+      }
+    },
+    destroyUnnusedCreatedOptions(attr) {
+      // For each option in array of options
+      this.options[attr].forEach((item) => {
+        // Destroy it if its new
+        this.destroyCreatedOption(attr, item);
+      });
     },
   },
 };
