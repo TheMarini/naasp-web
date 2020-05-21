@@ -58,6 +58,16 @@
             <button
               type="button"
               name="button"
+              class="call-btn btn _rounded"
+              title="Ligar"
+            >
+              <phone-call-icon size="1.5x" class="call-icon"></phone-call-icon>
+            </button>
+          </router-link>
+          <router-link :to="`/acolhido/editar/${data.item.id}`">
+            <button
+              type="button"
+              name="button"
               class="edit-btn btn _rounded"
               title="Editar"
             >
@@ -96,6 +106,7 @@ import {
   Trash2Icon,
   ClipboardIcon,
   HeartIcon,
+  PhoneCallIcon,
 } from 'vue-feather-icons';
 
 // FakeDB
@@ -109,6 +120,7 @@ export default {
     Trash2Icon,
     ClipboardIcon,
     HeartIcon,
+    PhoneCallIcon,
   },
   data() {
     return {

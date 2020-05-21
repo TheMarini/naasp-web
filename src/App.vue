@@ -63,10 +63,19 @@ a:hover {
   border-bottom-right-radius: 10px;
 }
 
+.call-icon,
 .edit-icon,
 .delete-icon {
   transition: 0.3s;
 }
+
+.call-btn:hover {
+  background-color: cadetblue;
+}
+.call-btn:hover .call-icon {
+  color: white;
+}
+
 .edit-btn:hover {
   background-color: #e3db4a;
 }
