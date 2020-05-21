@@ -36,14 +36,14 @@
             <button
               type="button"
               name="button"
-              class="edit-btn btn"
+              class="edit-btn btn _rounded"
               title="Editar"
             >
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
             </button>
           </router-link>
           <button
-            class="edit-btn btn"
+            class="delete-btn btn _rounded"
             title="Deletar"
             type="button"
             name="button"

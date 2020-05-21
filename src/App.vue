@@ -63,11 +63,22 @@ a:hover {
   border-bottom-right-radius: 10px;
 }
 
+.edit-icon,
 .delete-icon {
   transition: 0.3s;
 }
-.delete-icon:hover {
-  color: indianred;
+.edit-btn:hover {
+  background-color: #e3db4a;
+}
+.edit-btn:hover .edit-icon {
+  color: #222;
+}
+
+.delete-btn:hover {
+  background-color: indianred;
+}
+.delete-btn:hover .delete-icon {
+  color: white;
 }
 
 /* --- TRANSITIONS --- */
