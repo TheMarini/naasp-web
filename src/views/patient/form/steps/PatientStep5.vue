@@ -6,8 +6,10 @@
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="priority">Prioridade</label>
-            <select @input="$emit('update:priority', $event.target.value)"
-              class="custom-select _rounded" id="priority"
+            <select
+              id="priority"
+              class="custom-select _rounded"
+              @input="$emit('update:priority', $event.target.value)"
             >
               <option selected disabled>Escolha uma opção</option>
               <option value="0">0 - Urgente</option>
@@ -24,14 +26,20 @@
       <form>
         <div class="form-group">
           <label for="demands">Demandas apresentadas</label>
-          <textarea @input="$emit('update:demands', $event.target.value)"
-            class="form-control _rounded" id="demands">
+          <textarea
+            id="demands"
+            class="form-control _rounded"
+            @input="$emit('update:demands', $event.target.value)"
+          >
           </textarea>
         </div>
         <div class="form-group">
           <label for="comments">Observações</label>
-          <textarea @input="$emit('update:comments', $event.target.value)"
-            class="form-control _rounded" id="comments">
+          <textarea
+            id="comments"
+            class="form-control _rounded"
+            @input="$emit('update:comments', $event.target.value)"
+          >
           </textarea>
         </div>
       </form>
@@ -40,14 +48,13 @@
 </template>
 
 <script>
-
 export default {
-  name: 'form-step-5',
+  name: 'FormStep5',
 };
 </script>
 
 <style lang="css" scoped>
 textarea {
-  min-height: 100px
+  min-height: 100px;
 }
 </style>

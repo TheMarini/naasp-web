@@ -4,27 +4,36 @@
       <div class="d-flex align-items-center">
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
         <h2 class="ml-3 mb-0">
-          <b>{{quickMode ? 'Pré-cadastrar' : updateMode ? 'Editar' :  'Adicionar' }} acolhido</b>
+          <b
+            >{{
+              quickMode ? 'Pré-cadastrar' : updateMode ? 'Editar' : 'Adicionar'
+            }}
+            acolhido</b
+          >
         </h2>
       </div>
       <div class="steps d-flex">
         <step
-          class="step ml-2"
           v-for="index of steps"
           :key="index"
+          class="step ml-2"
           :number="index"
           :active="index <= currentStep"
-          :updateMode="updateMode"
+          :update-mode="updateMode"
           @click.native="currentStep = index"
         ></step>
       </div>
     </header>
     <div class="wrapper pt-4">
       <div class="infos">
-        <p class="current-step">ETAPA {{currentStep}}</p>
+        <p class="current-step">ETAPA {{ currentStep }}</p>
       </div>
       <article>
-        <div @click="currentStep--" v-if="currentStep > 1" class="d-inline-flex prev-btn mb-2">
+        <div
+          v-if="currentStep > 1"
+          class="d-inline-flex prev-btn mb-2"
+          @click="currentStep--"
+        >
           <arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
@@ -32,77 +41,77 @@
         <!-- TODO: consider switch to a nested vue-router -->
         <QuickForm
           v-show="quickMode"
-          :responsibleForm="true"
+          :responsible-form="true"
           :name.sync="patient.name"
-          :birthDate.sync="patient.birthDate"
+          :birth-date.sync="patient.birthDate"
           :age.sync="patient.age"
-          :isUnderAge.sync="patient.isUnderAge"
-          :responsibleName.sync="patient.responsible.name"
-          :cellPhoneNumber.sync="patient.contact.cellPhoneNumber"
-          :homePhoneNumber.sync="patient.contact.homePhoneNumber"
-          :businessPhoneNumber.sync="patient.contact.businessPhoneNumber"
+          :is-under-age.sync="patient.isUnderAge"
+          :responsible-name.sync="patient.responsible.name"
+          :cell-phone-number.sync="patient.contact.cellPhoneNumber"
+          :home-phone-number.sync="patient.contact.homePhoneNumber"
+          :business-phone-number.sync="patient.contact.businessPhoneNumber"
           :email.sync="patient.email"
-          :contactTimePreference.sync="patient.contactTimePreference"
+          :contact-time-preference.sync="patient.contactTimePreference"
           :comments.sync="patient.others.comments"
         ></QuickForm>
 
         <PersonalDataForm
           v-show="currentStep === 1 && !quickMode"
-          :responsibleForm="true"
+          :responsible-form="true"
           :name.sync="patient.name"
-          :birthDate.sync="patient.birthDate"
+          :birth-date.sync="patient.birthDate"
           :age.sync="patient.age"
-          :isUnderAge.sync="patient.isUnderAge"
+          :is-under-age.sync="patient.isUnderAge"
           :cpf.sync="patient.cpf"
           :rg.sync="patient.rg"
           :gender.sync="patient.gender"
-          :matrialStatus.sync="patient.matrialStatus"
-          :educationLevel.sync="patient.education.level"
-          :educationStatus.sync="patient.education.status"
-          :jobRole.sync="patient.jobRole"
-          :placeOfBirth.sync="patient.placeOfBirth"
+          :matrial-status.sync="patient.matrialStatus"
+          :education-level.sync="patient.education.level"
+          :education-status.sync="patient.education.status"
+          :job-role.sync="patient.jobRole"
+          :place-of-birth.sync="patient.placeOfBirth"
           :nationality.sync="patient.nationality"
           :religion.sync="patient.religion"
-          :responsibleName.sync="patient.responsible.name"
-          :responsibleRg.sync="patient.responsible.rg"
-          :responsibleCpf.sync="patient.responsible.cpf"
-          :publicPlace.sync="patient.address.publicPlace"
-          :addressNumber.sync="patient.address.number"
-          :addressComplement.sync="patient.address.complement"
+          :responsible-name.sync="patient.responsible.name"
+          :responsible-rg.sync="patient.responsible.rg"
+          :responsible-cpf.sync="patient.responsible.cpf"
+          :public-place.sync="patient.address.publicPlace"
+          :address-number.sync="patient.address.number"
+          :address-complement.sync="patient.address.complement"
           :neighborhood.sync="patient.address.neighborhood"
           :city.sync="patient.address.city"
           :state.sync="patient.address.state"
           :cep.sync="patient.address.cep"
-          :cellPhoneNumber.sync="patient.contact.cellPhoneNumber"
-          :homePhoneNumber.sync="patient.contact.homePhoneNumber"
-          :businessPhoneNumber.sync="patient.contact.businessPhoneNumber"
+          :cell-phone-number.sync="patient.contact.cellPhoneNumber"
+          :home-phone-number.sync="patient.contact.homePhoneNumber"
+          :business-phone-number.sync="patient.contact.businessPhoneNumber"
           :email.sync="patient.email"
         ></PersonalDataForm>
 
         <form-step-2
           v-show="currentStep === 2"
           :family.sync="patient.family"
-          :governmentBenefitName.sync="patient.money.governmentBenefit.name"
-          :governmentBenefitValue.sync="patient.money.governmentBenefit.value"
-          :familyIncomeComments.sync="patient.money.familyIncomeComments"
-          :housingCondition.sync="patient.home.housingCondition"
+          :government-benefit-name.sync="patient.money.governmentBenefit.name"
+          :government-benefit-value.sync="patient.money.governmentBenefit.value"
+          :family-income-comments.sync="patient.money.familyIncomeComments"
+          :housing-condition.sync="patient.home.housingCondition"
         ></form-step-2>
 
         <form-step-3
           v-show="currentStep === 3"
-          :physicalActivity.sync="patient.health.physicalActivity"
+          :physical-activity.sync="patient.health.physicalActivity"
           :medicines.sync="patient.health.medicines"
-          :qtdCigarettes.sync="patient.health.qtdCigarettes"
-          :qtdDrinks.sync="patient.health.qtdDrinks"
-          :familyAlcoholAbuse.sync="patient.health.family.alcoholAbuse"
-          :familyDiseases.sync="patient.health.family.diseases"
-          :familyMedicines.sync="patient.health.family.medicines"
+          :qtd-cigarettes.sync="patient.health.qtdCigarettes"
+          :qtd-drinks.sync="patient.health.qtdDrinks"
+          :family-alcohol-abuse.sync="patient.health.family.alcoholAbuse"
+          :family-diseases.sync="patient.health.family.diseases"
+          :family-medicines.sync="patient.health.family.medicines"
         ></form-step-3>
 
         <form-step-4
           v-show="currentStep === 4"
           :parish.sync="patient.affiliation.parish"
-          :religiousActivities.sync="patient.affiliation.religiousActivities"
+          :religious-activities.sync="patient.affiliation.religiousActivities"
         ></form-step-4>
 
         <form-step-5
@@ -115,40 +124,63 @@
     </div>
     <footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
       <router-link :to="'/acolhido'" @click.native="$destroy()">
-        <button type="button" name="button" class="cancel-btn btn py-2
-          px-3 d-flex align-items-center _rounded-100"
+        <button
+          type="button"
+          name="button"
+          class="cancel-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
         >
           <h5 class="mb-0 px-2"><b>Cancelar</b></h5>
         </button>
       </router-link>
-      <button v-if="currentStep < steps" @click="currentStep++"
-        :style="[updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
-        type="button" name="button" class="next-btn btn py-2 px-3 d-flex
-        align-items-center _rounded-100"
+      <button
+        v-if="currentStep < steps"
+        :style="[
+          updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {},
+        ]"
+        type="button"
+        name="button"
+        class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        @click="currentStep++"
       >
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
-        <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
+        <chevron-right-icon
+          size="1.5x"
+          class="custom-class"
+        ></chevron-right-icon>
       </button>
-      <button  v-else-if="quickMode" @click="create" type="button" name="button"
+      <button
+        v-else-if="quickMode"
+        type="button"
+        name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        @click="create"
       >
         <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
         <h5 class="mb-0 px-2"><b>Pré-cadastrar</b></h5>
       </button>
-      <button v-else-if="updateMode" @click="update" type="button" name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
+      <button
+        v-else-if="updateMode"
+        type="button"
+        name="button"
+        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100"
+        @click="update"
+      >
         <edit-icon size="1.5x" class="edit-icon"></edit-icon>
         <h5 class="mb-0 px-2"><b>Editar</b></h5>
       </button>
-      <button v-else @click="create" type="button" name="button"
+      <button
+        v-else
+        type="button"
+        name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        @click="create"
       >
         <plus-icon size="1.5x" class="add-icon"></plus-icon>
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
       </button>
     </footer>
     <VueCodeHighlight v-show="false">
-     {{JSON.stringify(patient, null, 2)}}
+      {{ JSON.stringify(patient, null, 2) }}
     </VueCodeHighlight>
   </div>
 </template>
@@ -156,7 +188,12 @@
 <script>
 // Icons
 import {
-  PlusIcon, ChevronRightIcon, ArrowLeftIcon, HeartIcon, EditIcon, ClipboardIcon,
+  PlusIcon,
+  ChevronRightIcon,
+  ArrowLeftIcon,
+  HeartIcon,
+  EditIcon,
+  ClipboardIcon,
 } from 'vue-feather-icons';
 
 // Step dot
@@ -212,14 +249,25 @@ export default {
       default: 1,
     },
   },
-  mounted() {
-    if (this.updateMode || this.$route.params.id != null) {
-      this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
-        this.patient = patient;
-      });
-    }
-
-    if (this.quickMode) this.steps = 1;
+  data() {
+    return {
+      patient: {
+        education: {},
+        address: {},
+        contact: {},
+        responsible: {},
+        family: [],
+        money: {
+          governmentBenefit: {},
+        },
+        home: {},
+        health: {
+          family: {},
+        },
+        affiliation: {},
+        others: {},
+      },
+    };
   },
   computed: {
     patientTranslated() {
@@ -253,43 +301,31 @@ export default {
           demanda: this.patient.others.demands,
           observacao: this.patient.others.comments,
         },
-        familiares: this.patient.family.map((member) => (
-          {
-            nome: member.name,
-            parentesco: member.kinship,
-            escolaridade: `${member.education.level} - ${member.education.status}`,
-            ocupacao: member.jobRole,
-            cohabita: member.isCohabiting,
-            // telefone: member.phoneNumber,
-            renda: member.income,
-          }
-        )),
+        familiares: this.patient.family.map((member) => ({
+          nome: member.name,
+          parentesco: member.kinship,
+          escolaridade: `${member.education.level} - ${member.education.status}`,
+          ocupacao: member.jobRole,
+          cohabita: member.isCohabiting,
+          // telefone: member.phoneNumber,
+          renda: member.income,
+        })),
       };
     },
   },
-  data() {
-    return {
-      patient: {
-        education: {},
-        address: {},
-        contact: {},
-        responsible: {},
-        family: [],
-        money: {
-          governmentBenefit: {},
-        },
-        home: {},
-        health: {
-          family: {},
-        },
-        affiliation: {},
-        others: {},
-      },
-    };
+  mounted() {
+    if (this.updateMode || this.$route.params.id != null) {
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
+        this.patient = patient;
+      });
+    }
+
+    if (this.quickMode) this.steps = 1;
   },
   methods: {
     retrieve(id) {
-      this.$axios.get(`/welcomed/${id}`)
+      this.$axios
+        .get(`/welcomed/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -318,7 +354,8 @@ export default {
         });
     },
     create() {
-      this.$axios.post('/acolhido', this.patientTranslated)
+      this.$axios
+        .post('/acolhido', this.patientTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
@@ -353,7 +390,7 @@ export default {
           }
         });
     },
-    update() { },
+    update() {},
   },
 };
 </script>
@@ -363,11 +400,11 @@ export default {
 @import url('../../../../node_modules/vue-code-highlight/themes/prism-tomorrow.css');
 
 header {
-  color: #707070
+  color: #707070;
 }
 
 .title-icon {
-  stroke-width: 3px
+  stroke-width: 3px;
 }
 
 .prev-btn {
@@ -376,14 +413,15 @@ header {
   cursor: pointer;
 }
 
-.add-btn, .next-btn {
+.add-btn,
+.next-btn {
   color: white;
-  background-color: #175D2B;
+  background-color: #175d2b;
 }
 
 .edit-btn {
   color: black;
-  background-color: #E3DB4A;
+  background-color: #e3db4a;
 }
 
 .cancel-btn {
@@ -399,6 +437,6 @@ header {
 
 .infos .current-step {
   color: #707070;
-  font-weight: 600
+  font-weight: 600;
 }
 </style>

@@ -3,63 +3,69 @@
     <header class="d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
         <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0"><b>{{updateMode ? 'Editar' : 'Adicionar' }} voluntário</b></h2>
+        <h2 class="ml-3 mb-0">
+          <b>{{ updateMode ? 'Editar' : 'Adicionar' }} voluntário</b>
+        </h2>
       </div>
       <div class="steps d-flex">
         <step
-          class="step ml-2"
           v-for="index of steps"
           :key="index"
+          class="step ml-2"
           :number="index"
           :active="index <= currentStep"
-          :updateMode="updateMode"
+          :update-mode="updateMode"
           @click.native="currentStep = index"
         ></step>
       </div>
     </header>
     <div class="wrapper pt-4">
       <div class="infos">
-        <p class="current-step">ETAPA {{currentStep}}</p>
+        <p class="current-step">ETAPA {{ currentStep }}</p>
       </div>
       <article>
-        <div @click="currentStep--" v-if="currentStep > 1" class="d-inline-flex prev-btn mb-2">
+        <div
+          v-if="currentStep > 1"
+          class="d-inline-flex prev-btn mb-2"
+          @click="currentStep--"
+        >
           <arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
           <p class="mb-0 ml-1">Voltar a etapa anterior</p>
         </div>
 
         <form-step-1
           v-show="currentStep === 1"
-          :volunteerType.sync="volunteer.type"
-          :volunteerSpecialties.sync="volunteer.specialties"
-          :volunteerAgeRangesOfCare.sync="volunteer.ageRangesOfCare"
+          :volunteer-type.sync="volunteer.type"
+          :volunteer-specialties.sync="volunteer.specialties"
+          :volunteer-age-ranges-of-care.sync="volunteer.ageRangesOfCare"
         ></form-step-1>
 
         <PersonalDataForm
           v-show="currentStep === 2"
           :name.sync="volunteer.name"
-          :birthDate.sync="volunteer.birthDate"
+          :birth-date.sync="volunteer.birthDate"
           :age.sync="volunteer.age"
-          :isUnderAge.sync="volunteer.isUnderAge"
+          :is-under-age.sync="volunteer.isUnderAge"
           :cpf.sync="volunteer.cpf"
           :rg.sync="volunteer.rg"
           :gender.sync="volunteer.gender"
-          :matrialStatus.sync="volunteer.matrialStatus"
-          :educationLevel.sync="volunteer.education.level"
-          :educationStatus.sync="volunteer.education.status"
-          :jobRole.sync="volunteer.jobRole"
-          :placeOfBirth.sync="volunteer.placeOfBirth"
+          :matrial-status.sync="volunteer.matrialStatus"
+          :education-level.sync="volunteer.education.level"
+          :education-status.sync="volunteer.education.status"
+          :job-role.sync="volunteer.jobRole"
+          :place-of-birth.sync="volunteer.placeOfBirth"
           :nationality.sync="volunteer.nationality"
           :religion.sync="volunteer.religion"
-          :publicPlace.sync="volunteer.address.publicPlace"
-          :addressNumber.sync="volunteer.address.number"
-          :addressComplement.sync="volunteer.address.complement"
+          :public-place.sync="volunteer.address.publicPlace"
+          :address-number.sync="volunteer.address.number"
+          :address-complement.sync="volunteer.address.complement"
           :neighborhood.sync="volunteer.address.neighborhood"
           :city.sync="volunteer.address.city"
           :state.sync="volunteer.address.state"
           :cep.sync="volunteer.address.cep"
-          :cellPhoneNumber.sync="volunteer.contact.cellPhoneNumber"
-          :homePhoneNumber.sync="volunteer.contact.homePhoneNumber"
-          :businessPhoneNumber.sync="volunteer.contact.businessPhoneNumber"
+          :cell-phone-number.sync="volunteer.contact.cellPhoneNumber"
+          :home-phone-number.sync="volunteer.contact.homePhoneNumber"
+          :business-phone-number.sync="volunteer.contact.businessPhoneNumber"
           :email.sync="volunteer.email"
         ></PersonalDataForm>
 
@@ -72,27 +78,46 @@
     </div>
     <footer class="pt-4 pb-2 d-flex justify-content-between align-items-center">
       <router-link :to="'/voluntario'" @click.native="$destroy()">
-        <button type="button" name="button" class="cancel-btn btn py-2 px-3 d-flex
-          align-items-center _rounded-100"
+        <button
+          type="button"
+          name="button"
+          class="cancel-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
         >
           <h5 class="mb-0 px-2"><b>Cancelar</b></h5>
         </button>
       </router-link>
-      <button v-if="currentStep < steps" @click="currentStep++"
-        :style="[updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {}]"
-        type="button" name="button" class="next-btn btn py-2 px-3 d-flex
-        align-items-center _rounded-100"
+      <button
+        v-if="currentStep < steps"
+        :style="[
+          updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {},
+        ]"
+        type="button"
+        name="button"
+        class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        @click="currentStep++"
       >
         <h5 class="mb-0 px-2"><b>Próxima</b></h5>
-        <chevron-right-icon size="1.5x" class="custom-class"></chevron-right-icon>
+        <chevron-right-icon
+          size="1.5x"
+          class="custom-class"
+        ></chevron-right-icon>
       </button>
-      <button v-else-if="updateMode" @click="update" type="button" name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100">
+      <button
+        v-else-if="updateMode"
+        type="button"
+        name="button"
+        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100"
+        @click="update"
+      >
         <edit-icon size="1.5x" class="edit-icon"></edit-icon>
         <h5 class="mb-0 px-2"><b>Editar</b></h5>
       </button>
-      <button v-else @click="create" type="button" name="button"
+      <button
+        v-else
+        type="button"
+        name="button"
         class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+        @click="create"
       >
         <plus-icon size="1.5x" class="add-icon"></plus-icon>
         <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
@@ -100,7 +125,7 @@
     </footer>
 
     <VueCodeHighlight v-show="false">
-     {{JSON.stringify(volunteer, null, 2)}}
+      {{ JSON.stringify(volunteer, null, 2) }}
     </VueCodeHighlight>
   </div>
 </template>
@@ -118,11 +143,15 @@ import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
 // import FormStep3 from '@/views/volunteer/form/steps/VolunteerStep3.vue';
 
 import {
-  UsersIcon, PlusIcon, ChevronRightIcon, ArrowLeftIcon, EditIcon,
+  UsersIcon,
+  PlusIcon,
+  ChevronRightIcon,
+  ArrowLeftIcon,
+  EditIcon,
 } from 'vue-feather-icons';
 
 export default {
-  name: 'voluntario',
+  name: 'Voluntario',
   components: {
     VueCodeHighlight,
     Step,
@@ -167,13 +196,6 @@ export default {
       },
     };
   },
-  mounted() {
-    if (this.updateMode || this.$route.params.id != null) {
-      this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
-        this.volunteer = volunteer;
-      });
-    }
-  },
   computed: {
     volunteerTranslated() {
       return {
@@ -200,9 +222,17 @@ export default {
       };
     },
   },
+  mounted() {
+    if (this.updateMode || this.$route.params.id != null) {
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
+        this.volunteer = volunteer;
+      });
+    }
+  },
   methods: {
     retrieve(id) {
-      this.$axios.get(`/volunteer/${id}`)
+      this.$axios
+        .get(`/volunteer/${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -231,7 +261,8 @@ export default {
         });
     },
     create() {
-      this.$axios.post('/voluntario', this.volunteerTranslated)
+      this.$axios
+        .post('/voluntario', this.volunteerTranslated)
         .then(() => {
           this.$toast({
             icon: 'success',
@@ -266,18 +297,18 @@ export default {
           }
         });
     },
-    update() { },
+    update() {},
   },
 };
 </script>
 
 <style lang="css" scoped>
 header {
-  color: #707070
+  color: #707070;
 }
 
 .title-icon {
-  stroke-width: 3px
+  stroke-width: 3px;
 }
 
 .prev-btn {
@@ -286,14 +317,15 @@ header {
   cursor: pointer;
 }
 
-.add-btn, .next-btn {
+.add-btn,
+.next-btn {
   color: white;
-  background-color: #175D2B;
+  background-color: #175d2b;
 }
 
 .edit-btn {
   color: black;
-  background-color: #E3DB4A;
+  background-color: #e3db4a;
 }
 
 .cancel-btn {
@@ -309,6 +341,6 @@ header {
 
 .infos .current-step {
   color: #707070;
-  font-weight: 600
+  font-weight: 600;
 }
 </style>

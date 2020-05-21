@@ -7,16 +7,20 @@
       </div>
       <div class="d-flex justify-content-between align-items-center">
         <router-link :to="'/acolhido/rapido'" class="ml-2">
-          <button type="button" name="button" class="quick-btn btn py-2 px-3
-            d-flex align-items-center _rounded-100"
+          <button
+            type="button"
+            name="button"
+            class="quick-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
           >
             <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
             <h5 class="mb-0 px-2"><b>Pré-cadastro</b></h5>
           </button>
         </router-link>
         <router-link :to="'/acolhido/adicionar'" class="ml-2">
-          <button type="button" name="button" class="add-btn btn py-2 px-3
-            d-flex align-items-center _rounded-100"
+          <button
+            type="button"
+            name="button"
+            class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
           >
             <plus-icon size="1.5x" class="add-icon"></plus-icon>
             <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
@@ -34,27 +38,38 @@
         :sort-desc.sync="sortDesc"
         primary-key="id"
         head-variant="dark"
-        responsive bordered hover show-empty
+        responsive
+        bordered
+        hover
+        show-empty
       >
         <template v-slot:cell(priority)="data">
           <b-badge :variant="priorityClass(data.item.priority)">
-            {{priorityText(data.item.priority)}}
+            {{ priorityText(data.item.priority) }}
           </b-badge>
         </template>
         <template v-slot:cell(status)="data">
           <b-badge pill variant="light">
-            {{data.item.status}} - {{statusText(data.item.status)}}
+            {{ data.item.status }} - {{ statusText(data.item.status) }}
           </b-badge>
         </template>
         <template v-slot:cell(actions)="data">
           <router-link :to="`/acolhido/editar/${data.item.id}`">
-            <button type="button" name="button" class="edit-btn btn" title="Editar">
+            <button
+              type="button"
+              name="button"
+              class="edit-btn btn"
+              title="Editar"
+            >
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
             </button>
           </router-link>
           <button
-            @click="destroy(data.item.id)" type="button" name="button"
-            class="edit-btn btn" title="Deletar"
+            type="button"
+            name="button"
+            class="edit-btn btn"
+            title="Deletar"
+            @click="destroy(data.item.id)"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
           </button>
@@ -76,7 +91,11 @@
 <script>
 // Icons
 import {
-  PlusIcon, EditIcon, Trash2Icon, ClipboardIcon, HeartIcon,
+  PlusIcon,
+  EditIcon,
+  Trash2Icon,
+  ClipboardIcon,
+  HeartIcon,
 } from 'vue-feather-icons';
 
 // FakeDB
@@ -90,9 +109,6 @@ export default {
     Trash2Icon,
     ClipboardIcon,
     HeartIcon,
-  },
-  mounted() {
-    this.update();
   },
   data() {
     return {
@@ -135,14 +151,19 @@ export default {
       sortDesc: false,
     };
   },
+  mounted() {
+    this.update();
+  },
   methods: {
     update() {
       this.isBusy = true;
 
-      this.$axios.get('/acolhido')
+      this.$axios
+        .get('/acolhido')
         .then((response) => {
           this.patients = response.data;
-        }).catch((error) => {
+        })
+        .catch((error) => {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -177,7 +198,8 @@ export default {
     },
     destroy(id) {
       this.$swal({
-        title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
+        title:
+          "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
         text: 'Esta ação não poderá ser revertida!',
         icon: 'warning',
         showCancelButton: true,
@@ -186,7 +208,8 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          this.$axios.delete(`/acolhido?id=${id}`)
+          this.$axios
+            .delete(`/acolhido?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',
@@ -194,7 +217,8 @@ export default {
               });
 
               this.update();
-            }).catch((error) => {
+            })
+            .catch((error) => {
               if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
@@ -284,25 +308,25 @@ table.b-table[aria-busy='true'] {
 }
 
 header {
-  color: #707070
+  color: #707070;
 }
 
 .title-icon {
-  stroke-width: 3px
+  stroke-width: 3px;
 }
 
 .quick-btn {
-  color: #175D2B;
-  border: 3px solid #175D2B;
+  color: #175d2b;
+  border: 3px solid #175d2b;
 }
 
 .add-btn {
   color: white;
-  background-color: #175D2B;
+  background-color: #175d2b;
 }
 
 /* Table */
-.table >>> tr[role="row"]:not(.b-table-details) {
+.table >>> tr[role='row']:not(.b-table-details) {
   cursor: pointer !important;
 }
 </style>

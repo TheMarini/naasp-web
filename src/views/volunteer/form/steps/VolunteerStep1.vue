@@ -5,57 +5,85 @@
       <p>Qual será o papel do voluntário na NAASP?</p>
       <div class="row">
         <div class="col-auto">
-          <button @click="volunteer.type = 0" :class="volunteer.type === 0 ? 'active' : ''"
-            class="_card btn btn-light text-center d-flex flex-column justify-content-center
-            align-items-center"
+          <button
+            :class="volunteer.type === 0 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center align-items-center"
+            @click="volunteer.type = 0"
           >
             <activity-icon size="1.5x" class="custom-class"></activity-icon>
             <p class="mb-0 mt-2">Médica</p>
           </button>
         </div>
         <div class="col-auto">
-          <button @click="volunteer.type = 1" :class="volunteer.type === 1 ? 'active' : ''"
-            class="_card btn btn-light text-center d-flex flex-column justify-content-center
-              align-items-center"
-            >
+          <button
+            :class="volunteer.type === 1 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center align-items-center"
+            @click="volunteer.type = 1"
+          >
             <book-open-icon size="1.5x" class="custom-class"></book-open-icon>
             <p class="mb-0 mt-2">Secretária</p>
           </button>
         </div>
         <div class="col-auto">
-          <button @click="volunteer.type = 2" :class="volunteer.type === 2 ? 'active' : ''"
-            class="_card btn btn-light text-center d-flex flex-column justify-content-center
-              align-items-center"
-            >
+          <button
+            :class="volunteer.type === 2 ? 'active' : ''"
+            class="_card btn btn-light text-center d-flex flex-column justify-content-center align-items-center"
+            @click="volunteer.type = 2"
+          >
             <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
-            <p class="mb-0 mt-2">Assitente <br> Social</p>
+            <p class="mb-0 mt-2">
+              Assitente <br />
+              Social
+            </p>
           </button>
         </div>
       </div>
     </section>
-    <section class="mt-4" v-if="volunteer.type === 0">
+    <section v-if="volunteer.type === 0" class="mt-4">
       <h4 class="section-title">ATENDIMENTO</h4>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="specialty">Especialidade</label>
-          <multiselect id="specialty" v-model="volunteer.specialties" :options="specialtiesOptions"
-            track-by="id" label="name" :multiple="true" :taggable="true" @tag="createTag"
+          <multiselect
+            id="specialty"
+            v-model="volunteer.specialties"
+            :options="specialtiesOptions"
+            track-by="id"
+            label="name"
+            :multiple="true"
+            :taggable="true"
+            tag-laceholder="Adicionar nova especialidade"
+            open-direction="bottom"
+            placeholder="Escolha uma opção"
+            select-label="Pressione enter para selecionar"
+            selected-label="Selecionado"
+            deselect-label="Pressione enter para remover seleção"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            @tag="createTag"
             @remove="deleteUnnusedCreatedTags"
-            openDirection="bottom" tag-laceholder="Adicionar nova especialidade"
-            placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
-            selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
-            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
           >
           </multiselect>
         </div>
         <div class="form-group col-md-6">
           <label for="specialty">Faixa etária de atendimento</label>
-          <multiselect id="age-range" v-model="volunteer.ageRangesOfCare"
+          <multiselect
+            id="age-range"
+            v-model="volunteer.ageRangesOfCare"
             :options="ageRangesOfCareOptions"
-            track-by="id" label="name" :multiple="true" openDirection="bottom" :searchable="false"
-            placeholder="Escolha uma opção" selectLabel="Pressione enter para selecionar"
-            selectedLabel="Selecionado" deselectLabel="Pressione enter para remover seleção"
-            :close-on-select="false" :clear-on-select="false" :preserve-search="true"
+            track-by="id"
+            label="name"
+            :multiple="true"
+            open-direction="bottom"
+            :searchable="false"
+            placeholder="Escolha uma opção"
+            select-label="Pressione enter para selecionar"
+            selected-label="Selecionado"
+            deselect-label="Pressione enter para remover seleção"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
           >
           </multiselect>
         </div>
@@ -72,15 +100,32 @@ import { ActivityIcon, BookOpenIcon, ClipboardIcon } from 'vue-feather-icons';
 import Multiselect from 'vue-multiselect';
 
 export default {
-  name: 'form-step-1',
+  name: 'FormStep1',
   components: {
     ActivityIcon,
     BookOpenIcon,
     ClipboardIcon,
     Multiselect,
   },
-  mounted() {
-    this.volunteer.ageRangesOfCare = [...this.ageRangesOfCareOptions];
+  data() {
+    return {
+      volunteer: {
+        type: null,
+        specialties: [],
+        ageRangesOfCare: [],
+      },
+      newTagsId: [],
+      specialtiesOptions: [
+        { id: 0, name: 'Psicólogo' },
+        { id: 1, name: 'Dentista' },
+        { id: 2, name: 'Ginecologista' },
+      ],
+      ageRangesOfCareOptions: [
+        { id: 0, name: 'Até 16 anos' },
+        { id: 1, name: 'De 17 a 65 anos' },
+        { id: 2, name: 'Acima de 66 anos' },
+      ],
+    };
   },
   watch: {
     'volunteer.type': {
@@ -123,25 +168,8 @@ export default {
     //   },
     // },
   },
-  data() {
-    return {
-      volunteer: {
-        type: null,
-        specialties: [],
-        ageRangesOfCare: [],
-      },
-      newTagsId: [],
-      specialtiesOptions: [
-        { id: 0, name: 'Psicólogo' },
-        { id: 1, name: 'Dentista' },
-        { id: 2, name: 'Ginecologista' },
-      ],
-      ageRangesOfCareOptions: [
-        { id: 0, name: 'Até 16 anos' },
-        { id: 1, name: 'De 17 a 65 anos' },
-        { id: 2, name: 'Acima de 66 anos' },
-      ],
-    };
+  mounted() {
+    this.volunteer.ageRangesOfCare = [...this.ageRangesOfCareOptions];
   },
   methods: {
     createTag(name) {
@@ -155,7 +183,9 @@ export default {
     },
     deleteUnnusedCreatedTags(option) {
       if (this.newTagsId.find((t) => t === option.id)) {
-        const index = this.specialtiesOptions.findIndex((s) => s.id === option.id);
+        const index = this.specialtiesOptions.findIndex(
+          (s) => s.id === option.id
+        );
         this.specialtiesOptions.splice(index, 1);
       }
     },

@@ -6,8 +6,10 @@
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="days">Dias da semana</label>
-            <select @input="$emit('update:availability', $event.target.value)"
-              class="custom-select _rounded" id="days"
+            <select
+              id="days"
+              class="custom-select _rounded"
+              @input="$emit('update:availability', $event.target.value)"
             >
               <option selected disabled>Escolha uma opção</option>
               <option value="Segunda">Segunda</option>
@@ -21,8 +23,10 @@
           </div>
           <div class="form-group col-md-4">
             <label for="per">Período</label>
-            <select @input="$emit('update:dayTime', $event.target.value)"
-              class="custom-select _rounded" id="per"
+            <select
+              id="per"
+              class="custom-select _rounded"
+              @input="$emit('update:dayTime', $event.target.value)"
             >
               <option selected disabled>Escolha uma opção</option>
               <option value="Manhã">Manhã</option>
@@ -38,7 +42,7 @@
 
 <script>
 export default {
-  name: 'form-step-3',
+  name: 'FormStep3',
 };
 </script>
 

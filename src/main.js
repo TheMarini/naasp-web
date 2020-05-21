@@ -30,17 +30,19 @@ Vue.use(VueTheMask);
 // --- GLOBALS ---
 // SweetAlert toast
 Vue.prototype.$toast = function swalToast(object) {
-  this.$swal.mixin({
-    toast: true,
-    position: 'bottom-start',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    onOpen: (toast) => {
-      toast.addEventListener('mouseenter', this.$swal.stopTimer);
-      toast.addEventListener('mouseleave', this.$swal.resumeTimer);
-    },
-  }).fire(object);
+  this.$swal
+    .mixin({
+      toast: true,
+      position: 'bottom-start',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', this.$swal.stopTimer);
+        toast.addEventListener('mouseleave', this.$swal.resumeTimer);
+      },
+    })
+    .fire(object);
 };
 
 // Axios
