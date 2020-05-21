@@ -6,48 +6,88 @@
         <div class="form-row">
           <div class="form-group col-md-8">
             <label for="physicalActivity">Atividade física que pratica</label>
-            <input @input="$emit('update:physicalActivity', $event.target.value)" type="text"
-              class="form-control _rounded" id="physicalActivity"
-              placeholder="Ciclismo, corrida, futebol, academia...">
+            <input
+              id="physicalActivity"
+              type="text"
+              class="form-control _rounded"
+              placeholder="Ciclismo, corrida, futebol, academia..."
+              @input="$emit('update:physicalActivity', $event.target.value)"
+            />
           </div>
           <div class="form-group col-md-4">
             <label for="medicines">Medicamentos contínuos</label>
-            <input @input="$emit('update:medicines', $event.target.value)" type="text"
-              class="form-control _rounded" id="medicines" placeholder="Omeprazol, metronidazol...">
+            <input
+              id="medicines"
+              type="text"
+              class="form-control _rounded"
+              placeholder="Omeprazol, metronidazol..."
+              @input="$emit('update:medicines', $event.target.value)"
+            />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="qtdCigarettes">Qtd. cigarros (semanais)</label>
-            <input @input="$emit('update:qtdCigarettes', parseInt($event.target.value))"
-              type="number" min="0" value="0" class="form-control _rounded" id="qtdCigarettes"
-              placeholder="">
+            <input
+              id="qtdCigarettes"
+              type="number"
+              min="0"
+              value="0"
+              class="form-control _rounded"
+              placeholder=""
+              @input="
+                $emit('update:qtdCigarettes', parseInt($event.target.value))
+              "
+            />
           </div>
           <div class="form-group col-md-3">
             <label for="qtdDrinks">Qtd. bebidas (semanais)</label>
-            <input @input="$emit('update:qtdDrinks', parseInt($event.target.value))" type="number"
-              min="0" value="0" class="form-control _rounded" id="qtdDrinks" placeholder="">
+            <input
+              id="qtdDrinks"
+              type="number"
+              min="0"
+              value="0"
+              class="form-control _rounded"
+              placeholder=""
+              @input="$emit('update:qtdDrinks', parseInt($event.target.value))"
+            />
           </div>
           <div class="form-group col-md-6">
-            <label for="familyAlcoholAbuse">Casos de abuso de álcool na família (quem)</label>
-            <input @input="$emit('update:familyAlcoholAbuse', $event.target.value)" type="text"
-              class="form-control _rounded" id="familyAlcoholAbuse"
-              placeholder="Pai, mãe, tio, primo...">
+            <label for="familyAlcoholAbuse"
+              >Casos de abuso de álcool na família (quem)</label
+            >
+            <input
+              id="familyAlcoholAbuse"
+              type="text"
+              class="form-control _rounded"
+              placeholder="Pai, mãe, tio, primo..."
+              @input="$emit('update:familyAlcoholAbuse', $event.target.value)"
+            />
           </div>
         </div>
         <div class="form-group">
-          <label for="familyDiseases">Casos de doença na família (quem e quais)</label>
-          <input @input="$emit('update:familyDiseases', $event.target.value)" type="text"
-            class="form-control _rounded" id="familyDiseases"
-            placeholder="Mãe - Alzheimer, Pai - Diabetes...">
+          <label for="familyDiseases"
+            >Casos de doença na família (quem e quais)</label
+          >
+          <input
+            id="familyDiseases"
+            type="text"
+            class="form-control _rounded"
+            placeholder="Mãe - Alzheimer, Pai - Diabetes..."
+            @input="$emit('update:familyDiseases', $event.target.value)"
+          />
         </div>
         <div class="form-group">
           <label for="familyMedicines">
             Uso de medicamentos continuos na família (quem e quais)
           </label>
-          <input @input="$emit('update:familyMedicines', $event.target.value)" type="text"
-            class="form-control _rounded" id="familyMedicines"
-            placeholder="Irmão - Clortalidona, Tio - Atenolol...">
+          <input
+            id="familyMedicines"
+            type="text"
+            class="form-control _rounded"
+            placeholder="Irmão - Clortalidona, Tio - Atenolol..."
+            @input="$emit('update:familyMedicines', $event.target.value)"
+          />
         </div>
       </form>
     </section>
@@ -55,9 +95,8 @@
 </template>
 
 <script>
-
 export default {
-  name: 'form-step-3',
+  name: 'FormStep3',
   mounted() {
     this.$emit('update:qtdCigarettes', 0);
     this.$emit('update:qtdDrinks', 0);

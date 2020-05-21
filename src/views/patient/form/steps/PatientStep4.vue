@@ -5,15 +5,26 @@
       <form>
         <div class="form-group">
           <label for="parish">Paróquia/bairro que pertence</label>
-          <input @input="$emit('update:parish', $event.target.value)" type="text"
-            class="form-control _rounded" id="parish" placeholder="NAASP">
+          <input
+            id="parish"
+            type="text"
+            class="form-control _rounded"
+            placeholder="NAASP"
+            @input="$emit('update:parish', $event.target.value)"
+          />
         </div>
         <div class="form-group">
           <label for="religiousActivities">
-            Atividades promovidas por outras instituições religiosas em que participa
+            Atividades promovidas por outras instituições religiosas em que
+            participa
           </label>
-          <input @input="$emit('update:religiousActivities', $event.target.value)" type="text"
-            class="form-control _rounded" id="religiousActivities" placeholder="-">
+          <input
+            id="religiousActivities"
+            type="text"
+            class="form-control _rounded"
+            placeholder="-"
+            @input="$emit('update:religiousActivities', $event.target.value)"
+          />
         </div>
       </form>
     </section>
@@ -21,9 +32,8 @@
 </template>
 
 <script>
-
 export default {
-  name: 'form-step-4',
+  name: 'FormStep4',
 };
 </script>
 

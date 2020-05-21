@@ -6,64 +6,114 @@
         <div class="form-row">
           <div class="form-group mb-0 col-md-8">
             <label for="name">Nome completo</label>
-            <input v-model="name" @input="$emit('update:name', $event.target.value)"
-              type="text" class="form-control _rounded" id="name" placeholder="Douglas Adams">
+            <input
+              id="name"
+              type="text"
+              class="form-control _rounded"
+              placeholder="Douglas Adams"
+              @input="$emit('update:name', $event.target.value)"
+            />
           </div>
           <div class="form-group mb-0 col-md-4">
             <label for="birth-date">Data de nascimento</label>
-            <input v-model="birthDate" type="date" class="form-control _rounded" id="birth-date">
+            <input
+              id="birth-date"
+              v-model="birthDate"
+              type="date"
+              class="form-control _rounded"
+            />
           </div>
         </div>
       </form>
     </section>
     <section v-show="isUnderAge && responsibleForm">
-      <hr class="my-4">
+      <hr class="my-4" />
       <h4 class="section-title">RESPONSÁVEL</h4>
       <form>
         <div class="form-row">
-          <div class="form-group mb-0 col-md-12" >
-            <label for="resp-name">Nome completo
-            </label>
-            <input @input="$emit('update:responsibleName', $event.target.value)"
-              type="text" class="form-control _rounded" id="resp-name" placeholder="Spike Jonze">
+          <div class="form-group mb-0 col-md-12">
+            <label for="resp-name">Nome completo </label>
+            <input
+              id="resp-name"
+              type="text"
+              class="form-control _rounded"
+              placeholder="Spike Jonze"
+              @input="$emit('update:responsibleName', $event.target.value)"
+            />
           </div>
         </div>
       </form>
     </section>
-    <hr class="my-4">
+    <hr class="my-4" />
     <section>
       <h4 class="section-title">CONTATO</h4>
       <form>
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="cell-phone-number">Telefone celular</label>
-            <the-mask @input.native="$emit('update:cellPhoneNumber', $event.target.value)"
-            id="cell-phone-number" type="tel" class="form-control _rounded"
-            :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 9 1234-5678" />
+            <the-mask
+              id="cell-phone-number"
+              type="tel"
+              class="form-control _rounded"
+              :mask="['(##) ####-####', '(##) # ####-####']"
+              placeholder="(31) 9 1234-5678"
+              @input.native="
+                $emit('update:cellPhoneNumber', $event.target.value)
+              "
+            />
           </div>
           <div class="form-group col-md-4">
             <label for="home-phone-number">Telefone residencial</label>
-            <the-mask @input.native="$emit('update:homePhoneNumber', $event.target.value)"
-            id="home-phone-number" type="tel" class="form-control _rounded"
-            :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
+            <the-mask
+              id="home-phone-number"
+              type="tel"
+              class="form-control _rounded"
+              :mask="['(##) ####-####', '(##) # ####-####']"
+              placeholder="(31) 1234-5678"
+              @input.native="
+                $emit('update:homePhoneNumber', $event.target.value)
+              "
+            />
           </div>
           <div class="form-group col-md-4">
             <label for="business-phone-number">Telefone comercial</label>
-            <the-mask @input.native="$emit('update:businessPhoneNumber', $event.target.value)"
-            id="business-phone-number" type="tel" class="form-control _rounded"
-            :mask="['(##) ####-####', '(##) # ####-####']" placeholder="(31) 1234-5678" />
+            <the-mask
+              id="business-phone-number"
+              type="tel"
+              class="form-control _rounded"
+              :mask="['(##) ####-####', '(##) # ####-####']"
+              placeholder="(31) 1234-5678"
+              @input.native="
+                $emit('update:businessPhoneNumber', $event.target.value)
+              "
+            />
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group mb-0 col-md-8" :class="isUnderAge ?  'mb-0' : ''">
+          <div
+            class="form-group mb-0 col-md-8"
+            :class="isUnderAge ? 'mb-0' : ''"
+          >
             <label for="email">E-mail</label>
-            <input @input="$emit('update:email', $event.target.value)" type="email"
-              class="form-control _rounded" id="email" placeholder="douglas@exemplo.com">
+            <input
+              id="email"
+              type="email"
+              class="form-control _rounded"
+              placeholder="douglas@exemplo.com"
+              @input="$emit('update:email', $event.target.value)"
+            />
           </div>
           <div class="form-group mb-0 col-md-4">
-            <label for="contactTimePreference">Preferência de Atendimento</label>
-            <select @input="$emit('update:contactTimePreference', $event.target.value)"
-              class="custom-select _rounded" id="contactTimePreference">
+            <label for="contactTimePreference"
+              >Preferência de Atendimento</label
+            >
+            <select
+              id="contactTimePreference"
+              class="custom-select _rounded"
+              @input="
+                $emit('update:contactTimePreference', $event.target.value)
+              "
+            >
               <option selected disabled>Escolha uma opção</option>
               <option value="0">Dia Útil - Manhã</option>
               <option value="1">Dia Útil - Tarde</option>
@@ -74,14 +124,17 @@
         </div>
       </form>
     </section>
-    <hr class="my-4">
+    <hr class="my-4" />
     <section>
       <h4 class="section-title">OUTRAS INFORMAÇÃES</h4>
       <form>
         <div class="form-group">
           <label for="comments">Observações</label>
-          <textarea @input="$emit('update:comments', $event.target.value)"
-            class="form-control _rounded" id="comments"></textarea>
+          <textarea
+            id="comments"
+            class="form-control _rounded"
+            @input="$emit('update:comments', $event.target.value)"
+          ></textarea>
         </div>
       </form>
     </section>
@@ -93,7 +146,7 @@
 import moment from 'moment';
 
 export default {
-  name: 'personal-data-form',
+  name: 'PersonalDataForm',
   props: {
     responsibleForm: {
       type: Boolean,
@@ -102,9 +155,6 @@ export default {
     underAgeLimit: {
       type: Number,
       default: 17,
-    },
-    name: {
-      type: String,
     },
   },
   data() {

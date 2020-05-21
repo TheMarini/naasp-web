@@ -6,7 +6,9 @@
         <h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
       </div>
       <router-link :to="'/voluntario/adicionar'">
-        <button type="button" name="button"
+        <button
+          type="button"
+          name="button"
           class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
         >
           <plus-icon size="1.5x" class="add-icon"></plus-icon>
@@ -24,18 +26,28 @@
         :sort-desc.sync="sortDesc"
         primary-key="id"
         head-variant="dark"
-        responsive bordered hover show-empty
+        responsive
+        bordered
+        hover
+        show-empty
       >
         <template v-slot:cell(actions)="data">
           <router-link :to="`/voluntario/editar/${data.item.idPerson}`">
-            <button type="button" name="button" class="edit-btn btn" title="Editar">
+            <button
+              type="button"
+              name="button"
+              class="edit-btn btn"
+              title="Editar"
+            >
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
             </button>
           </router-link>
           <button
+            class="edit-btn btn"
+            title="Deletar"
+            type="button"
+            name="button"
             @click="destroy(data.index)"
-            class="edit-btn btn" title="Deletar"
-            type="button" name="button"
           >
             <trash-2-icon size="1.5x" class="delete-icon"></trash-2-icon>
           </button>
@@ -56,9 +68,7 @@
 
 <script>
 // Icons
-import {
-  UsersIcon, PlusIcon, EditIcon, Trash2Icon,
-} from 'vue-feather-icons';
+import { UsersIcon, PlusIcon, EditIcon, Trash2Icon } from 'vue-feather-icons';
 
 // FakeDB
 import fakedb from '@/fakedb/welcomed.json';
@@ -70,9 +80,6 @@ export default {
     PlusIcon,
     EditIcon,
     Trash2Icon,
-  },
-  mounted() {
-    this.update();
   },
   data() {
     return {
@@ -106,12 +113,17 @@ export default {
       sortDesc: false,
     };
   },
+  mounted() {
+    this.update();
+  },
   methods: {
     update() {
-      this.$axios.get('/voluntario')
+      this.$axios
+        .get('/voluntario')
         .then((response) => {
           this.volunteers = response.data;
-        }).catch((error) => {
+        })
+        .catch((error) => {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -146,7 +158,8 @@ export default {
     },
     destroy(id) {
       this.$swal({
-        title: "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
+        title:
+          "<span>Realmente deseja <span style='color: indianred'>deletar</span><span>?",
         text: 'Esta ação não poderá ser revertida!',
         icon: 'warning',
         showCancelButton: true,
@@ -155,7 +168,8 @@ export default {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.value) {
-          this.$axios.delete(`/voluntario?id=${id}`)
+          this.$axios
+            .delete(`/voluntario?id=${id}`)
             .then(() => {
               this.$toast({
                 icon: 'success',
@@ -163,7 +177,8 @@ export default {
               });
 
               this.update();
-            }).catch((error) => {
+            })
+            .catch((error) => {
               if (error.response) {
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
@@ -202,15 +217,15 @@ table.b-table[aria-busy='true'] {
 }
 
 header {
-  color: #707070
+  color: #707070;
 }
 
 .title-icon {
-  stroke-width: 3px
+  stroke-width: 3px;
 }
 
 .add-btn {
   color: white;
-  background-color: #175D2B;
+  background-color: #175d2b;
 }
 </style>

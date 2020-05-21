@@ -2,14 +2,16 @@
   <div
     class="step d-flex justify-content-center align-items-center"
     :style="[active ? activeStyle : defaultStyle]"
+  >
+    <span class="number"
+      ><b>{{ number }}</b></span
     >
-    <span class="number"><b>{{number}}</b></span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'step',
+  name: 'Step',
   props: {
     number: {
       type: Number,
@@ -26,7 +28,8 @@ export default {
     activeStyle: {
       type: Object,
       default() {
-        if (this.updateMode) return { color: '#000', backgroundColor: '#E3DB4A' };
+        if (this.updateMode)
+          return { color: '#000', backgroundColor: '#E3DB4A' };
 
         return { color: '#fff', backgroundColor: '#175D2B' };
       },
@@ -44,10 +47,10 @@ export default {
 
 <style lang="css" scoped>
 .step {
-  border-radius: 100px
+  border-radius: 100px;
 }
 
 .name {
-  font-weight: 600
+  font-weight: 600;
 }
 </style>

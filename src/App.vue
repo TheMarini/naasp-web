@@ -15,7 +15,7 @@
 import SideNav from '@/components/SideNav.vue';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     SideNav,
   },
@@ -34,90 +34,93 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
   color: #000;
-  background-color: #F5F5F5
+  background-color: #f5f5f5;
 }
 
 main {
   margin-left: 200px;
-  min-height: 100vh
+  min-height: 100vh;
 }
 
-a, a:hover {
+a,
+a:hover {
   color: inherit;
   text-decoration: inherit !important;
 }
 /* --- OVERRIDES --- */
 .swal2-popup {
-  border-radius: 10px
+  border-radius: 10px;
 }
 .swal2-actions button {
-  border-radius: 10px !important
+  border-radius: 10px !important;
 }
 
 .multiselect__tags {
-  border-radius: 10px
+  border-radius: 10px;
 }
 .multiselect__content-wrapper {
   border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .delete-icon {
-  transition: .3s
+  transition: 0.3s;
 }
 .delete-icon:hover {
-  color: indianred
+  color: indianred;
 }
 
 /* --- TRANSITIONS --- */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
 /* --- GLOBALS --- */
 /* ~ Rounded ~ */
 ._rounded-100 {
-  border-radius: 100px !important
+  border-radius: 100px !important;
 }
 ._rounded {
-  border-radius: 10px !important
+  border-radius: 10px !important;
 }
 ._rounded-tl {
-  border-top-left-radius: 10px !important
+  border-top-left-radius: 10px !important;
 }
 ._rounded-tr {
-  border-top-right-radius: 10px !important
+  border-top-right-radius: 10px !important;
 }
 ._rounded-bl {
-  border-bottom-left-radius: 10px !important
+  border-bottom-left-radius: 10px !important;
 }
 ._rounded-br {
-  border-bottom-right-radius: 10px !important
+  border-bottom-right-radius: 10px !important;
 }
 
 /* ~ Squared ~ */
 ._squared {
-  border-radius: 0 !important
+  border-radius: 0 !important;
 }
 ._squared-tl {
-  border-top-left-radius: 0 !important
+  border-top-left-radius: 0 !important;
 }
 ._squared-tr {
-  border-top-right-radius: 0 !important
+  border-top-right-radius: 0 !important;
 }
 ._squared-bl {
-  border-bottom-left-radius: 0 !important
+  border-bottom-left-radius: 0 !important;
 }
 ._squared-br {
-  border-bottom-right-radius: 0 !important
+  border-bottom-right-radius: 0 !important;
 }
 
 /* ~ Card ~ */
 ._card {
   background-color: #fff;
-  border-radius: 10px !important
+  border-radius: 10px !important;
 }
 </style>

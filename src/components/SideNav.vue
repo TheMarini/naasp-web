@@ -1,7 +1,7 @@
 <template lang="html">
   <nav class="side-nav">
     <div class="side-nav-header">
-      <img class="w-100 py-2 px-3" src="@/assets/logo/logo-name.svg" alt="">
+      <img class="w-100 py-2 px-3" src="@/assets/logo/logo-name.svg" alt="" />
     </div>
     <ul class="nav flex-column px-2 mt-3">
       <span class="side-nav-title pl-3">MENU</span>
@@ -35,7 +35,10 @@
 
 <script>
 import {
-  HomeIcon, UsersIcon, HeartIcon, CalendarIcon,
+  HomeIcon,
+  UsersIcon,
+  HeartIcon,
+  CalendarIcon,
 } from 'vue-feather-icons';
 
 export default {
@@ -57,17 +60,17 @@ export default {
   height: 100vh;
   width: 200px;
   background-color: #fff;
-  z-index: 999
+  z-index: 999;
 }
 
 .side-nav-title {
   color: #707070;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
 .nav-link.disabled {
-  opacity: .6
+  opacity: 0.6;
 }
 
 .nav-link {
@@ -80,11 +83,11 @@ export default {
 
 .nav-link.router-link-active {
   color: #fff;
-  background-color: #175D2B;
-  font-weight: 600
+  background-color: #175d2b;
+  font-weight: 600;
 }
 
 .nav-link.router-link-active svg {
-  stroke-width: 2.2
+  stroke-width: 2.2;
 }
 </style>
