@@ -1,33 +1,196 @@
 [
-	{
-		"type": "social worker",
-		"name": "Bruno Marini",
-		"rg": "12.345.678-9",
-		"cpf": "123.456.789-10",
-		"sex": "M",
-		"matrialStatus": "Solteiro",
-		"educationLevel": "Graduando",
-		"jobRole": "Professor",
-		"birthDate": "2010-09-01",
-		"religion": "Agnóstico",
-		"placeOfBirth": "São Paulo, SP",
-		"nationality": "Brasileira",
-	  "address": {
-	    "publicPlace": "Rua do Limão",
-	    "number": 42,
-	    "complement": "Apto. 101",
-	    "neighborhood": "Limoeiro",
-	    "city": "São Paulo",
-	    "state": "São Paulo",
-	    "cep": "12345-678"
-	  },
-	  "contact": {
-	    "phoneNumber": {
-	      "cell": "(31) 9 1234-5678",
-	      "home": "(31) 1234-5678",
-	      "business": "(31) 1234-5678"
-	    },
-	    "email": "bruno@marini.com"
-	  }
-	}
+  {
+    "education": {
+      "level": "Graduação",
+      "status": "Em curso"
+    },
+    "address": {
+      "publicPlace": "Rua do Limão",
+      "number": 42,
+      "complement": "Apto. 101",
+      "neighborhood": {
+        "id": 0,
+        "name": "Limoeiro"
+      },
+      "state": {
+        "id": 1,
+        "name": "São Paulo"
+      },
+      "city": {
+        "id": 1,
+        "name": "Santos"
+      },
+      "cep": "12312-312"
+    },
+    "contact": {
+      "cellPhoneNumber": "(31) 9 3123-1231",
+      "homePhoneNumber": "(32) 3 2323-233",
+      "businessPhoneNumber": "(31) 3 2873-8272"
+    },
+    "ageRangesOfCare": [
+      {
+        "id": 0,
+        "name": "Até 16 anos"
+      },
+      {
+        "id": 1,
+        "name": "De 17 a 65 anos"
+      },
+      {
+        "id": 2,
+        "name": "Acima de 66 anos"
+      }
+    ],
+    "type": 0,
+    "specialties": [
+      {
+        "id": 0,
+        "name": "Psicólogo"
+      },
+      {
+        "id": 1,
+        "name": "Dentista"
+      }
+    ],
+    "name": "Bruno Marini",
+    "birthDate": "1998-09-01",
+    "age": 21,
+    "isUnderAge": false,
+    "cpf": "131.231.231-23",
+    "rg": "31.231.231-2",
+    "gender": "M",
+    "matrialStatus": "Solteiro",
+    "jobRole": "Analista de Requisitos",
+    "placeOfBirth": "São Paulo, SP",
+    "nationality": "Brasileira",
+    "religion": {
+      "id": 1,
+      "name": "Agnóstico"
+    },
+    "email": "bruno@marini.com"
+  },
+  {
+    "education": {
+      "level": "Graduação",
+      "status": "Em curso"
+    },
+    "address": {
+      "publicPlace": "Rua do Limão",
+      "number": 42,
+      "complement": "Apto. 101",
+      "neighborhood": {
+        "id": 0,
+        "name": "Limoeiro"
+      },
+      "state": {
+        "id": 1,
+        "name": "São Paulo"
+      },
+      "city": {
+        "id": 1,
+        "name": "Santos"
+      },
+      "cep": "12312-312"
+    },
+    "contact": {
+      "cellPhoneNumber": "(31) 9 3123-1231",
+      "homePhoneNumber": "(32) 3 2323-233",
+      "businessPhoneNumber": "(31) 3 2873-8272"
+    },
+    "ageRangesOfCare": [
+      {
+        "id": 0,
+        "name": "Até 16 anos"
+      }
+    ],
+    "type": 0,
+    "specialties": [
+      {
+        "id": 2,
+        "name": "Psiquiatra"
+      },
+      {
+        "id": 3,
+        "name": "Pediatra"
+      }
+    ],
+    "name": "Pedro Guerra",
+    "birthDate": "1998-09-01",
+    "age": 21,
+    "isUnderAge": false,
+    "cpf": "131.231.231-23",
+    "rg": "31.231.231-2",
+    "gender": "M",
+    "matrialStatus": "Solteiro",
+    "jobRole": "Analista de Requisitos",
+    "placeOfBirth": "São Paulo, SP",
+    "nationality": "Brasileira",
+    "religion": {
+      "id": 1,
+      "name": "Agnóstico"
+    },
+    "email": "pedro@guerra.com"
+  },
+  {
+    "education": {
+      "level": "Graduação",
+      "status": "Em curso"
+    },
+    "address": {
+      "publicPlace": "Rua do Limão",
+      "number": 42,
+      "complement": "Apto. 101",
+      "neighborhood": {
+        "id": 0,
+        "name": "Limoeiro"
+      },
+      "state": {
+        "id": 1,
+        "name": "São Paulo"
+      },
+      "city": {
+        "id": 1,
+        "name": "Santos"
+      },
+      "cep": "12312-312"
+    },
+    "contact": {
+      "cellPhoneNumber": "(31) 9 3123-1231",
+      "homePhoneNumber": "(32) 3 2323-233",
+      "businessPhoneNumber": "(31) 3 2873-8272"
+    },
+    "ageRangesOfCare": [
+      {
+        "id": 0,
+        "name": "Até 16 anos"
+      },
+      {
+        "id": 1,
+        "name": "De 17 a 65 anos"
+      }
+    ],
+    "type": 0,
+    "specialties": [
+      {
+        "id": 4,
+        "name": "Ginecologista"
+      }
+    ],
+    "name": "Nayane Ornelas",
+    "birthDate": "1998-09-01",
+    "age": 21,
+    "isUnderAge": false,
+    "cpf": "131.231.231-23",
+    "rg": "31.231.231-2",
+    "gender": "M",
+    "matrialStatus": "Solteiro",
+    "jobRole": "Analista de Requisitos",
+    "placeOfBirth": "São Paulo, SP",
+    "nationality": "Brasileira",
+    "religion": {
+      "id": 1,
+      "name": "Agnóstico"
+    },
+    "email": "nayane@ornelas.com"
+  }
 ]
