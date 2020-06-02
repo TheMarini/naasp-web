@@ -174,10 +174,6 @@ export default {
       type: Number,
       default: 2,
     },
-    currentStep: {
-      type: Number,
-      default: 1,
-    },
     // form: {
     //   type: Object,
     //   default: () => ({
@@ -189,6 +185,7 @@ export default {
   },
   data() {
     return {
+      currentStep: 0,
       volunteer: {
         education: {},
         address: {},

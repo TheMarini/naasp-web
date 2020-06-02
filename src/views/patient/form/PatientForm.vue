@@ -240,17 +240,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    steps: {
-      type: Number,
-      default: 5,
-    },
-    currentStep: {
-      type: Number,
-      default: 1,
-    },
   },
   data() {
     return {
+      steps: 5,
+      currentStep: 1,
       patient: {
         education: {},
         address: {},
