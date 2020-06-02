@@ -151,7 +151,7 @@ export default {
         },
       ],
       isBusy: true,
-      sortBy: 'priority',
+      sortBy: 'status',
       sortDesc: false,
     };
   },
