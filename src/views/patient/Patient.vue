@@ -54,7 +54,7 @@
           </b-badge>
         </template>
         <template v-slot:cell(actions)="data">
-          <router-link :to="`/acolhido/editar/${data.item.id}`">
+          <router-link :to="`/acolhido/ligar/${data.item.id}`">
             <button
               type="button"
               name="button"
