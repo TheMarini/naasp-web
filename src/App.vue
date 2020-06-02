@@ -63,11 +63,47 @@ a:hover {
   border-bottom-right-radius: 10px;
 }
 
+.modal-content {
+  border-radius: 10px;
+}
+.modal-header {
+  border-radius: 10px 10px 0 0;
+}
+.modal-footer {
+  border-radius: 0 0 10px 10px;
+}
+
+.call-icon,
+.edit-icon,
 .delete-icon {
   transition: 0.3s;
 }
-.delete-icon:hover {
-  color: indianred;
+
+.call-btn:hover {
+  background-color: cadetblue;
+}
+.call-btn:hover .call-icon {
+  color: white;
+}
+
+.add-btn,
+.add-btn:hover {
+  color: white;
+  background-color: #175d2b;
+}
+
+.edit-btn:hover {
+  background-color: #e3db4a;
+}
+.edit-btn:hover .edit-icon {
+  color: #222;
+}
+
+.delete-btn:hover {
+  background-color: indianred;
+}
+.delete-btn:hover .delete-icon {
+  color: white;
 }
 
 /* --- TRANSITIONS --- */

@@ -54,11 +54,21 @@
           </b-badge>
         </template>
         <template v-slot:cell(actions)="data">
+          <router-link :to="`/acolhido/ligar/${data.item.id}`">
+            <button
+              type="button"
+              name="button"
+              class="call-btn btn _rounded"
+              title="Ligar"
+            >
+              <phone-call-icon size="1.5x" class="call-icon"></phone-call-icon>
+            </button>
+          </router-link>
           <router-link :to="`/acolhido/editar/${data.item.id}`">
             <button
               type="button"
               name="button"
-              class="edit-btn btn"
+              class="edit-btn btn _rounded"
               title="Editar"
             >
               <edit-icon size="1.5x" class="edit-icon"></edit-icon>
@@ -67,7 +77,7 @@
           <button
             type="button"
             name="button"
-            class="edit-btn btn"
+            class="delete-btn btn _rounded"
             title="Deletar"
             @click="destroy(data.item.id)"
           >
@@ -96,6 +106,7 @@ import {
   Trash2Icon,
   ClipboardIcon,
   HeartIcon,
+  PhoneCallIcon,
 } from 'vue-feather-icons';
 
 // FakeDB
@@ -109,13 +120,14 @@ export default {
     Trash2Icon,
     ClipboardIcon,
     HeartIcon,
+    PhoneCallIcon,
   },
   data() {
     return {
       patients: [],
       fields: [
         {
-          key: 'Pessoa.nome',
+          key: 'name',
           label: 'Nome',
           sortable: true,
         },
