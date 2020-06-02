@@ -127,7 +127,7 @@ export default {
       patients: [],
       fields: [
         {
-          key: 'Pessoa.nome',
+          key: 'name',
           label: 'Nome',
           sortable: true,
         },
