@@ -129,7 +129,7 @@ export default {
         },
       ],
       isBusy: true,
-      sortBy: 'priority',
+      sortBy: 'name',
       sortDesc: false,
     };
   },
