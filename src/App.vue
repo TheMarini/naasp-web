@@ -63,6 +63,16 @@ a:hover {
   border-bottom-right-radius: 10px;
 }
 
+.modal-content {
+  border-radius: 10px;
+}
+.modal-header {
+  border-radius: 10px 10px 0 0;
+}
+.modal-footer {
+  border-radius: 0 0 10px 10px;
+}
+
 .call-icon,
 .edit-icon,
 .delete-icon {
