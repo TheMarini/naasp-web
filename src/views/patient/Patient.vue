@@ -132,14 +132,6 @@ export default {
           sortable: true,
         },
         {
-          key: 'cpf',
-          label: 'CPF',
-        },
-        {
-          key: 'cellPhoneNumber',
-          label: 'Telefone Celular',
-        },
-        {
           key: 'email',
           label: 'E-mail',
         },
