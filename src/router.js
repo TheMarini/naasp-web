@@ -12,6 +12,7 @@ import VolunteerForm from './views/volunteer/form/VolunteerForm.vue';
 
 // Patient
 import Patient from './views/patient/Patient.vue';
+import PatientCall from './views/call/Call.vue';
 import PatientForm from './views/patient/form/PatientForm.vue';
 
 // Use vue-router
@@ -45,6 +46,11 @@ const patient = [
     path: '/acolhido',
     name: 'patient',
     component: Patient,
+  },
+  {
+    path: '/acolhido/ligar/:id',
+    name: 'patientCall',
+    component: PatientCall,
   },
   {
     path: '/acolhido/rapido',
