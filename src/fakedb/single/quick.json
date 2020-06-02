@@ -1,0 +1,16 @@
+{
+  "contact": {
+    "cellPhoneNumber": "(31) 3 1231-2312",
+    "homePhoneNumber": "(32) 3 1231-3123",
+    "businessPhoneNumber": "(31) 2 3123-1231"
+  },
+  "others": {
+    "comments": "Nenhuma observação."
+  },
+  "name": "Bruno Marini",
+  "birthDate": "1998-09-01",
+  "age": 21,
+  "isUnderAge": false,
+  "email": "bruno@marini.com",
+  "contactTimePreference": "0"
+}
