@@ -170,10 +170,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    steps: {
-      type: Number,
-      default: 2,
-    },
     // form: {
     //   type: Object,
     //   default: () => ({
@@ -185,7 +181,8 @@ export default {
   },
   data() {
     return {
-      currentStep: 0,
+      steps: 2,
+      currentStep: 1,
       volunteer: {
         education: {},
         address: {},
