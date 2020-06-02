@@ -31,6 +31,28 @@
         hover
         show-empty
       >
+        <template v-slot:cell(specialties)="data">
+          <b-badge
+            v-for="item in data.item.specialties"
+            :key="item.id"
+            pill
+            variant="info"
+            class="mr-1"
+          >
+            {{ item.name }}
+          </b-badge>
+        </template>
+        <template v-slot:cell(ageRangesOfCare)="data">
+          <b-badge
+            v-for="item in data.item.ageRangesOfCare"
+            :key="item.id"
+            pill
+            variant="light"
+            class="mr-1"
+          >
+            {{ item.name }}
+          </b-badge>
+        </template>
         <template v-slot:cell(actions)="data">
           <router-link :to="`/voluntario/editar/${data.item.idPerson}`">
             <button
@@ -71,7 +93,7 @@
 import { UsersIcon, PlusIcon, EditIcon, Trash2Icon } from 'vue-feather-icons';
 
 // FakeDB
-import fakedb from '@/fakedb/welcomed.json';
+import fakedb from '@/fakedb/volunteer.json';
 
 export default {
   name: 'Volunteer',
@@ -86,22 +108,20 @@ export default {
       volunteers: [],
       fields: [
         {
-          key: 'id',
-          label: 'ID',
+          key: 'name',
+          label: 'Nome',
           sortable: true,
         },
         {
-          key: 'EspecialidadeId',
-          label: 'EspecialidadeId',
+          key: 'specialties',
+          label: 'Especialidades',
           sortable: true,
         },
         {
-          key: 'PessoaId',
-          label: 'PessoaId',
+          key: 'ageRangesOfCare',
+          label: 'Faixa Etária',
           sortable: true,
         },
-        'RG',
-        'CPF',
         'email',
         {
           key: 'actions',
