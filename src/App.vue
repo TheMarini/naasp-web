@@ -86,6 +86,12 @@ a:hover {
   color: white;
 }
 
+.add-btn,
+.add-btn:hover {
+  color: white;
+  background-color: #175d2b;
+}
+
 .edit-btn:hover {
   background-color: #e3db4a;
 }
