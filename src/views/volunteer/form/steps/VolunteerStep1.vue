@@ -11,7 +11,7 @@
             @click="volunteer.type = 0"
           >
             <activity-icon size="1.5x" class="custom-class"></activity-icon>
-            <p class="mb-0 mt-2">Médica</p>
+            <p class="mb-0 mt-2">Especialista</p>
           </button>
         </div>
         <div class="col-auto">
