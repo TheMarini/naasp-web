@@ -110,7 +110,7 @@ import {
 } from 'vue-feather-icons';
 
 // FakeDB
-import fakedb from '@/fakedb/welcomed.json';
+import fakedb from '@/fakedb/patient.json';
 
 export default {
   name: 'Patient',
