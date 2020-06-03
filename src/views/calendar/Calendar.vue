@@ -8,11 +8,17 @@
     </header>
     <article class="mt-4">
       <FullCalendar
+        class="full-calendar"
+        theme-system="bootstrap"
         default-view="dayGridMonth"
         locale="pt-br"
         :header="header"
         :plugins="plugins"
         :button-text="buttonText"
+        :now-indicator="true"
+        :selectable="true"
+        :select-mirror="true"
+        @select="select"
       />
     </article>
   </div>
@@ -24,6 +30,8 @@ import { CalendarIcon } from 'vue-feather-icons';
 
 // FullCalendar
 import FullCalendar from '@fullcalendar/vue';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
@@ -35,7 +43,12 @@ export default {
   },
   data() {
     return {
-      plugins: [dayGridPlugin, timeGridPlugin],
+      plugins: [
+        bootstrapPlugin,
+        interactionPlugin,
+        dayGridPlugin,
+        timeGridPlugin,
+      ],
       header: {
         left: 'dayGridMonth,timeGridWeek,timeGridDay',
         center: 'title',
@@ -50,14 +63,34 @@ export default {
       },
     };
   },
+  methods: {
+    select(info) {
+      console.log(info);
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
 /* FullCalendar */
 @import '~@fullcalendar/core/main.css';
+/* TODO: change to local */
+@import 'https://use.fontawesome.com/releases/v5.0.6/css/all.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
+
+/* Overrides */
+.full-calendar >>> .fc-today-button {
+  border-radius: 10px;
+}
+
+.full-calendar >>> .btn-group button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.full-calendar >>> .btn-group button:last-child {
+  border-radius: 0 10px 10px 0;
+}
 
 /* TODO: check repeated styles like this */
 header {
