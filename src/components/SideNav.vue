@@ -12,15 +12,15 @@
         </a>
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" :to="'/voluntario'">
-          <users-icon size="1.5x" class="custom-class"></users-icon>
-          <span class="ml-2">Voluntários</span>
-        </router-link>
-      </li>
-      <li class="nav-item">
         <router-link class="nav-link" :to="'/acolhido'">
           <heart-icon size="1.5x" class="custom-class"></heart-icon>
           <span class="ml-2">Acolhidos</span>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" :to="'/voluntario'">
+          <users-icon size="1.5x" class="custom-class"></users-icon>
+          <span class="ml-2">Voluntários</span>
         </router-link>
       </li>
       <li class="nav-item">
