@@ -50,7 +50,7 @@
               class="add-btn _rounded-100 d-flex align-items-center"
               @click="ok()"
             >
-              <plus-icon size="1.5x" class="add-icon mr-2"></plus-icon>
+              <plus-icon size="1.5x" class="add-icon mr-1"></plus-icon>
               Registrar chamada
             </b-button>
           </div>
