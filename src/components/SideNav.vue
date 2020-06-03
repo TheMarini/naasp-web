@@ -24,10 +24,10 @@
         </router-link>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">
+        <router-link class="nav-link" :to="'/calendar'">
           <calendar-icon size="1.5x" class="custom-class"></calendar-icon>
           <span class="ml-2">Agenda</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </nav>
