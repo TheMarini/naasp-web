@@ -15,6 +15,9 @@ import Patient from './views/patient/Patient.vue';
 import PatientCall from './views/call/Call.vue';
 import PatientForm from './views/patient/form/PatientForm.vue';
 
+// Calendar
+import Calendar from './views/calendar/Calendar.vue';
+
 // Use vue-router
 Vue.use(Router);
 
@@ -84,6 +87,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: Calendar,
     },
     ...volunteer,
     ...patient,
