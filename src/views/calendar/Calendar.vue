@@ -10,7 +10,9 @@
       <FullCalendar
         default-view="dayGridMonth"
         locale="pt-br"
-        :plugins="calendarPlugins"
+        :header="header"
+        :plugins="plugins"
+        :button-text="buttonText"
       />
     </article>
   </div>
@@ -33,7 +35,19 @@ export default {
   },
   data() {
     return {
-      calendarPlugins: [dayGridPlugin, timeGridPlugin],
+      plugins: [dayGridPlugin, timeGridPlugin],
+      header: {
+        left: 'dayGridMonth,timeGridWeek,timeGridDay',
+        center: 'title',
+        right: 'today prevYear,prev,next,nextYear',
+      },
+      buttonText: {
+        today: 'hoje',
+        month: 'mês',
+        week: 'semana',
+        day: 'dia',
+        list: 'lista',
+      },
     };
   },
 };
