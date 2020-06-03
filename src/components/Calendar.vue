@@ -1,33 +1,21 @@
 <template>
-  <div class="calendar p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <calendar-icon size="2.3x" class="title-icon"></calendar-icon>
-        <h2 class="ml-3 mb-0"><b>Agenda</b></h2>
-      </div>
-    </header>
-    <article class="mt-4">
-      <FullCalendar
-        class="full-calendar"
-        theme-system="bootstrap"
-        default-view="dayGridMonth"
-        locale="pt-br"
-        :header="header"
-        :plugins="plugins"
-        :button-text="buttonText"
-        :now-indicator="true"
-        :selectable="true"
-        :select-mirror="true"
-        @select="select"
-      />
-    </article>
-  </div>
+  <FullCalendar
+    class="calendar"
+    theme-system="bootstrap"
+    default-view="dayGridMonth"
+    locale="pt-br"
+    :events="events"
+    :header="header"
+    :plugins="plugins"
+    :button-text="buttonText"
+    :now-indicator="true"
+    :selectable="true"
+    :select-mirror="true"
+    @select="select"
+  />
 </template>
 
 <script>
-// Icons
-import { CalendarIcon } from 'vue-feather-icons';
-
 // FullCalendar
 import FullCalendar from '@fullcalendar/vue';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
@@ -38,8 +26,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 export default {
   name: 'Calendar',
   components: {
-    CalendarIcon,
     FullCalendar,
+  },
+  props: {
+    events: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -65,7 +58,7 @@ export default {
   },
   methods: {
     select(info) {
-      console.log(info);
+      this.$emit('select', info);
     },
   },
 };
@@ -80,20 +73,19 @@ export default {
 @import '~@fullcalendar/timegrid/main.css';
 
 /* Overrides */
-.full-calendar >>> .fc-today-button {
+.calendar >>> .fc-today-button {
   border-radius: 10px;
 }
 
-.full-calendar >>> .btn-group button:first-child {
+.calendar >>> .btn-group button:first-child {
   border-radius: 10px 0 0 10px;
 }
 
-.full-calendar >>> .btn-group button:last-child {
+.calendar >>> .btn-group button:last-child {
   border-radius: 0 10px 10px 0;
 }
 
-/* TODO: check repeated styles like this */
-header {
-  color: #707070;
+.calendar >>> .fc-view-container {
+  background-color: #fff;
 }
 </style>
