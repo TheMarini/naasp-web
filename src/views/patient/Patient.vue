@@ -1,11 +1,10 @@
 <template lang="html">
   <div class="voluntarios p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header title="Acolhidos">
+      <template #icon>
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
-        <h2 class="ml-3 mb-0"><b>Acolhidos</b></h2>
-      </div>
-      <div class="d-flex justify-content-between align-items-center">
+      </template>
+      <template #CTA>
         <router-link :to="'/acolhido/rapido'" class="ml-2">
           <button
             type="button"
@@ -26,8 +25,8 @@
             <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
           </button>
         </router-link>
-      </div>
-    </header>
+      </template>
+    </Header>
     <article class="mt-4">
       <b-table
         class="table _rounded bg-white"
@@ -109,12 +108,16 @@ import {
   PhoneCallIcon,
 } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // FakeDB
 import fakedb from '@/fakedb/patient.json';
 
 export default {
   name: 'Patient',
   components: {
+    Header,
     PlusIcon,
     EditIcon,
     Trash2Icon,
