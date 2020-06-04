@@ -1,29 +1,23 @@
 <template lang="html">
   <div class="acolhido p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header :title="title">
+      <template #icon>
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
-        <h2 class="ml-3 mb-0">
-          <b
-            >{{
-              quickMode ? 'Pré-cadastrar' : updateMode ? 'Editar' : 'Adicionar'
-            }}
-            acolhido</b
-          >
-        </h2>
-      </div>
-      <div class="steps d-flex">
-        <step
-          v-for="index of steps"
-          :key="index"
-          class="step ml-2"
-          :number="index"
-          :active="index <= currentStep"
-          :update-mode="updateMode"
-          @click.native="currentStep = index"
-        ></step>
-      </div>
-    </header>
+      </template>
+      <template #CTA>
+        <div class="steps d-flex">
+          <step
+            v-for="index of steps"
+            :key="index"
+            class="step ml-2"
+            :number="index"
+            :active="index <= currentStep"
+            :update-mode="updateMode"
+            @click.native="currentStep = index"
+          ></step>
+        </div>
+      </template>
+    </Header>
     <div class="wrapper pt-4">
       <div class="infos">
         <p class="current-step">ETAPA {{ currentStep }}</p>
@@ -196,6 +190,9 @@ import {
   ClipboardIcon,
 } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // Step dot
 import Step from '@/components/Step.vue';
 
@@ -215,6 +212,7 @@ import { component as VueCodeHighlight } from 'vue-code-highlight';
 export default {
   name: 'PatientForm',
   components: {
+    Header,
     Step,
     PlusIcon,
     ChevronRightIcon,
@@ -264,6 +262,15 @@ export default {
     };
   },
   computed: {
+    title() {
+      let verb;
+
+      if (this.quickMode) verb = 'Pré-cadastrar';
+      else if (this.updateMode) verb = 'Editar';
+      else verb = 'Adicionar';
+
+      return `${verb} acolhido`;
+    },
     patientTranslated() {
       return {
         religiao: this.patient.religion,
