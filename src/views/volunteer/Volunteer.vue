@@ -1,21 +1,22 @@
 <template lang="html">
   <div class="voluntarios p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header title="Voluntários">
+      <template #icon>
         <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0"><b>Voluntários</b></h2>
-      </div>
-      <router-link :to="'/voluntario/adicionar'">
-        <button
-          type="button"
-          name="button"
-          class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        >
-          <plus-icon size="1.5x" class="add-icon"></plus-icon>
-          <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-        </button>
-      </router-link>
-    </header>
+      </template>
+      <template #CTA>
+        <router-link :to="'/voluntario/adicionar'">
+          <button
+            type="button"
+            name="button"
+            class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+          >
+            <plus-icon size="1.5x" class="add-icon"></plus-icon>
+            <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
+          </button>
+        </router-link>
+      </template>
+    </Header>
     <article class="mt-4">
       <b-table
         class="_rounded bg-white"
@@ -92,12 +93,16 @@
 // Icons
 import { UsersIcon, PlusIcon, EditIcon, Trash2Icon } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // FakeDB
 import fakedb from '@/fakedb/volunteer.json';
 
 export default {
   name: 'Volunteer',
   components: {
+    Header,
     UsersIcon,
     PlusIcon,
     EditIcon,
