@@ -1,21 +1,15 @@
 <template lang="html">
-  <div class="voluntarios p-4">
+  <div class="voluntario p-4">
     <Header :title="`${updateMode ? 'Editar' : 'Adicionar'} voluntário`">
       <template #icon>
         <users-icon size="2.3x" class="title-icon"></users-icon>
       </template>
       <template #CTA>
-        <div class="steps d-flex">
-          <step
-            v-for="index of steps"
-            :key="index"
-            class="step ml-2"
-            :number="index"
-            :active="index <= currentStep"
-            :update-mode="updateMode"
-            @click.native="currentStep = index"
-          ></step>
-        </div>
+        <Steps
+          v-model="currentStep"
+          :total="steps"
+          :update-mode="updateMode"
+        ></Steps>
       </template>
     </Header>
     <div class="wrapper pt-4">
@@ -136,8 +130,8 @@ import { component as VueCodeHighlight } from 'vue-code-highlight';
 // Header
 import Header from '@/components/Header.vue';
 
-// Step dot
-import Step from '@/components/Step.vue';
+// Steps
+import Steps from '@/components/steps/Steps.vue';
 
 // Form Steps
 import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
@@ -156,8 +150,8 @@ export default {
   name: 'Voluntario',
   components: {
     Header,
+    Steps,
     VueCodeHighlight,
-    Step,
     UsersIcon,
     PlusIcon,
     ChevronRightIcon,
@@ -328,12 +322,6 @@ header {
 .cancel-btn {
   color: #707070;
   border: 4px solid #707070;
-}
-
-.step {
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
 }
 
 .infos .current-step {
