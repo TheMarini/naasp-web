@@ -6,6 +6,9 @@
         <b>{{ title }}</b>
       </h2>
     </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <slot name="CTA"></slot>
+    </div>
   </header>
 </template>
 
