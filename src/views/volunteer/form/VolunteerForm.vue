@@ -1,24 +1,23 @@
 <template lang="html">
   <div class="voluntarios p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header :title="`${updateMode ? 'Editar' : 'Adicionar'} voluntário`">
+      <template #icon>
         <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0">
-          <b>{{ updateMode ? 'Editar' : 'Adicionar' }} voluntário</b>
-        </h2>
-      </div>
-      <div class="steps d-flex">
-        <step
-          v-for="index of steps"
-          :key="index"
-          class="step ml-2"
-          :number="index"
-          :active="index <= currentStep"
-          :update-mode="updateMode"
-          @click.native="currentStep = index"
-        ></step>
-      </div>
-    </header>
+      </template>
+      <template #CTA>
+        <div class="steps d-flex">
+          <step
+            v-for="index of steps"
+            :key="index"
+            class="step ml-2"
+            :number="index"
+            :active="index <= currentStep"
+            :update-mode="updateMode"
+            @click.native="currentStep = index"
+          ></step>
+        </div>
+      </template>
+    </Header>
     <div class="wrapper pt-4">
       <div class="infos">
         <p class="current-step">ETAPA {{ currentStep }}</p>
@@ -134,6 +133,9 @@
 // Code highlight
 import { component as VueCodeHighlight } from 'vue-code-highlight';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // Step dot
 import Step from '@/components/Step.vue';
 
@@ -153,6 +155,7 @@ import {
 export default {
   name: 'Voluntario',
   components: {
+    Header,
     VueCodeHighlight,
     Step,
     UsersIcon,
