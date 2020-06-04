@@ -1,20 +1,21 @@
 <template>
   <div class="call p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header title="Ligar para acolhido">
+      <template #icon>
         <phone-call-icon size="2.3x" class="title-icon"></phone-call-icon>
-        <h2 class="ml-3 mb-0"><b>Ligar para acolhido</b></h2>
-      </div>
-      <button
-        type="button"
-        name="button"
-        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="$bvModal.show('create')"
-      >
-        <plus-icon size="1.5x" class="add-icon"></plus-icon>
-        <h5 class="mb-0 px-2"><b>Registrar chamada</b></h5>
-      </button>
-    </header>
+      </template>
+      <template #CTA>
+        <button
+          type="button"
+          name="button"
+          class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+          @click="$bvModal.show('create')"
+        >
+          <plus-icon size="1.5x" class="add-icon"></plus-icon>
+          <h5 class="mb-0 px-2"><b>Registrar chamada</b></h5>
+        </button>
+      </template>
+    </Header>
     <article class="mt-4">
       <b-modal id="create" hide-header>
         <form>
@@ -132,12 +133,16 @@ import {
   Trash2Icon,
 } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // Moment
 import moment from 'moment';
 
 export default {
   name: 'Call',
   components: {
+    Header,
     PhoneCallIcon,
     PlusIcon,
     EditIcon,
