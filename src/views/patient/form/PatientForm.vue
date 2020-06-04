@@ -5,17 +5,11 @@
         <heart-icon size="2.3x" class="title-icon"></heart-icon>
       </template>
       <template #CTA>
-        <div class="steps d-flex">
-          <step
-            v-for="index of steps"
-            :key="index"
-            class="step ml-2"
-            :number="index"
-            :active="index <= currentStep"
-            :update-mode="updateMode"
-            @click.native="currentStep = index"
-          ></step>
-        </div>
+        <Steps
+          v-model="currentStep"
+          :total="steps"
+          :update-mode="updateMode"
+        ></Steps>
       </template>
     </Header>
     <div class="wrapper pt-4">
@@ -193,8 +187,8 @@ import {
 // Header
 import Header from '@/components/Header.vue';
 
-// Step dot
-import Step from '@/components/Step.vue';
+// Steps
+import Steps from '@/components/steps/Steps.vue';
 
 // Quick form
 import QuickForm from '@/components/forms/QuickForm.vue';
@@ -213,7 +207,7 @@ export default {
   name: 'PatientForm',
   components: {
     Header,
-    Step,
+    Steps,
     PlusIcon,
     ChevronRightIcon,
     ArrowLeftIcon,
@@ -428,12 +422,6 @@ header {
 .cancel-btn {
   color: #707070;
   border: 4px solid #707070;
-}
-
-.step {
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
 }
 
 .infos .current-step {
