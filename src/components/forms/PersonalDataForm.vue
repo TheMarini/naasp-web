@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="form-step">
+  <div class="personal-data-form">
     <section>
       <h4 class="section-title">DADOS PESSOAIS</h4>
       <form>
