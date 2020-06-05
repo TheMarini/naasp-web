@@ -67,10 +67,9 @@ export default {
 <style scoped>
 /* FullCalendar */
 @import '~@fullcalendar/core/main.css';
-/* TODO: change to local */
-@import 'https://use.fontawesome.com/releases/v5.0.6/css/all.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import '~@fullcalendar/timegrid/main.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 /* Overrides */
 .calendar >>> .fc-today-button {
