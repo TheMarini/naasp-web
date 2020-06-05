@@ -34,6 +34,7 @@
 </template>
 
 <script>
+// Icons
 import {
   HomeIcon,
   UsersIcon,
