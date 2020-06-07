@@ -17,14 +17,7 @@
         <p class="current-step">ETAPA {{ currentStep }}</p>
       </div>
       <article>
-        <div
-          v-if="currentStep > 1"
-          class="d-inline-flex prev-btn mb-2"
-          @click="currentStep--"
-        >
-          <arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
-          <p class="mb-0 ml-1">Voltar a etapa anterior</p>
-        </div>
+        <PreviousStep v-model="currentStep"></PreviousStep>
 
         <!-- TODO: consider switch to a nested vue-router -->
         <QuickForm
@@ -178,7 +171,6 @@
 import {
   PlusIcon,
   ChevronRightIcon,
-  ArrowLeftIcon,
   HeartIcon,
   EditIcon,
   ClipboardIcon,
@@ -189,6 +181,7 @@ import Header from '@/components/Header.vue';
 
 // Steps
 import Steps from '@/components/steps/Steps.vue';
+import PreviousStep from '@/components/steps/PreviousStep.vue';
 
 // Quick form
 import QuickForm from '@/components/forms/QuickForm.vue';
@@ -208,9 +201,9 @@ export default {
   components: {
     Header,
     Steps,
+    PreviousStep,
     PlusIcon,
     ChevronRightIcon,
-    ArrowLeftIcon,
     HeartIcon,
     EditIcon,
     ClipboardIcon,
