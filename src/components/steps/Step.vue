@@ -1,7 +1,7 @@
 <template lang="html">
   <div
+    :class="active ? themeClass : ''"
     class="step d-flex justify-content-center align-items-center"
-    :style="[active ? activeStyle : defaultStyle]"
   >
     <span class="number">
       <b><slot></slot></b>
@@ -13,7 +13,7 @@
 export default {
   name: 'Step',
   props: {
-    theme: {
+    method: {
       type: String,
       default: 'create',
       validator: (value) => value === 'create' || value === 'update',
@@ -23,20 +23,9 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      defaultStyle: {
-        color: '#707070',
-        backgroundColor: '#fff',
-      },
-    };
-  },
   computed: {
-    activeStyle() {
-      if (this.theme === 'update')
-        return { color: '#000', backgroundColor: '#E3DB4A' };
-
-      return { color: '#fff', backgroundColor: '#175D2B' };
+    themeClass() {
+      return this.method === 'create' ? 'create-theme' : 'update-theme';
     },
   },
 };
@@ -48,9 +37,21 @@ export default {
   width: 45px;
   cursor: pointer;
   border-radius: 100px;
+  color: #707070;
+  background-color: #fff;
 }
 
 .name {
   font-weight: 600;
+}
+
+.create-theme {
+  color: #fff;
+  background-color: #175d2b;
+}
+
+.update-theme {
+  color: #000;
+  background-color: #e3db4a;
 }
 </style>
