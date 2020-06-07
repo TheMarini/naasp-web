@@ -9,6 +9,7 @@
           v-model="currentStep"
           :total="steps"
           :update-mode="updateMode"
+          :method="method"
         ></Steps>
       </template>
     </Header>
@@ -113,52 +114,17 @@
           <h5 class="mb-0 px-2"><b>Cancelar</b></h5>
         </button>
       </router-link>
-      <button
-        v-if="currentStep < steps"
-        :style="[
-          updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {},
-        ]"
-        type="button"
-        name="button"
-        class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="currentStep++"
-      >
-        <h5 class="mb-0 px-2"><b>Próxima</b></h5>
-        <chevron-right-icon
-          size="1.5x"
-          class="custom-class"
-        ></chevron-right-icon>
-      </button>
-      <button
-        v-else-if="quickMode"
-        type="button"
-        name="button"
-        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="create"
-      >
-        <clipboard-icon size="1.5x" class="custom-class"></clipboard-icon>
-        <h5 class="mb-0 px-2"><b>Pré-cadastrar</b></h5>
-      </button>
-      <button
-        v-else-if="updateMode"
-        type="button"
-        name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100"
-        @click="update"
-      >
-        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
-        <h5 class="mb-0 px-2"><b>Editar</b></h5>
-      </button>
-      <button
-        v-else
-        type="button"
-        name="button"
-        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="create"
-      >
-        <plus-icon size="1.5x" class="add-icon"></plus-icon>
-        <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-      </button>
+      <NextStep
+        v-model="currentStep"
+        :total="steps"
+        :method="method"
+      ></NextStep>
+      <SubmitButton
+        v-if="currentStep === steps"
+        :method="method"
+        :create-text="quickMode ? 'Pré-Cadastrar' : 'Adicionar'"
+        @click="submit"
+      ></SubmitButton>
     </footer>
     <VueCodeHighlight v-show="false">
       {{ JSON.stringify(patient, null, 2) }}
@@ -168,20 +134,18 @@
 
 <script>
 // Icons
-import {
-  PlusIcon,
-  ChevronRightIcon,
-  HeartIcon,
-  EditIcon,
-  ClipboardIcon,
-} from 'vue-feather-icons';
+import { HeartIcon } from 'vue-feather-icons';
 
 // Header
 import Header from '@/components/Header.vue';
 
 // Steps
 import Steps from '@/components/steps/Steps.vue';
+import NextStep from '@/components/steps/NextStep.vue';
 import PreviousStep from '@/components/steps/PreviousStep.vue';
+
+// Submit Button
+import SubmitButton from '@/components/forms/SubmitButton.vue';
 
 // Quick form
 import QuickForm from '@/components/forms/QuickForm.vue';
@@ -201,12 +165,10 @@ export default {
   components: {
     Header,
     Steps,
+    NextStep,
     PreviousStep,
-    PlusIcon,
-    ChevronRightIcon,
+    SubmitButton,
     HeartIcon,
-    EditIcon,
-    ClipboardIcon,
     QuickForm,
     PersonalDataForm,
     FormStep2,
@@ -228,6 +190,7 @@ export default {
   },
   data() {
     return {
+      method: this.updateMode ? 'update' : 'create',
       steps: 5,
       currentStep: 1,
       patient: {
@@ -311,6 +274,10 @@ export default {
     if (this.quickMode) this.steps = 1;
   },
   methods: {
+    submit(method) {
+      if (method === 'update') this.update();
+      this.create();
+    },
     retrieve(id) {
       this.$axios
         .get(`/welcomed/${id}`)
