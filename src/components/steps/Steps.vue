@@ -4,7 +4,7 @@
       v-for="index of total"
       :key="index"
       :active="index <= currentStep"
-      :theme="theme"
+      :method="method"
       class="step ml-2"
       @click.native="input(index)"
     >
@@ -31,7 +31,7 @@ export default {
       type: Number,
       required: true,
     },
-    theme: {
+    method: {
       type: String,
       default: 'create',
       validator: (value) => value === 'create' || value === 'update',
