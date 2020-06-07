@@ -17,14 +17,7 @@
         <p class="current-step">ETAPA {{ currentStep }}</p>
       </div>
       <article>
-        <div
-          v-if="currentStep > 1"
-          class="d-inline-flex prev-btn mb-2"
-          @click="currentStep--"
-        >
-          <arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
-          <p class="mb-0 ml-1">Voltar a etapa anterior</p>
-        </div>
+        <PreviousStep v-model="currentStep"></PreviousStep>
 
         <form-step-1
           v-show="currentStep === 1"
@@ -132,6 +125,7 @@ import Header from '@/components/Header.vue';
 
 // Steps
 import Steps from '@/components/steps/Steps.vue';
+import PreviousStep from '@/components/steps/PreviousStep.vue';
 
 // Form Steps
 import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
@@ -142,7 +136,6 @@ import {
   UsersIcon,
   PlusIcon,
   ChevronRightIcon,
-  ArrowLeftIcon,
   EditIcon,
 } from 'vue-feather-icons';
 
@@ -151,11 +144,11 @@ export default {
   components: {
     Header,
     Steps,
+    PreviousStep,
     VueCodeHighlight,
     UsersIcon,
     PlusIcon,
     ChevronRightIcon,
-    ArrowLeftIcon,
     EditIcon,
     FormStep1,
     PersonalDataForm,
