@@ -1,62 +1,37 @@
 <template>
   <div class="schedule p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header title="Agenda">
+      <template #icon>
         <calendar-icon size="2.3x" class="title-icon"></calendar-icon>
-        <h2 class="ml-3 mb-0"><b>Agenda</b></h2>
-      </div>
-    </header>
+      </template>
+    </Header>
     <article class="mt-4">
       <form class="_card p-3 shadow-sm">
         <h4>Filtrar</h4>
         <div class="form-row">
           <div class="form-group mb-0 col-md-4">
-            <label for="name">Acolhido</label>
-            <multiselect
-              id="volunteer"
+            <label for="patient">Acolhido</label>
+            <SingleSelect
+              id="patient"
               v-model="patient"
               :options="patientOptions"
-              track-by="id"
-              label="name"
-              :searchable="true"
-              placeholder="Escolha uma opção"
-              select-label="Pressione enter para selecionar"
-              selected-label="Selecionado"
-              deselect-label="Pressione enter para remover seleção"
-            >
-            </multiselect>
+            ></SingleSelect>
           </div>
           <div class="form-group mb-0 col-md-4">
-            <label for="name">Voluntário</label>
-            <multiselect
+            <label for="volunteer">Voluntário</label>
+            <SingleSelect
               id="volunteer"
               v-model="volunteer"
               :options="volunteerOptions"
-              track-by="id"
-              label="name"
-              :searchable="true"
-              placeholder="Escolha uma opção"
-              select-label="Pressione enter para selecionar"
-              selected-label="Selecionado"
-              deselect-label="Pressione enter para remover seleção"
-            >
-            </multiselect>
+            ></SingleSelect>
           </div>
           <div class="form-group mb-0 col-md-4">
-            <label for="name">Sala</label>
-            <multiselect
-              id="volunteer"
+            <label for="room">Sala</label>
+            <SingleSelect
+              id="room"
               v-model="room"
               :options="roomOptions"
-              track-by="id"
-              label="name"
-              :searchable="true"
-              placeholder="Escolha uma opção"
-              select-label="Pressione enter para selecionar"
-              selected-label="Selecionado"
-              deselect-label="Pressione enter para remover seleção"
-            >
-            </multiselect>
+            ></SingleSelect>
           </div>
         </div>
       </form>
@@ -115,56 +90,32 @@
           <div class="mt-2">
             <div class="form-row">
               <div class="form-group mb-0 col-md-12">
-                <label for="name">Acolhido</label>
-                <multiselect
-                  id="volunteer"
+                <label for="patient">Acolhido</label>
+                <SingleSelect
+                  id="patient"
                   v-model="patient"
                   :options="patientOptions"
-                  track-by="id"
-                  label="name"
-                  :searchable="true"
-                  placeholder="Escolha uma opção"
-                  select-label="Pressione enter para selecionar"
-                  selected-label="Selecionado"
-                  deselect-label="Pressione enter para remover seleção"
-                >
-                </multiselect>
+                ></SingleSelect>
               </div>
             </div>
             <div class="form-row mt-2">
               <div class="form-group mb-0 col-md-12">
-                <label for="name">Voluntário</label>
-                <multiselect
+                <label for="volunteer">Voluntário</label>
+                <SingleSelect
                   id="volunteer"
                   v-model="volunteer"
                   :options="volunteerOptions"
-                  track-by="id"
-                  label="name"
-                  :searchable="true"
-                  placeholder="Escolha uma opção"
-                  select-label="Pressione enter para selecionar"
-                  selected-label="Selecionado"
-                  deselect-label="Pressione enter para remover seleção"
-                >
-                </multiselect>
+                ></SingleSelect>
               </div>
             </div>
             <div class="form-row mt-2">
               <div class="form-group mb-0 col-md-12">
-                <label for="name">Sala</label>
-                <multiselect
-                  id="volunteer"
+                <label for="room">Sala</label>
+                <SingleSelect
+                  id="room"
                   v-model="room"
                   :options="roomOptions"
-                  track-by="id"
-                  label="name"
-                  :searchable="true"
-                  placeholder="Escolha uma opção"
-                  select-label="Pressione enter para selecionar"
-                  selected-label="Selecionado"
-                  deselect-label="Pressione enter para remover seleção"
-                >
-                </multiselect>
+                ></SingleSelect>
               </div>
             </div>
           </div>
@@ -200,22 +151,26 @@
 // Icons
 import { CalendarIcon, PlusIcon } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // Calendar
 import Calendar from '@/components/Calendar.vue';
 
-// Multiselect
-import Multiselect from 'vue-multiselect';
+// SingleSelect
+import SingleSelect from '@/components/SingleSelect.vue';
 
-// Multiselect
+// Moment
 import moment from 'moment';
 
 export default {
   name: 'Schedule',
   components: {
+    Header,
     Calendar,
     CalendarIcon,
     PlusIcon,
-    Multiselect,
+    SingleSelect,
   },
   data() {
     return {
