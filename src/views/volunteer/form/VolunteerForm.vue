@@ -78,11 +78,11 @@
         :total="steps"
         :method="method"
       ></NextStep>
-      <SubmitButton
+      <SubmitFormButton
         v-if="currentStep === steps"
         :method="method"
         @click="submit"
-      ></SubmitButton>
+      ></SubmitFormButton>
     </footer>
 
     <VueCodeHighlight v-show="false">
@@ -104,7 +104,7 @@ import NextStep from '@/components/steps/NextStep.vue';
 import PreviousStep from '@/components/steps/PreviousStep.vue';
 
 // Submit Button
-import SubmitButton from '@/components/forms/SubmitButton.vue';
+import SubmitFormButton from '@/components/SubmitFormButton.vue';
 
 // Form Steps
 import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
@@ -120,7 +120,7 @@ export default {
     Steps,
     NextStep,
     PreviousStep,
-    SubmitButton,
+    SubmitFormButton,
     VueCodeHighlight,
     UsersIcon,
     FormStep1,

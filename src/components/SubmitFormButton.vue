@@ -22,7 +22,7 @@
 import { PlusIcon, EditIcon } from 'vue-feather-icons';
 
 export default {
-  name: 'SubmitButton',
+  name: 'SubmitFormButton',
   components: {
     PlusIcon,
     EditIcon,

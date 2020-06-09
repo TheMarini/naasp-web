@@ -36,7 +36,18 @@
         </div>
       </form>
       <hr class="my-4" />
-      <Calendar :events="events" @select="select"></Calendar>
+      <Calendar
+        :events="events"
+        :calendar-api.sync="calendarApi"
+        @select="select"
+      ></Calendar>
+      <EventModalForm
+        v-model="showModal"
+        :calendar-api="calendarApi"
+        :patient-options="patientOptions"
+        :volunteer-options="volunteerOptions"
+        :room-options="roomOptions"
+      ></EventModalForm>
       <b-modal id="create" hide-header centered scrollable>
         <form>
           <div>
@@ -157,6 +168,9 @@ import Header from '@/components/Header.vue';
 // Calendar
 import Calendar from '@/components/Calendar.vue';
 
+// Calendar
+import EventModalForm from '@/components/forms/EventModalForm.vue';
+
 // SingleSelect
 import SingleSelect from '@/components/SingleSelect.vue';
 
@@ -168,12 +182,15 @@ export default {
   components: {
     Header,
     Calendar,
+    EventModalForm,
     CalendarIcon,
     PlusIcon,
     SingleSelect,
   },
   data() {
     return {
+      calendarApi: null,
+      showModal: false,
       startDate: null,
       startTime: null,
       endDate: null,
@@ -297,7 +314,7 @@ export default {
       console.log(this.selected);
       console.log('time', this.startTime);
 
-      this.$bvModal.show('create');
+      this.showModal = true;
     },
     create() {},
   },
