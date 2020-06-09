@@ -48,119 +48,13 @@
         :volunteer-options="volunteerOptions"
         :room-options="roomOptions"
       ></EventModalForm>
-      <b-modal id="create" hide-header centered scrollable>
-        <form>
-          <div>
-            <h5>Início</h5>
-            <div class="form-row">
-              <div class="form-group mb-0 col-md-6">
-                <label for="name">Data</label>
-                <input
-                  id="date"
-                  v-model="startDate"
-                  type="date"
-                  class="form-control _rounded"
-                />
-              </div>
-              <div class="form-group mb-0 col-md-6">
-                <label for="birth-date">Hora</label>
-                <input
-                  id="time"
-                  v-model="startTime"
-                  type="time"
-                  class="form-control _rounded"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="mt-3">
-            <h5>Término</h5>
-            <div class="form-row">
-              <div class="form-group mb-0 col-md-6">
-                <label for="name">Data</label>
-                <input
-                  id="date"
-                  v-model="endDate"
-                  type="date"
-                  class="form-control _rounded"
-                  placeholder="Douglas Adams"
-                />
-              </div>
-              <div class="form-group mb-0 col-md-6">
-                <label for="birth-date">Hora</label>
-                <input
-                  id="time"
-                  v-model="endTime"
-                  type="time"
-                  class="form-control _rounded"
-                />
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div class="mt-2">
-            <div class="form-row">
-              <div class="form-group mb-0 col-md-12">
-                <label for="patient">Acolhido</label>
-                <SingleSelect
-                  id="patient"
-                  v-model="patient"
-                  :options="patientOptions"
-                ></SingleSelect>
-              </div>
-            </div>
-            <div class="form-row mt-2">
-              <div class="form-group mb-0 col-md-12">
-                <label for="volunteer">Voluntário</label>
-                <SingleSelect
-                  id="volunteer"
-                  v-model="volunteer"
-                  :options="volunteerOptions"
-                ></SingleSelect>
-              </div>
-            </div>
-            <div class="form-row mt-2">
-              <div class="form-group mb-0 col-md-12">
-                <label for="room">Sala</label>
-                <SingleSelect
-                  id="room"
-                  v-model="room"
-                  :options="roomOptions"
-                ></SingleSelect>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <label for="">Repetir por</label>
-          <b-form-select
-            v-model="repeat"
-            class="_rounded"
-            :options="repeatOptions"
-          ></b-form-select>
-        </form>
-        <template v-slot:modal-footer="{ ok, cancel }">
-          <div class="d-flex w-100 align-items-center justify-content-between">
-            <b-button variant="light" class="_rounded-100" @click="cancel()">
-              Cancelar
-            </b-button>
-            <b-button
-              variant="default"
-              class="add-btn _rounded-100 d-flex align-items-center"
-              @click="create()"
-            >
-              <plus-icon size="1.5x" class="add-icon mr-1"></plus-icon>
-              Adicionar atendimento
-            </b-button>
-          </div>
-        </template>
-      </b-modal>
     </article>
   </div>
 </template>
 
 <script>
 // Icons
-import { CalendarIcon, PlusIcon } from 'vue-feather-icons';
+import { CalendarIcon } from 'vue-feather-icons';
 
 // Header
 import Header from '@/components/Header.vue';
@@ -184,7 +78,6 @@ export default {
     Calendar,
     EventModalForm,
     CalendarIcon,
-    PlusIcon,
     SingleSelect,
   },
   data() {
