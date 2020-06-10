@@ -131,7 +131,7 @@
         @click="submit"
       ></SubmitFormButton>
     </footer>
-    <VueCodeHighlight v-show="true">
+    <VueCodeHighlight v-show="false">
       {{ JSON.stringify(patient, null, 2) }}
     </VueCodeHighlight>
   </div>

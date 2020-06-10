@@ -87,7 +87,7 @@
       ></SubmitFormButton>
     </footer>
 
-    <VueCodeHighlight v-show="true">
+    <VueCodeHighlight v-show="false">
       {{ JSON.stringify(volunteer, null, 2) }}
     </VueCodeHighlight>
   </div>
