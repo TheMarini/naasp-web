@@ -115,10 +115,10 @@
               "
             >
               <option selected disabled>Escolha uma opção</option>
-              <option value="0">Dia Útil - Manhã</option>
-              <option value="1">Dia Útil - Tarde</option>
-              <option value="2">Sábado - Manhã</option>
-              <option value="3">Sábado - Tarde</option>
+              <option value="Dia Útil - Manhã">Dia Útil - Manhã</option>
+              <option value="Dia Útil - Tarde">Dia Útil - Tarde</option>
+              <option value="Sábado - Manhã">Sábado - Manhã</option>
+              <option value="Sábado - Tarde">Sábado - Tarde</option>
             </select>
           </div>
         </div>

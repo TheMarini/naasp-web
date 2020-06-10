@@ -107,6 +107,12 @@ export default {
     ClipboardIcon,
     Multiselect,
   },
+  props: {
+    object: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       volunteer: {
@@ -128,6 +134,12 @@ export default {
     };
   },
   watch: {
+    object(value) {
+      console.log('objeto', value);
+      this.volunteer.type = value.type;
+      this.volunteer.specialties = value.specialties;
+      this.volunteer.ageRangesOfCare = value.ageRangesOfCare;
+    },
     'volunteer.type': {
       handler(type) {
         this.$emit('update:volunteerType', type);

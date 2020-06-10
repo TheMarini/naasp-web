@@ -15,6 +15,7 @@
     :select-mirror="true"
     :unselect-auto="false"
     @select="select"
+    @eventClick="click"
   />
 </template>
 
@@ -70,6 +71,9 @@ export default {
     select(info) {
       this.$emit('select', info);
     },
+    click(info) {
+      this.$emit('click', info.event);
+    },
   },
 };
 </script>
@@ -96,5 +100,9 @@ export default {
 
 .calendar >>> .fc-view-container {
   background-color: #fff;
+}
+
+.calendar >>> .fc-event {
+  cursor: pointer;
 }
 </style>

@@ -32,30 +32,24 @@
         hover
         show-empty
       >
-        <template v-slot:cell(specialties)="data">
-          <b-badge
-            v-for="item in data.item.specialties"
-            :key="item.id"
-            pill
-            variant="info"
-            class="mr-1"
-          >
-            {{ item.name }}
+        <template v-slot:cell(voluntario.Especialidade.nome)="data">
+          <b-badge pill variant="info" class="mr-1">
+            {{ data.value }}
           </b-badge>
         </template>
-        <template v-slot:cell(ageRangesOfCare)="data">
+        <template v-slot:cell(voluntario.faixaEtariaAtendimento)="data">
           <b-badge
-            v-for="item in data.item.ageRangesOfCare"
-            :key="item.id"
+            v-for="(item, index) in data.value"
+            :key="index"
             pill
             variant="light"
             class="mr-1"
           >
-            {{ item.name }}
+            {{ item }}
           </b-badge>
         </template>
         <template v-slot:cell(actions)="data">
-          <router-link :to="`/voluntario/editar/${data.item.idPerson}`">
+          <router-link :to="`/voluntario/editar/${data.item.voluntario.id}`">
             <button
               type="button"
               name="button"
@@ -113,21 +107,24 @@ export default {
       volunteers: [],
       fields: [
         {
-          key: 'name',
+          key: 'Pessoa.nome',
           label: 'Nome',
           sortable: true,
         },
         {
-          key: 'specialties',
+          key: 'voluntario.Especialidade.nome',
           label: 'Especialidades',
           sortable: true,
         },
         {
-          key: 'ageRangesOfCare',
+          key: 'voluntario.faixaEtariaAtendimento',
           label: 'Faixa Etária',
           sortable: true,
         },
-        'email',
+        {
+          key: 'Pessoa.email',
+          label: 'Ações',
+        },
         {
           key: 'actions',
           label: 'Ações',
@@ -147,6 +144,7 @@ export default {
         .get('/voluntario')
         .then((response) => {
           this.volunteers = response.data;
+          console.log(this.volunteers);
         })
         .catch((error) => {
           if (error.response) {

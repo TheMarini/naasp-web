@@ -78,11 +78,28 @@
         <div class="form-row mt-2">
           <div class="form-group mb-0 col-md-12">
             <label for="room">Sala</label>
-            <SingleSelect
+            <multiselect
+              id="room"
+              v-model="room"
+              :options="options.room"
+              track-by="id"
+              label="name"
+              :taggable="true"
+              tag-placeholder="Adicionar nova sala"
+              placeholder="Escolha uma opção"
+              select-label="Pressione enter para selecionar"
+              selected-label="Selecionado"
+              deselect-label="Pressione enter para remover seleção"
+              @tag="createOption('room', $event)"
+              @remove="destroyCreatedOption('room', $event)"
+              @select="destroyUnnusedCreatedOptions('room')"
+            >
+            </multiselect>
+            <!--             <SingleSelect
               id="room"
               v-model="room"
               :options="roomOptions"
-            ></SingleSelect>
+            ></SingleSelect> -->
           </div>
         </div>
       </div>
@@ -119,6 +136,8 @@ import { PlusIcon } from 'vue-feather-icons';
 
 // SingleSelect
 import SingleSelect from '@/components/SingleSelect.vue';
+// Multiselect
+import Multiselect from 'vue-multiselect';
 
 // Moment
 import moment from 'moment';
@@ -132,8 +151,13 @@ export default {
   components: {
     PlusIcon,
     SingleSelect,
+    Multiselect,
   },
   props: {
+    currentSessao: {
+      type: Object,
+      default: null,
+    },
     value: {
       type: Boolean,
       required: true,
@@ -144,11 +168,11 @@ export default {
     },
     patientOptions: {
       type: Array,
-      default: () => this.retrievePatients(),
+      required: true,
     },
     volunteerOptions: {
       type: Array,
-      default: () => this.retrieveVolunteers(),
+      required: true,
     },
     roomOptions: {
       type: Array,
@@ -165,6 +189,9 @@ export default {
   },
   data() {
     return {
+      options: {
+        room: this.roomOptions,
+      },
       patient: null,
       volunteer: null,
       room: null,
@@ -232,7 +259,52 @@ export default {
       },
     },
   },
+  mounted() {
+    /*     console.log(this.currentSessao.dataInicioSessao);
+    if (this.currentSessao != null) {
+      this.startDate = this.currentSessao.dataInicioSessao;
+      this.startTime = this.currentSessao.horaInicioSessao;
+      this.endDate = this.currentSessao.dataTerminoSessao;
+      this.endTime = this.currentSessao.horaTerminoSessao;
+    } */
+  },
   methods: {
+    createOption(attr, name) {
+      // Destroy option previously created
+      this.destroyUnnusedCreatedOptions(attr);
+
+      const lastIndex = this.options[attr][this.options[attr].length - 1];
+
+      const newId = lastIndex !== undefined ? lastIndex.id + 1 : 1;
+
+      // New option
+      const option = {
+        id: newId,
+        name,
+        new: true,
+      };
+
+      // Add to array of options
+      this.options[attr].push(option);
+      // Set to current option
+      this[attr] = option;
+    },
+    destroyCreatedOption(attr, option) {
+      // Check if its new
+      if (option.new) {
+        // Find it in the array of options
+        const index = this.options[attr].findIndex((o) => o.id === option.id);
+        // Destroy
+        this.options[attr].splice(index, 1);
+      }
+    },
+    destroyUnnusedCreatedOptions(attr) {
+      // For each option in array of options
+      this.options[attr].forEach((item) => {
+        // Destroy it if its new
+        this.destroyCreatedOption(attr, item);
+      });
+    },
     calendarUnselect() {
       if (this.calendarApi) this.calendarApi.unselect();
     },
@@ -241,45 +313,27 @@ export default {
     },
     close() {
       this.showModal = false;
+      this.$emit('update:currentSessao', null);
     },
     handleClose() {
       this.clear();
       this.calendarUnselect();
     },
     confirm() {
+      const obj = {
+        dataInicioSessao: this.startDate,
+        horaInicioSessao: this.startTime,
+        dataTerminoSessao: this.endDate,
+        horaTerminoSessao: this.endTime,
+        observacao: this.repeat,
+        presenca: false,
+        AcolhidoId: this.patient.id,
+        VoluntarioId: this.volunteer.id,
+        salaNome: this.room.name,
+      };
+      console.log(obj);
+      this.$socket.emit('sessao', obj);
       this.close();
-    },
-    retrievePatients() {
-      return [
-        {
-          id: 0,
-          name: 'Igor Oliveira',
-        },
-        {
-          id: 1,
-          name: 'Renato Pugedo',
-        },
-        {
-          id: 2,
-          name: 'Guilherme Willer',
-        },
-      ];
-    },
-    retrieveVolunteers() {
-      return [
-        {
-          id: 0,
-          name: 'Bruno Marini',
-        },
-        {
-          id: 1,
-          name: 'Nayane Ornelas',
-        },
-        {
-          id: 2,
-          name: 'Pedro Guerra',
-        },
-      ];
     },
     retrieveRooms() {
       return [
