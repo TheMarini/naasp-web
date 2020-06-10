@@ -169,7 +169,7 @@ export default {
         .get('/acolhido')
         .then((response) => {
           this.patients = response.data;
-          console.log(this.patients);
+          // console.log(this.patients);
         })
         .catch((error) => {
           if (error.response) {

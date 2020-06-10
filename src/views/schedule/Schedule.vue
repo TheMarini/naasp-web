@@ -309,7 +309,7 @@ export default {
       this.showModal = true;
     },
     click(event) {
-      console.log(event.extendedProps.sessao);
+      // console.log(event.extendedProps.sessao);
 
       this.$swal({
         title: `<strong>${event.title}</strong>`,

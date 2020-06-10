@@ -511,7 +511,7 @@ export default {
     object: {
       handler(value) {
         if (value && value.update) {
-          console.log('personal data form', value);
+          // console.log('personal data form', value);
           this.name = value.name;
           this.birthDate = moment(value.birthDate).format('YYYY-MM-DD');
           this.cpf = value.cpf;

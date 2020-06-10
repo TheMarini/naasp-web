@@ -144,7 +144,7 @@ export default {
         .get('/voluntario')
         .then((response) => {
           this.volunteers = response.data;
-          console.log(this.volunteers);
+          // console.log(this.volunteers);
         })
         .catch((error) => {
           if (error.response) {

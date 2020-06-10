@@ -212,7 +212,7 @@ export default {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
         this.volunteer = this.volunteerTranslatedBack(volunteer);
         this.volunteer.update = true;
-        console.log('traduzido', this.volunteer);
+        // console.log('traduzido', this.volunteer);
       });
     }
   },
@@ -320,7 +320,7 @@ export default {
         });
     },
     create() {
-      console.log(this.volunteerTranslated);
+      // console.log(this.volunteerTranslated);
       this.$axios
         .post('/voluntario', this.volunteerTranslated)
         .then(() => {

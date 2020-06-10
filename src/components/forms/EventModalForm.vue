@@ -331,7 +331,7 @@ export default {
         VoluntarioId: this.volunteer.id,
         salaNome: this.room.name,
       };
-      console.log(obj);
+      // console.log(obj);
       this.$socket.emit('sessao', obj);
       this.close();
     },

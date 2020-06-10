@@ -200,7 +200,7 @@ export default {
   mounted() {
     if (this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
-        console.log(patient);
+        // console.log(patient);
         this.patient = patient;
         this.name = patient.Pessoa.nome;
         this.cellPhoneNumber = patient.Pessoa.telefoneCelular;

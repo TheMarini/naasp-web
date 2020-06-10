@@ -359,7 +359,7 @@ export default {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
         this.patient = this.patientTranslatedBack(patient);
         this.patient.update = true;
-        console.log('Paciente traduzido', this.patient);
+        // console.log('Paciente traduzido', this.patient);
       });
     }
 

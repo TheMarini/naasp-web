@@ -135,7 +135,7 @@ export default {
   },
   watch: {
     object(value) {
-      console.log('objeto', value);
+      // console.log('objeto', value);
       this.volunteer.type = value.type;
       this.volunteer.specialties = value.specialties;
       this.volunteer.ageRangesOfCare = value.ageRangesOfCare;
