@@ -97,6 +97,8 @@
         :patient-options="patientOptions"
         :volunteer-options="volunteerOptions"
         :room-options="roomOptions"
+        :start.sync="selectedStart"
+        :end.sync="selectedEnd"
       ></EventModalForm>
     </article>
   </div>
@@ -125,9 +127,6 @@ import EventModalForm from '@/components/forms/EventModalForm.vue';
 
 // SingleSelect
 import SingleSelect from '@/components/SingleSelect.vue';
-
-// Moment
-import moment from 'moment';
 
 export default {
   name: 'Schedule',
@@ -258,7 +257,8 @@ export default {
           allDay: false, // will make the time show
         },
       ],
-      selected: null,
+      selectedStart: null,
+      selectedEnd: null,
     };
   },
   computed: {
@@ -304,16 +304,8 @@ export default {
   },
   methods: {
     select(info) {
-      this.selected = info;
-
-      this.startDate = moment(info.start, 'YYYY-MM-DD').format('YYYY-MM-DD');
-      this.startTime = moment(info.start, 'hh:mm').format('HH:mm');
-      this.endDate = moment(info.end, 'YYYY-MM-DD').format('YYYY-MM-DD');
-      this.endTime = moment(info.end, 'hh:mm').format('HH:mm');
-
-      console.log(this.selected);
-      console.log('time', this.startTime);
-
+      this.selectedStart = info.start;
+      this.selectedEnd = info.end;
       this.showModal = true;
     },
     create() {},

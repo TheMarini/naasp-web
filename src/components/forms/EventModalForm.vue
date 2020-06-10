@@ -14,7 +14,7 @@
             <label for="start-date">Data</label>
             <input
               id="start-date"
-              v-model="start.date"
+              v-model="startDate"
               type="date"
               class="form-control _rounded"
             />
@@ -23,7 +23,7 @@
             <label for="start-time">Hora</label>
             <input
               id="start-time"
-              v-model="start.time"
+              v-model="startTime"
               type="time"
               class="form-control _rounded"
             />
@@ -37,7 +37,7 @@
             <label for="end-date">Data</label>
             <input
               id="end-date"
-              v-model="end.date"
+              v-model="endDate"
               type="date"
               class="form-control _rounded"
             />
@@ -46,7 +46,7 @@
             <label for="end-time">Hora</label>
             <input
               id="end-time"
-              v-model="end.time"
+              v-model="endTime"
               type="time"
               class="form-control _rounded"
             />
@@ -120,6 +120,13 @@ import { PlusIcon } from 'vue-feather-icons';
 // SingleSelect
 import SingleSelect from '@/components/SingleSelect.vue';
 
+// Moment
+import moment from 'moment';
+
+// Formats
+const dateFormat = 'YYYY-MM-DD';
+const timeFormat = 'HH:mm';
+
 export default {
   name: 'EventModalForm',
   components: {
@@ -147,17 +154,17 @@ export default {
       type: Array,
       default: () => this.retrieveRooms(),
     },
+    start: {
+      type: Date || String,
+      default: () => new Date(),
+    },
+    end: {
+      type: Date || String,
+      default: () => new Date(),
+    },
   },
   data() {
     return {
-      start: {
-        date: null,
-        time: null,
-      },
-      end: {
-        date: null,
-        time: null,
-      },
       patient: null,
       volunteer: null,
       room: null,
@@ -172,6 +179,50 @@ export default {
     };
   },
   computed: {
+    startToDate() {
+      return moment(
+        `${this.startDate} ${this.startTime}`,
+        `${dateFormat} ${timeFormat}`
+      ).toDate();
+    },
+    endToDate() {
+      return moment(
+        `${this.endDate} ${this.endTime}`,
+        `${dateFormat} ${timeFormat}`
+      ).toDate();
+    },
+    startDate: {
+      get() {
+        return moment(this.start).format('YYYY-MM-DD');
+      },
+      set() {
+        this.$emit('update:start', this.startToDate);
+      },
+    },
+    startTime: {
+      get() {
+        return moment(this.start).format('HH:mm');
+      },
+      set() {
+        this.$emit('update:start', this.startToDate);
+      },
+    },
+    endDate: {
+      get() {
+        return moment(this.end).format('YYYY-MM-DD');
+      },
+      set() {
+        this.$emit('update:end', this.endToDate);
+      },
+    },
+    endTime: {
+      get() {
+        return moment(this.end).format('HH:mm');
+      },
+      set() {
+        this.$emit('update:end', this.endToDate);
+      },
+    },
     showModal: {
       get() {
         return this.value;
