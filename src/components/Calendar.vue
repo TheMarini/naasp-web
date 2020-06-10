@@ -1,16 +1,19 @@
 <template>
   <FullCalendar
+    ref="fullCalendar"
     class="calendar"
     theme-system="bootstrap"
     default-view="dayGridMonth"
     locale="pt-br"
+    :plugins="plugins"
     :events="events"
     :header="header"
-    :plugins="plugins"
     :button-text="buttonText"
     :now-indicator="true"
-    :selectable="true"
+    :nav-links="true"
+    :selectable="selectable"
     :select-mirror="true"
+    :unselect-auto="false"
     @select="select"
   />
 </template>
@@ -32,6 +35,10 @@ export default {
     events: {
       type: Array,
       default: () => [],
+    },
+    selectable: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -55,6 +62,9 @@ export default {
         list: 'lista',
       },
     };
+  },
+  mounted() {
+    this.$emit('update:calendarApi', this.$refs.fullCalendar.getApi());
   },
   methods: {
     select(info) {

@@ -16,7 +16,7 @@ import PatientCall from './views/Call.vue';
 import PatientForm from './views/patient/form/PatientForm.vue';
 
 // Calendar
-import Calendar from './views/Schedule.vue';
+import Calendar from './views/schedule/Schedule.vue';
 
 // Use vue-router
 Vue.use(Router);

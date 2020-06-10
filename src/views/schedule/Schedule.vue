@@ -1,0 +1,316 @@
+<template>
+  <div class="schedule p-4">
+    <Header title="Agenda">
+      <template #icon>
+        <calendar-icon size="2.3x" class="title-icon"></calendar-icon>
+      </template>
+      <template #CTA>
+        <div v-if="socketStatus.updated" class="d-flex align-itens-center">
+          <span class="mr-1">Atualizado</span>
+          <check-circle-icon
+            size="1.5x"
+            class="check-circle-icon"
+          ></check-circle-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.connecting"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Conectando</span>
+          <cloud-lightning-icon
+            size="1.5x"
+            class="cloud-lightning-icon"
+          ></cloud-lightning-icon>
+        </div>
+        <div
+          v-else-if="!socketStatus.connected"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Desconectado</span>
+          <cloud-off-icon size="1.5x" class="cloud-off-icon"></cloud-off-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.downloading"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Baixando atualizações</span>
+          <download-cloud-icon
+            size="1.5x"
+            class="download-cloud-icon"
+          ></download-cloud-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.uploading"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Enviando atualizações</span>
+          <upload-cloud-icon
+            size="1.5x"
+            class="upload-cloud-icon"
+          ></upload-cloud-icon>
+        </div>
+        <div v-else class="d-flex align-itens-center">
+          <span class="mr-1">Conectado</span>
+          <cloud-icon size="1.5x" class="cloud-icon"></cloud-icon>
+        </div>
+      </template>
+    </Header>
+    <article class="mt-4">
+      <form class="_card p-3 shadow-sm">
+        <h4>Filtrar</h4>
+        <div class="form-row">
+          <div class="form-group mb-0 col-md-4">
+            <label for="patient">Acolhido</label>
+            <SingleSelect
+              id="patient"
+              v-model="patient"
+              :options="patientOptions"
+            ></SingleSelect>
+          </div>
+          <div class="form-group mb-0 col-md-4">
+            <label for="volunteer">Voluntário</label>
+            <SingleSelect
+              id="volunteer"
+              v-model="volunteer"
+              :options="volunteerOptions"
+            ></SingleSelect>
+          </div>
+          <div class="form-group mb-0 col-md-4">
+            <label for="room">Sala</label>
+            <SingleSelect
+              id="room"
+              v-model="room"
+              :options="roomOptions"
+            ></SingleSelect>
+          </div>
+        </div>
+      </form>
+      <hr class="my-4" />
+      <Calendar
+        :events="events"
+        :calendar-api.sync="calendarApi"
+        @select="select"
+      ></Calendar>
+      <EventModalForm
+        v-model="showModal"
+        :calendar-api="calendarApi"
+        :patient-options="patientOptions"
+        :volunteer-options="volunteerOptions"
+        :room-options="roomOptions"
+        :start.sync="selectedStart"
+        :end.sync="selectedEnd"
+      ></EventModalForm>
+    </article>
+  </div>
+</template>
+
+<script>
+// Icons
+import {
+  CalendarIcon,
+  CloudLightningIcon,
+  CloudOffIcon,
+  CloudIcon,
+  UploadCloudIcon,
+  DownloadCloudIcon,
+  CheckCircleIcon,
+} from 'vue-feather-icons';
+
+// Header
+import Header from '@/components/Header.vue';
+
+// Calendar
+import Calendar from '@/components/Calendar.vue';
+
+// Calendar
+import EventModalForm from '@/components/forms/EventModalForm.vue';
+
+// SingleSelect
+import SingleSelect from '@/components/SingleSelect.vue';
+
+export default {
+  name: 'Schedule',
+  components: {
+    Header,
+    Calendar,
+    EventModalForm,
+    CalendarIcon,
+    CloudLightningIcon,
+    CloudOffIcon,
+    UploadCloudIcon,
+    DownloadCloudIcon,
+    CloudIcon,
+    CheckCircleIcon,
+    SingleSelect,
+  },
+  data() {
+    return {
+      socketStatus: {
+        connected: false,
+        connecting: false,
+        downloading: false,
+        uploading: false,
+        updated: false,
+      },
+      calendarApi: null,
+      showModal: false,
+      repeatOptions: [
+        { value: null, text: 'Não se repete' },
+        { value: 'day', text: 'Diariamente' },
+        { value: 'week', text: 'Semanalmente' },
+        { value: 'month', text: 'Mensalmente' },
+        { value: 'businessDay', text: 'Dia útil (segunda a sexta-feita)' },
+      ],
+      volunteer: null,
+      volunteerOptions: [
+        {
+          id: 0,
+          name: 'Bruno Marini',
+        },
+        {
+          id: 1,
+          name: 'Nayane Ornelas',
+        },
+        {
+          id: 2,
+          name: 'Pedro Guerra',
+        },
+      ],
+      patient: null,
+      patientOptions: [
+        {
+          id: 0,
+          name: 'Igor Oliveira',
+        },
+        {
+          id: 1,
+          name: 'Renato Pugedo',
+        },
+        {
+          id: 2,
+          name: 'Guilherme Willer',
+        },
+      ],
+      room: null,
+      roomOptions: [
+        {
+          id: 0,
+          name: 'Sala 1',
+        },
+        {
+          id: 1,
+          name: 'Sala 2',
+        },
+        {
+          id: 2,
+          name: 'Sala 3',
+        },
+      ],
+      events: [
+        /*         {
+          title: 'event1',
+          start: '2020-06-03',
+        },
+        {
+          title: 'event2',
+          start: '2020-06-04',
+          end: '2020-06-06',
+        }, */
+        {
+          title: 'AS | Igor Oliveira',
+          start: '2020-06-05T12:30:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'AS | Guilherme Willer',
+          start: '2020-06-05T13:45:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'AS | Renato Pugedo',
+          start: '2020-06-05T13:30:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'ES | Douglas Adams',
+          start: '2020-06-03T18:30:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'ES | Douglas Adams',
+          start: '2020-06-10T18:30:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'ES | Douglas Adams',
+          start: '2020-06-17T18:30:00',
+          allDay: false, // will make the time show
+        },
+        {
+          title: 'ES | Douglas Adams',
+          start: '2020-06-24T18:30:00',
+          allDay: false, // will make the time show
+        },
+      ],
+      selectedStart: null,
+      selectedEnd: null,
+    };
+  },
+  computed: {
+    start() {
+      return null;
+    },
+  },
+  mounted() {
+    if (this.$socket.connected) {
+      this.socketStatus.connected = true;
+      this.socketStatus.updated = true;
+    } else {
+      this.socketStatus.connecting = true;
+    }
+  },
+  sockets: {
+    connect() {
+      this.socketStatus.connecting = false;
+      this.socketStatus.connected = true;
+    },
+    disconnect() {
+      this.socketStatus.updated = false;
+      this.socketStatus.connected = false;
+    },
+    reconnecting() {
+      this.socketStatus.connected = false;
+      this.socketStatus.connecting = true;
+    },
+    sessao() {
+      this.socketStatus.updated = false;
+      this.socketStatus.uploading = true;
+      // code here
+      this.socketStatus.uploading = false;
+      this.socketStatus.updated = true;
+    },
+    login() {
+      this.socketStatus.updated = false;
+      this.socketStatus.downloading = true;
+      // code here
+      this.socketStatus.downloading = false;
+      this.socketStatus.updated = true;
+    },
+  },
+  methods: {
+    select(info) {
+      this.selectedStart = info.start;
+      this.selectedEnd = info.end;
+      this.showModal = true;
+    },
+    create() {},
+  },
+};
+</script>
+
+<style scoped>
+/* TODO: check repeated styles like this */
+header {
+  color: #707070;
+}
+</style>
