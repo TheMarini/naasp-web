@@ -4,6 +4,56 @@
       <template #icon>
         <calendar-icon size="2.3x" class="title-icon"></calendar-icon>
       </template>
+      <template #CTA>
+        <div v-if="socketStatus.updated" class="d-flex align-itens-center">
+          <span class="mr-1">Atualizado</span>
+          <check-circle-icon
+            size="1.5x"
+            class="check-circle-icon"
+          ></check-circle-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.connecting"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Conectando</span>
+          <cloud-lightning-icon
+            size="1.5x"
+            class="cloud-lightning-icon"
+          ></cloud-lightning-icon>
+        </div>
+        <div
+          v-else-if="!socketStatus.connected"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Desconectado</span>
+          <cloud-off-icon size="1.5x" class="cloud-off-icon"></cloud-off-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.downloading"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Baixando atualizações</span>
+          <download-cloud-icon
+            size="1.5x"
+            class="download-cloud-icon"
+          ></download-cloud-icon>
+        </div>
+        <div
+          v-else-if="socketStatus.uploading"
+          class="d-flex align-itens-center"
+        >
+          <span class="mr-1">Enviando atualizações</span>
+          <upload-cloud-icon
+            size="1.5x"
+            class="upload-cloud-icon"
+          ></upload-cloud-icon>
+        </div>
+        <div v-else class="d-flex align-itens-center">
+          <span class="mr-1">Conectado</span>
+          <cloud-icon size="1.5x" class="cloud-icon"></cloud-icon>
+        </div>
+      </template>
     </Header>
     <article class="mt-4">
       <form class="_card p-3 shadow-sm">
@@ -54,7 +104,15 @@
 
 <script>
 // Icons
-import { CalendarIcon } from 'vue-feather-icons';
+import {
+  CalendarIcon,
+  CloudLightningIcon,
+  CloudOffIcon,
+  CloudIcon,
+  UploadCloudIcon,
+  DownloadCloudIcon,
+  CheckCircleIcon,
+} from 'vue-feather-icons';
 
 // Header
 import Header from '@/components/Header.vue';
@@ -78,10 +136,23 @@ export default {
     Calendar,
     EventModalForm,
     CalendarIcon,
+    CloudLightningIcon,
+    CloudOffIcon,
+    UploadCloudIcon,
+    DownloadCloudIcon,
+    CloudIcon,
+    CheckCircleIcon,
     SingleSelect,
   },
   data() {
     return {
+      socketStatus: {
+        connected: false,
+        connecting: false,
+        downloading: false,
+        uploading: false,
+        updated: false,
+      },
       calendarApi: null,
       showModal: false,
       startDate: null,
@@ -193,6 +264,42 @@ export default {
   computed: {
     start() {
       return null;
+    },
+  },
+  mounted() {
+    if (this.$socket.connected) {
+      this.socketStatus.connected = true;
+      this.socketStatus.updated = true;
+    } else {
+      this.socketStatus.connecting = true;
+    }
+  },
+  sockets: {
+    connect() {
+      this.socketStatus.connecting = false;
+      this.socketStatus.connected = true;
+    },
+    disconnect() {
+      this.socketStatus.updated = false;
+      this.socketStatus.connected = false;
+    },
+    reconnecting() {
+      this.socketStatus.connected = false;
+      this.socketStatus.connecting = true;
+    },
+    sessao() {
+      this.socketStatus.updated = false;
+      this.socketStatus.uploading = true;
+      // code here
+      this.socketStatus.uploading = false;
+      this.socketStatus.updated = true;
+    },
+    login() {
+      this.socketStatus.updated = false;
+      this.socketStatus.downloading = true;
+      // code here
+      this.socketStatus.downloading = false;
+      this.socketStatus.updated = true;
     },
   },
   methods: {
