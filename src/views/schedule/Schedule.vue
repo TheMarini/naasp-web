@@ -154,11 +154,6 @@ export default {
       },
       calendarApi: null,
       showModal: false,
-      startDate: null,
-      startTime: null,
-      endDate: null,
-      endTime: null,
-      repeat: null,
       repeatOptions: [
         { value: null, text: 'Não se repete' },
         { value: 'day', text: 'Diariamente' },
