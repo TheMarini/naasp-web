@@ -42,14 +42,14 @@
         hover
         show-empty
       >
-        <template v-slot:cell(priority)="data">
-          <b-badge :variant="priorityClass(data.item.priority)">
-            {{ priorityText(data.item.priority) }}
+        <template v-slot:cell(prioridade)="data">
+          <b-badge :variant="priorityClass(data.item.prioridade)">
+            {{ priorityText(data.item.prioridade) }}
           </b-badge>
         </template>
-        <template v-slot:cell(status)="data">
+        <template v-slot:cell(StatusId)="data">
           <b-badge pill variant="light">
-            {{ data.item.status }} - {{ statusText(data.item.status) }}
+            {{ data.item.StatusId }} - {{ statusText(data.item.StatusId) }}
           </b-badge>
         </template>
         <template v-slot:cell(actions)="data">
@@ -130,21 +130,21 @@ export default {
       patients: [],
       fields: [
         {
-          key: 'name',
+          key: 'Pessoa.nome',
           label: 'Nome',
           sortable: true,
         },
         {
-          key: 'email',
+          key: 'Pessoa.email',
           label: 'E-mail',
         },
         {
-          key: 'priority',
+          key: 'prioridade',
           label: 'Prioridade',
           sortable: true,
         },
         {
-          key: 'status',
+          key: 'StatusId',
           label: 'Estado',
           sortable: true,
         },
@@ -169,6 +169,7 @@ export default {
         .get('/acolhido')
         .then((response) => {
           this.patients = response.data;
+          console.log(this.patients);
         })
         .catch((error) => {
           if (error.response) {
@@ -279,26 +280,22 @@ export default {
         case 3:
           return 'Baixa';
         default:
-          return '';
+          return '-';
       }
     },
     // TODO: This info bellow should be in the database
     statusText(level) {
       switch (level) {
         case 1:
-          return 'Desistente';
+          return 'Pré-cadastrado';
         case 2:
-          return 'Primeiro contato';
+          return 'Em espera';
         case 3:
-          return 'Esperando triagem';
-        case 4:
-          return 'Em triagem';
-        case 5:
-          return 'Esperando atendimento';
-        case 6:
           return 'Em atendimento';
-        case 7:
-          return 'Alta médica';
+        case 4:
+          return 'Desistente';
+        case 5:
+          return 'Em alta';
         case 0:
         default:
           return 'Indefinido';

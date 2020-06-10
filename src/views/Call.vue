@@ -24,7 +24,7 @@
               <label for="name">Data</label>
               <input
                 id="date"
-                v-model="time"
+                v-model="date"
                 type="date"
                 class="form-control _rounded"
                 placeholder="Douglas Adams"
@@ -34,7 +34,7 @@
               <label for="birth-date">Hora</label>
               <input
                 id="time"
-                v-model="date"
+                v-model="time"
                 type="time"
                 class="form-control _rounded"
               />
@@ -150,6 +150,9 @@ export default {
   },
   data() {
     return {
+      time: moment(new Date()).format('HH:mm'),
+      date: moment(new Date()).format('YYYY-MM-DD'),
+      patient: null,
       name: 'Bruno Marini',
       cellPhoneNumber: '(31) 9 8384-8472',
       homePhoneNumber: '(31) 9 3287-1622',
@@ -194,7 +197,50 @@ export default {
       sortDesc: false,
     };
   },
+  mounted() {
+    if (this.$route.params.id != null) {
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
+        console.log(patient);
+        this.patient = patient;
+        this.name = patient.Pessoa.nome;
+        this.cellPhoneNumber = patient.Pessoa.telefoneCelular;
+        this.homePhoneNumber = patient.Pessoa.telefoneResidencia;
+        this.businessPhoneNumber = patient.Pessoa.telefoneComercial;
+        this.contactTimePreference = patient.preferenciaAtendimento;
+      });
+    }
+  },
   methods: {
+    retrieve(id) {
+      return this.$axios
+        .get(`/acolhido?id=${id}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
+    },
     create() {},
   },
 };

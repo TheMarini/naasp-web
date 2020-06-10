@@ -90,6 +90,7 @@
         :events="events"
         :calendar-api.sync="calendarApi"
         @select="select"
+        @click="click"
       ></Calendar>
       <EventModalForm
         v-model="showModal"
@@ -127,6 +128,13 @@ import EventModalForm from '@/components/forms/EventModalForm.vue';
 
 // SingleSelect
 import SingleSelect from '@/components/SingleSelect.vue';
+
+// Moment
+import moment from 'moment';
+
+// Formats
+const dateFormat = 'YYYY-MM-DD';
+const timeFormat = 'HH:mm';
 
 export default {
   name: 'Schedule',
@@ -206,52 +214,7 @@ export default {
           name: 'Sala 3',
         },
       ],
-      events: [
-        /*         {
-          title: 'event1',
-          start: '2020-06-03',
-        },
-        {
-          title: 'event2',
-          start: '2020-06-04',
-          end: '2020-06-06',
-        }, */
-        {
-          title: 'AS | Igor Oliveira',
-          start: '2020-06-05T12:30:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'AS | Guilherme Willer',
-          start: '2020-06-05T13:45:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'AS | Renato Pugedo',
-          start: '2020-06-05T13:30:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'ES | Douglas Adams',
-          start: '2020-06-03T18:30:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'ES | Douglas Adams',
-          start: '2020-06-10T18:30:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'ES | Douglas Adams',
-          start: '2020-06-17T18:30:00',
-          allDay: false, // will make the time show
-        },
-        {
-          title: 'ES | Douglas Adams',
-          start: '2020-06-24T18:30:00',
-          allDay: false, // will make the time show
-        },
-      ],
+      events: [],
       selectedStart: null,
       selectedEnd: null,
     };
@@ -262,6 +225,9 @@ export default {
     },
   },
   mounted() {
+    this.updateVolunteerOptions();
+    this.updatePatientOptions();
+
     if (this.$socket.connected) {
       this.socketStatus.connected = true;
       this.socketStatus.updated = true;
@@ -282,17 +248,48 @@ export default {
       this.socketStatus.connected = false;
       this.socketStatus.connecting = true;
     },
-    sessao() {
+    sessao(sessao) {
       this.socketStatus.updated = false;
       this.socketStatus.uploading = true;
-      // code here
+
+      this.events.push({
+        title: `${sessao.Voluntario.tipo === 0 ? 'ES' : 'AS'} | ${
+          sessao.Voluntario.Pessoa.nome
+        }`,
+        start: moment(
+          `${sessao.dataInicioSessao} ${sessao.horaInicioSessao}`,
+          `${dateFormat} ${timeFormat}`
+        ).toDate(),
+        end: moment(
+          `${sessao.dataTerminoSessao} ${sessao.horaTerminoSessao}`,
+          `${dateFormat} ${timeFormat}`
+        ).toDate(),
+      });
+
       this.socketStatus.uploading = false;
       this.socketStatus.updated = true;
     },
-    login() {
+    login(sessoes) {
       this.socketStatus.updated = false;
       this.socketStatus.downloading = true;
-      // code here
+
+      this.events = [];
+      sessoes.forEach((sessao) => {
+        this.events.push({
+          title: `${sessao.Voluntario.tipo === 0 ? 'ES' : 'AS'} | ${
+            sessao.Voluntario.Pessoa.nome
+          }`,
+          start: moment(
+            `${sessao.dataInicioSessao} ${sessao.horaInicioSessao}`,
+            `${dateFormat} ${timeFormat}`
+          ).toDate(),
+          end: moment(
+            `${sessao.dataTerminoSessao} ${sessao.horaTerminoSessao}`,
+            `${dateFormat} ${timeFormat}`
+          ).toDate(),
+        });
+      });
+
       this.socketStatus.downloading = false;
       this.socketStatus.updated = true;
     },
@@ -302,6 +299,80 @@ export default {
       this.selectedStart = info.start;
       this.selectedEnd = info.end;
       this.showModal = true;
+    },
+    click(event) {
+      this.showModal = true;
+      console.log('sua mae', event);
+    },
+    updateVolunteerOptions() {
+      this.$axios
+        .get('/voluntario')
+        .then((response) => {
+          this.volunteerOptions = response.data.map((a) => ({
+            name: a.Pessoa.nome,
+            id: a.voluntario.id,
+          }));
+        })
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
+    },
+    updatePatientOptions() {
+      this.$axios
+        .get('/acolhido')
+        .then((response) => {
+          this.patientOptions = response.data.map((a) => ({
+            name: a.Pessoa.nome,
+            id: a.id,
+          }));
+        })
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
     },
     create() {},
   },

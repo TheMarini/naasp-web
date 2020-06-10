@@ -25,6 +25,7 @@
           :volunteer-type.sync="volunteer.type"
           :volunteer-specialties.sync="volunteer.specialties"
           :volunteer-age-ranges-of-care.sync="volunteer.ageRangesOfCare"
+          :object="volunteer"
         ></form-step-1>
 
         <PersonalDataForm
@@ -54,6 +55,7 @@
           :home-phone-number.sync="volunteer.contact.homePhoneNumber"
           :business-phone-number.sync="volunteer.contact.businessPhoneNumber"
           :email.sync="volunteer.email"
+          :object="volunteer"
         ></PersonalDataForm>
 
         <!-- <form-step-3
@@ -85,7 +87,7 @@
       ></SubmitFormButton>
     </footer>
 
-    <VueCodeHighlight v-show="false">
+    <VueCodeHighlight v-show="true">
       {{ JSON.stringify(volunteer, null, 2) }}
     </VueCodeHighlight>
   </div>
@@ -157,44 +159,139 @@ export default {
   computed: {
     volunteerTranslated() {
       return {
-        endereco: {
-          rua: this.volunteer.address.publicPlace,
-          numero: this.volunteer.address.number,
-          complemento: this.volunteer.address.complement,
-          // cep: this.volunteer.address.cep,
+        Voluntario: {
+          tipo: this.volunteer.type,
+          Especialidade: {
+            nome: this.volunteer.specialties[0].name,
+          },
+          faixaEtariaAtendimento: this.volunteer.ageRangesOfCare.map(
+            (a) => a.name
+          ),
+          Usuario: {
+            login: 'admin',
+            senha: 'admin',
+          },
         },
-        cidade: this.volunteer.address.city,
-        bairro: this.volunteer.address.neighborhood,
-        pessoa: {
-          estado_civil: this.volunteer.matrialStatus,
-          // cpf: this.volunteer.cpf,
-          sexo: this.volunteer.gender,
-          naturalidade: this.volunteer.placeOfBirth,
-          nacionalidade: this.volunteer.nationality,
-          situacao_profissional: this.volunteer.jobRole,
-          escolaridade: `${this.volunteer.education.level} - ${this.volunteer.education.status}`,
-          nome: this.volunteer.name,
+        Pessoa: {
+          cpf: this.volunteer.cpf,
           data_nascimento: this.volunteer.birthDate,
+          estado_civil: this.volunteer.matrialStatus,
+          estadoEscolaridade: this.volunteer.education.level,
+          grauEscolaridade: this.volunteer.education.status,
+          nacionalidade: this.volunteer.nationality,
+          naturalidade: this.volunteer.placeOfBirth,
+          nome: this.volunteer.name,
+          rg: this.volunteer.rg,
+          sexo: this.volunteer.cpf,
+          situacao_profissional: this.volunteer.jobRole,
+          telefoneCelular: this.volunteer.contact.cellPhoneNumber,
+          telefoneResidencia: this.volunteer.contact.homePhoneNumber,
+          telefoneComercial: this.volunteer.contact.businessPhoneNumber,
+          email: this.volunteer.email,
+          Endereco: {
+            Bairro: {
+              nome: this.volunteer.address.state.name,
+            },
+            cep: this.volunteer.address.cep,
+            complemento: this.volunteer.address.complement,
+            Cidade: {
+              nome: this.volunteer.address.city.name,
+            },
+            numero: this.volunteer.address.number,
+            rua: this.volunteer.address.publicPlace,
+          },
+          Religiao: {
+            nome: this.volunteer.religion.name,
+          },
         },
-        especialidade: this.volunteer.specialties[0].name,
       };
     },
   },
   mounted() {
     if (this.updateMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
-        this.volunteer = volunteer;
+        this.volunteer = this.volunteerTranslatedBack(volunteer);
+        this.volunteer.update = true;
+        console.log('traduzido', this.volunteer);
       });
     }
   },
   methods: {
+    volunteerTranslatedBack(voluntario) {
+      return {
+        id: voluntario.voluntario.id,
+        education: {
+          level: voluntario.Pessoa.grauEscolaridade,
+          status: voluntario.Pessoa.estadoEscolaridade,
+        },
+        address: {
+          publicPlace: voluntario.Pessoa.Endereco.rua,
+          number: voluntario.Pessoa.Endereco.numero,
+          complement: voluntario.Pessoa.Endereco.complemento,
+          neighborhood: {
+            id: voluntario.Pessoa.Endereco.BairroId,
+            name: voluntario.Pessoa.Endereco.Bairro.nome,
+          },
+          state: {
+            id: 1,
+            // Debug: there is no attribute for state
+            name: 'Minas Gerais',
+          },
+          city: {
+            id: voluntario.Pessoa.Endereco.CidadeId,
+            name: voluntario.Pessoa.Endereco.Cidade.nome,
+          },
+          cep: voluntario.Pessoa.Endereco.cep,
+        },
+        contact: {
+          cellPhoneNumber: voluntario.Pessoa.telefoneCelular,
+          homePhoneNumber: voluntario.Pessoa.telefoneResidencia,
+          businessPhoneNumber: voluntario.Pessoa.telefoneComercial,
+        },
+        ageRangesOfCare: [
+          {
+            id: 0,
+            name: 'Até 16 anos',
+          },
+          {
+            id: 1,
+            name: 'De 17 a 65 anos',
+          },
+          {
+            id: 2,
+            name: 'Acima de 66 anos',
+          },
+        ],
+        type: voluntario.voluntario.tipo,
+        specialties: [
+          {
+            id: voluntario.voluntario.EspecialidadeId,
+            name: voluntario.voluntario.Especialidade.nome,
+          },
+        ],
+        name: voluntario.Pessoa.nome,
+        birthDate: voluntario.Pessoa.data_nascimento,
+        cpf: voluntario.Pessoa.cpf,
+        rg: voluntario.Pessoa.rg,
+        gender: voluntario.Pessoa.sexo,
+        matrialStatus: voluntario.Pessoa.estado_civil,
+        jobRole: voluntario.Pessoa.situacao_profissional,
+        placeOfBirth: voluntario.Pessoa.naturalidade,
+        nationality: voluntario.Pessoa.nacionalidade,
+        religion: {
+          id: 1,
+          name: 'Agnóstico',
+        },
+        email: voluntario.Pessoa.email,
+      };
+    },
     submit(method) {
       if (method === 'update') this.update();
       this.create();
     },
     retrieve(id) {
-      this.$axios
-        .get(`/volunteer/${id}`)
+      return this.$axios
+        .get(`/voluntario?id=${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -223,6 +320,7 @@ export default {
         });
     },
     create() {
+      console.log(this.volunteerTranslated);
       this.$axios
         .post('/voluntario', this.volunteerTranslated)
         .then(() => {

@@ -8,8 +8,13 @@
     <h5 class="mb-0 px-2">
       <b>{{ text }}</b>
     </h5>
+    <clipboard-icon
+      v-if="createText === 'Pré-Cadastrar'"
+      size="1.5x"
+      class="clipboard-icon"
+    ></clipboard-icon>
     <plus-icon
-      v-if="method === 'create'"
+      v-else-if="method === 'create'"
       size="1.5x"
       class="create-icon"
     ></plus-icon>
@@ -19,13 +24,14 @@
 
 <script>
 // Icons
-import { PlusIcon, EditIcon } from 'vue-feather-icons';
+import { PlusIcon, EditIcon, ClipboardIcon } from 'vue-feather-icons';
 
 export default {
   name: 'SubmitFormButton',
   components: {
     PlusIcon,
     EditIcon,
+    ClipboardIcon,
   },
   props: {
     method: {
