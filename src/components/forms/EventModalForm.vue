@@ -154,6 +154,10 @@ export default {
     Multiselect,
   },
   props: {
+    currentSessao: {
+      type: Object,
+      default: null,
+    },
     value: {
       type: Boolean,
       required: true,
@@ -255,6 +259,15 @@ export default {
       },
     },
   },
+  mounted() {
+    /*     console.log(this.currentSessao.dataInicioSessao);
+    if (this.currentSessao != null) {
+      this.startDate = this.currentSessao.dataInicioSessao;
+      this.startTime = this.currentSessao.horaInicioSessao;
+      this.endDate = this.currentSessao.dataTerminoSessao;
+      this.endTime = this.currentSessao.horaTerminoSessao;
+    } */
+  },
   methods: {
     createOption(attr, name) {
       // Destroy option previously created
@@ -300,6 +313,7 @@ export default {
     },
     close() {
       this.showModal = false;
+      this.$emit('update:currentSessao', null);
     },
     handleClose() {
       this.clear();

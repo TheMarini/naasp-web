@@ -100,6 +100,7 @@
         :room-options="roomOptions"
         :start.sync="selectedStart"
         :end.sync="selectedEnd"
+        :current-sessao.sync="currentSessao"
       ></EventModalForm>
     </article>
   </div>
@@ -132,6 +133,8 @@ import SingleSelect from '@/components/SingleSelect.vue';
 // Moment
 import moment from 'moment';
 
+moment.locale('pt-br');
+
 // Formats
 const dateFormat = 'YYYY-MM-DD';
 const timeFormat = 'HH:mm';
@@ -153,6 +156,7 @@ export default {
   },
   data() {
     return {
+      currentSessao: null,
       socketStatus: {
         connected: false,
         connecting: false,
@@ -230,6 +234,8 @@ export default {
 
     if (this.$socket.connected) {
       this.socketStatus.connected = true;
+      this.socketStatus.downloading = true;
+      this.$socket.emit('sessao');
       this.socketStatus.updated = true;
     } else {
       this.socketStatus.connecting = true;
@@ -264,6 +270,7 @@ export default {
           `${sessao.dataTerminoSessao} ${sessao.horaTerminoSessao}`,
           `${dateFormat} ${timeFormat}`
         ).toDate(),
+        sessao,
       });
 
       this.socketStatus.uploading = false;
@@ -287,6 +294,7 @@ export default {
             `${sessao.dataTerminoSessao} ${sessao.horaTerminoSessao}`,
             `${dateFormat} ${timeFormat}`
           ).toDate(),
+          sessao,
         });
       });
 
@@ -301,8 +309,31 @@ export default {
       this.showModal = true;
     },
     click(event) {
-      this.showModal = true;
-      console.log('sua mae', event);
+      console.log(event.extendedProps.sessao);
+
+      this.$swal({
+        title: `<strong>${event.title}</strong>`,
+        icon: 'info',
+        html:
+          `<b>Início: </b>${moment(event.start).format('llll')} </br>` +
+          `<b>Fim: </b>${moment(event.end).format('llll')} </br>` +
+          '<hr>' +
+          `<b>Acolhido: </b>${event.extendedProps.sessao.Acolhido.Pessoa.nome} </br>` +
+          `<b>Voluntário: </b>${event.extendedProps.sessao.Voluntario.Pessoa.nome} </br>` +
+          `<b>Sala: </b>${event.extendedProps.sessao.Sala.nome}`,
+        showCloseButton: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+        focusConfirm: false,
+      });
+      /*       let msg = 'Início: ';
+      msg += moment(event.extendedProps.sessao.dataInicioSessao).format(
+        'DD/MM/YYY'
+      );
+      alert(msg); */
+
+      // this.showModal = true;
+      this.currentSessao = event.extendedProps.sessao;
     },
     updateVolunteerOptions() {
       this.$axios
