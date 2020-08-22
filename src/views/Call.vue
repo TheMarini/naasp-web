@@ -1,20 +1,21 @@
 <template>
   <div class="call p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+    <Header title="Ligar para acolhido">
+      <template #icon>
         <phone-call-icon size="2.3x" class="title-icon"></phone-call-icon>
-        <h2 class="ml-3 mb-0"><b>Ligar para acolhido</b></h2>
-      </div>
-      <button
-        type="button"
-        name="button"
-        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="$bvModal.show('create')"
-      >
-        <plus-icon size="1.5x" class="add-icon"></plus-icon>
-        <h5 class="mb-0 px-2"><b>Registrar chamada</b></h5>
-      </button>
-    </header>
+      </template>
+      <template #CTA>
+        <button
+          type="button"
+          name="button"
+          class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
+          @click="$bvModal.show('create')"
+        >
+          <plus-icon size="1.5x" class="add-icon"></plus-icon>
+          <h5 class="mb-0 px-2"><b>Registrar chamada</b></h5>
+        </button>
+      </template>
+    </Header>
     <article class="mt-4">
       <b-modal id="create" hide-header>
         <form>
@@ -23,7 +24,7 @@
               <label for="name">Data</label>
               <input
                 id="date"
-                v-model="time"
+                v-model="date"
                 type="date"
                 class="form-control _rounded"
                 placeholder="Douglas Adams"
@@ -33,7 +34,7 @@
               <label for="birth-date">Hora</label>
               <input
                 id="time"
-                v-model="date"
+                v-model="time"
                 type="time"
                 class="form-control _rounded"
               />
@@ -50,7 +51,7 @@
               class="add-btn _rounded-100 d-flex align-items-center"
               @click="ok()"
             >
-              <plus-icon size="1.5x" class="add-icon mr-2"></plus-icon>
+              <plus-icon size="1.5x" class="add-icon mr-1"></plus-icon>
               Registrar chamada
             </b-button>
           </div>
@@ -132,12 +133,16 @@ import {
   Trash2Icon,
 } from 'vue-feather-icons';
 
+// Header
+import Header from '@/components/Header.vue';
+
 // Moment
 import moment from 'moment';
 
 export default {
   name: 'Call',
   components: {
+    Header,
     PhoneCallIcon,
     PlusIcon,
     EditIcon,
@@ -145,6 +150,9 @@ export default {
   },
   data() {
     return {
+      time: moment(new Date()).format('HH:mm'),
+      date: moment(new Date()).format('YYYY-MM-DD'),
+      patient: null,
       name: 'Bruno Marini',
       cellPhoneNumber: '(31) 9 8384-8472',
       homePhoneNumber: '(31) 9 3287-1622',
@@ -189,7 +197,50 @@ export default {
       sortDesc: false,
     };
   },
+  mounted() {
+    if (this.$route.params.id != null) {
+      this.retrieve(parseInt(this.$route.params.id, 10)).then((patient) => {
+        // console.log(patient);
+        this.patient = patient;
+        this.name = patient.Pessoa.nome;
+        this.cellPhoneNumber = patient.Pessoa.telefoneCelular;
+        this.homePhoneNumber = patient.Pessoa.telefoneResidencia;
+        this.businessPhoneNumber = patient.Pessoa.telefoneComercial;
+        this.contactTimePreference = patient.preferenciaAtendimento;
+      });
+    }
+  },
   methods: {
+    retrieve(id) {
+      return this.$axios
+        .get(`/acolhido?id=${id}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: `${error.response.status} - ${error.response.statusText}`,
+            });
+          } else if (error.request) {
+            // The request was made but no response was received
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Não houve resposta da requisição',
+            });
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            this.$toast({
+              icon: 'error',
+              title: 'Erro ao obter a lista de acolhidos',
+              text: 'Problema na configuração da requisição',
+            });
+          }
+        });
+    },
     create() {},
   },
 };

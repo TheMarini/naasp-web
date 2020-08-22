@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="form-step">
+  <div class="personal-data-form">
     <section>
       <h4 class="section-title">DADOS PESSOAIS</h4>
       <form>
@@ -8,6 +8,7 @@
             <label for="name">Nome completo</label>
             <input
               id="name"
+              v-model="name"
               type="text"
               class="form-control _rounded"
               placeholder="Douglas Adams"
@@ -29,6 +30,7 @@
             <label for="cpf">CPF</label>
             <the-mask
               id="cpf"
+              v-model="cpf"
               type="text"
               class="form-control _rounded"
               mask="###.###.###-##"
@@ -40,6 +42,7 @@
             <label for="rg">RG</label>
             <the-mask
               id="rg"
+              v-model="rg"
               type="text"
               class="form-control _rounded"
               mask="##.###.###-#"
@@ -51,10 +54,11 @@
             <label for="gender">Gênero</label>
             <select
               id="gender"
+              v-model="gender"
               class="custom-select _rounded"
               @input="$emit('update:gender', $event.target.value)"
             >
-              <option selected disabled>Escolha uma opção</option>
+              <option selected value="null" disabled>Escolha uma opção</option>
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
               <option value="O">Outro</option>
@@ -64,10 +68,11 @@
             <label for="matrial-status">Estado civil</label>
             <select
               id="matrial-status"
+              v-model="matrialStatus"
               class="custom-select _rounded"
               @input="$emit('update:matrialStatus', $event.target.value)"
             >
-              <option selected disabled>Escolha uma opção</option>
+              <option selected value="null" disabled>Escolha uma opção</option>
               <option value="Solteiro">Solteiro</option>
               <option value="Casado">Casado</option>
               <option value="Separado">Separado</option>
@@ -80,10 +85,11 @@
             <label for="education-level">Grau de escolaridade</label>
             <select
               id="education-level"
+              v-model="educationLevel"
               class="custom-select _rounded"
               @input="$emit('update:educationLevel', $event.target.value)"
             >
-              <option selected disabled>Escolha uma opção</option>
+              <option selected value="null" disabled>Escolha uma opção</option>
               <option value="Analfabeto">Analfabeto</option>
               <option value="Educação Infantil">Educação Infantil</option>
               <option value="Ensino Fundamental">Ensino Fundamental</option>
@@ -100,10 +106,11 @@
             <label for="education-status">Estado de escolaridade</label>
             <select
               id="education-status"
+              v-model="educationStatus"
               class="custom-select _rounded"
               @input="$emit('update:educationStatus', $event.target.value)"
             >
-              <option selected disabled>Escolha uma opção</option>
+              <option selected value="null" disabled>Escolha uma opção</option>
               <option value="Incompleto">Incompleto</option>
               <option value="Em curso">Em curso</option>
               <option value="Completo">Completo</option>
@@ -113,6 +120,7 @@
             <label for="job-role">Cargo de trabalho</label>
             <input
               id="job-role"
+              v-model="jobRole"
               type="text"
               class="form-control _rounded"
               placeholder="Professor, engenheiro, médico..."
@@ -125,6 +133,7 @@
             <label for="place-of-birth">Naturalidade</label>
             <input
               id="place-of-birth"
+              v-model="placeOfBirth"
               type="text"
               class="form-control _rounded"
               placeholder="Belo Horizonte, MG"
@@ -135,6 +144,7 @@
             <label for="nationality">Nacionalidade</label>
             <input
               id="nationality"
+              v-model="nationality"
               type="text"
               class="form-control _rounded"
               placeholder="Brasileira"
@@ -216,6 +226,7 @@
             <label for="public-place">Logradouro</label>
             <input
               id="public-place"
+              v-model="publicPlace"
               type="text"
               class="form-control _rounded"
               placeholder="Rua do Limão"
@@ -226,6 +237,7 @@
             <label for="address-number">Número</label>
             <input
               id="address-number"
+              v-model="addressNumber"
               type="number"
               class="form-control _rounded"
               placeholder="42"
@@ -238,6 +250,7 @@
             <label for="address-complement">Complemento</label>
             <input
               id="address-complement"
+              v-model="addressComplement"
               type="text"
               class="form-control _rounded"
               placeholder="Apto. 101"
@@ -289,7 +302,7 @@
             </multiselect>
           </div>
           <div class="form-group col-md-4 mb-0">
-            <label for="city">Estado</label>
+            <label for="city">Cidade</label>
             <multiselect
               id="city"
               v-model="city"
@@ -313,6 +326,7 @@
             <label for="cep">CEP</label>
             <the-mask
               id="cep"
+              v-model="cep"
               type="text"
               class="form-control _rounded"
               mask="#####-###"
@@ -332,6 +346,7 @@
             <label for="cell-phone-number">Telefone celular</label>
             <the-mask
               id="cell-phone-number"
+              v-model="cellPhoneNumber"
               type="tel"
               class="form-control _rounded"
               masked
@@ -346,6 +361,7 @@
             <label for="home-phone-number">Telefone residencial</label>
             <the-mask
               id="home-phone-number"
+              v-model="homePhoneNumber"
               type="tel"
               class="form-control _rounded"
               masked
@@ -360,6 +376,7 @@
             <label for="business-phone-number">Telefone comercial</label>
             <the-mask
               id="business-phone-number"
+              v-model="businessPhoneNumber"
               type="tel"
               class="form-control _rounded"
               masked
@@ -376,6 +393,7 @@
             <label for="email">E-mail</label>
             <input
               id="email"
+              v-model="email"
               type="email"
               class="form-control _rounded"
               placeholder="douglas@exemplo.com"
@@ -401,6 +419,10 @@ export default {
     Multiselect,
   },
   props: {
+    object: {
+      type: Object,
+      default: null,
+    },
     responsibleForm: {
       type: Boolean,
       default: false,
@@ -412,13 +434,31 @@ export default {
   },
   data() {
     return {
+      name: null,
+      cpf: null,
+      rg: null,
+      gender: null,
+      matrialStatus: null,
+      educationLevel: null,
+      educationStatus: null,
+      jobRole: null,
+      placeOfBirth: null,
+      nationality: null,
+      religion: null,
+      publicPlace: null,
+      addressNumber: null,
+      addressComplement: null,
+      neighborhood: null,
+      city: null,
+      state: null,
+      cep: null,
+      cellPhoneNumber: null,
+      homePhoneNumber: null,
+      businessPhoneNumber: null,
+      email: null,
       birthDate: null,
       age: null,
       isUnderAge: false,
-      religion: null,
-      neighborhood: null,
-      state: null,
-      city: null,
       options: {
         religion: [
           {
@@ -468,6 +508,37 @@ export default {
     };
   },
   watch: {
+    object: {
+      handler(value) {
+        if (value && value.update) {
+          // console.log('personal data form', value);
+          this.name = value.name;
+          this.birthDate = moment(value.birthDate).format('YYYY-MM-DD');
+          this.cpf = value.cpf;
+          this.rg = value.rg;
+          this.gender = value.gender;
+          this.matrialStatus = value.matrialStatus;
+          this.educationLevel = value.education.level;
+          this.educationStatus = value.education.status;
+          this.jobRole = value.jobRole;
+          this.placeOfBirth = value.placeOfBirth;
+          this.nationality = value.nationality;
+          this.religion = value.religion;
+          this.publicPlace = value.address.publicPlace;
+          this.addressNumber = value.address.addressNumber;
+          this.addressComplement = value.address.addressComplement;
+          this.neighborhood = value.address.neighborhood.name;
+          this.city = value.address.city.name;
+          this.state = value.address.state.name;
+          this.cep = value.address.cep;
+          this.cellPhoneNumber = value.contact.cellPhoneNumber;
+          this.homePhoneNumber = value.contact.homePhoneNumber;
+          this.businessPhoneNumber = value.contact.businessPhoneNumber;
+          this.email = value.email;
+        }
+      },
+      deep: false,
+    },
     birthDate() {
       this.$emit('update:birthDate', this.birthDate);
 

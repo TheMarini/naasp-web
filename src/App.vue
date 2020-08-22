@@ -86,6 +86,7 @@ a:hover {
   color: white;
 }
 
+/* --- THEME --- */
 .add-btn,
 .add-btn:hover {
   color: white;

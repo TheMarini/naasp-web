@@ -14,6 +14,9 @@ import VueTheMask from 'vue-the-mask';
 // Axios
 import Axios from 'axios';
 
+// Socket.io
+import VueSocketIO from 'vue-socket.io';
+
 // ~ Essentials ~
 import Vue from 'vue';
 import router from './router';
@@ -26,6 +29,13 @@ import App from './App.vue';
 Vue.use(BootstrapVue);
 Vue.use(VueSweetalert2);
 Vue.use(VueTheMask);
+
+Vue.use(
+  new VueSocketIO({
+    debug: process.env.NODE_ENV !== 'production',
+    connection: process.env.VUE_APP_SOCKET_IO_URL,
+  })
+);
 
 // --- GLOBALS ---
 // SweetAlert toast

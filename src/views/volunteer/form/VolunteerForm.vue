@@ -1,43 +1,31 @@
 <template lang="html">
-  <div class="voluntarios p-4">
-    <header class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
+  <div class="voluntario p-4">
+    <Header :title="`${updateMode ? 'Editar' : 'Adicionar'} voluntário`">
+      <template #icon>
         <users-icon size="2.3x" class="title-icon"></users-icon>
-        <h2 class="ml-3 mb-0">
-          <b>{{ updateMode ? 'Editar' : 'Adicionar' }} voluntário</b>
-        </h2>
-      </div>
-      <div class="steps d-flex">
-        <step
-          v-for="index of steps"
-          :key="index"
-          class="step ml-2"
-          :number="index"
-          :active="index <= currentStep"
+      </template>
+      <template #CTA>
+        <Steps
+          v-model="currentStep"
+          :total="steps"
           :update-mode="updateMode"
-          @click.native="currentStep = index"
-        ></step>
-      </div>
-    </header>
+          :method="method"
+        ></Steps>
+      </template>
+    </Header>
     <div class="wrapper pt-4">
       <div class="infos">
         <p class="current-step">ETAPA {{ currentStep }}</p>
       </div>
       <article>
-        <div
-          v-if="currentStep > 1"
-          class="d-inline-flex prev-btn mb-2"
-          @click="currentStep--"
-        >
-          <arrow-left-icon size="1.5x" class="custom-class"></arrow-left-icon>
-          <p class="mb-0 ml-1">Voltar a etapa anterior</p>
-        </div>
+        <PreviousStep v-model="currentStep"></PreviousStep>
 
         <form-step-1
           v-show="currentStep === 1"
           :volunteer-type.sync="volunteer.type"
           :volunteer-specialties.sync="volunteer.specialties"
           :volunteer-age-ranges-of-care.sync="volunteer.ageRangesOfCare"
+          :object="volunteer"
         ></form-step-1>
 
         <PersonalDataForm
@@ -67,6 +55,7 @@
           :home-phone-number.sync="volunteer.contact.homePhoneNumber"
           :business-phone-number.sync="volunteer.contact.businessPhoneNumber"
           :email.sync="volunteer.email"
+          :object="volunteer"
         ></PersonalDataForm>
 
         <!-- <form-step-3
@@ -86,42 +75,16 @@
           <h5 class="mb-0 px-2"><b>Cancelar</b></h5>
         </button>
       </router-link>
-      <button
-        v-if="currentStep < steps"
-        :style="[
-          updateMode ? { color: '#000', backgroundColor: '#E3DB4A' } : {},
-        ]"
-        type="button"
-        name="button"
-        class="next-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="currentStep++"
-      >
-        <h5 class="mb-0 px-2"><b>Próxima</b></h5>
-        <chevron-right-icon
-          size="1.5x"
-          class="custom-class"
-        ></chevron-right-icon>
-      </button>
-      <button
-        v-else-if="updateMode"
-        type="button"
-        name="button"
-        class="edit-btn btn py-2 px-3 pl-4 d-flex align-items-center _rounded-100"
-        @click="update"
-      >
-        <edit-icon size="1.5x" class="edit-icon"></edit-icon>
-        <h5 class="mb-0 px-2"><b>Editar</b></h5>
-      </button>
-      <button
-        v-else
-        type="button"
-        name="button"
-        class="add-btn btn py-2 px-3 d-flex align-items-center _rounded-100"
-        @click="create"
-      >
-        <plus-icon size="1.5x" class="add-icon"></plus-icon>
-        <h5 class="mb-0 px-2"><b>Adicionar</b></h5>
-      </button>
+      <NextStep
+        v-model="currentStep"
+        :total="steps"
+        :method="method"
+      ></NextStep>
+      <SubmitFormButton
+        v-if="currentStep === steps"
+        :method="method"
+        @click="submit"
+      ></SubmitFormButton>
     </footer>
 
     <VueCodeHighlight v-show="false">
@@ -134,32 +97,34 @@
 // Code highlight
 import { component as VueCodeHighlight } from 'vue-code-highlight';
 
-// Step dot
-import Step from '@/components/Step.vue';
+// Header
+import Header from '@/components/Header.vue';
+
+// Steps
+import Steps from '@/components/steps/Steps.vue';
+import NextStep from '@/components/steps/NextStep.vue';
+import PreviousStep from '@/components/steps/PreviousStep.vue';
+
+// Submit Button
+import SubmitFormButton from '@/components/SubmitFormButton.vue';
 
 // Form Steps
 import FormStep1 from '@/views/volunteer/form/steps/VolunteerStep1.vue';
 import PersonalDataForm from '@/components/forms/PersonalDataForm.vue';
 // import FormStep3 from '@/views/volunteer/form/steps/VolunteerStep3.vue';
 
-import {
-  UsersIcon,
-  PlusIcon,
-  ChevronRightIcon,
-  ArrowLeftIcon,
-  EditIcon,
-} from 'vue-feather-icons';
+import { UsersIcon } from 'vue-feather-icons';
 
 export default {
   name: 'Voluntario',
   components: {
+    Header,
+    Steps,
+    NextStep,
+    PreviousStep,
+    SubmitFormButton,
     VueCodeHighlight,
-    Step,
     UsersIcon,
-    PlusIcon,
-    ChevronRightIcon,
-    ArrowLeftIcon,
-    EditIcon,
     FormStep1,
     PersonalDataForm,
     // FormStep3,
@@ -181,6 +146,7 @@ export default {
   },
   data() {
     return {
+      method: this.updateMode ? 'update' : 'create',
       steps: 2,
       currentStep: 1,
       volunteer: {
@@ -193,40 +159,139 @@ export default {
   computed: {
     volunteerTranslated() {
       return {
-        endereco: {
-          rua: this.volunteer.address.publicPlace,
-          numero: this.volunteer.address.number,
-          complemento: this.volunteer.address.complement,
-          // cep: this.volunteer.address.cep,
+        Voluntario: {
+          tipo: this.volunteer.type,
+          Especialidade: {
+            nome: this.volunteer.specialties[0].name,
+          },
+          faixaEtariaAtendimento: this.volunteer.ageRangesOfCare.map(
+            (a) => a.name
+          ),
+          Usuario: {
+            login: 'admin',
+            senha: 'admin',
+          },
         },
-        cidade: this.volunteer.address.city,
-        bairro: this.volunteer.address.neighborhood,
-        pessoa: {
-          estado_civil: this.volunteer.matrialStatus,
-          // cpf: this.volunteer.cpf,
-          sexo: this.volunteer.gender,
-          naturalidade: this.volunteer.placeOfBirth,
-          nacionalidade: this.volunteer.nationality,
-          situacao_profissional: this.volunteer.jobRole,
-          escolaridade: `${this.volunteer.education.level} - ${this.volunteer.education.status}`,
-          nome: this.volunteer.name,
+        Pessoa: {
+          cpf: this.volunteer.cpf,
           data_nascimento: this.volunteer.birthDate,
+          estado_civil: this.volunteer.matrialStatus,
+          estadoEscolaridade: this.volunteer.education.level,
+          grauEscolaridade: this.volunteer.education.status,
+          nacionalidade: this.volunteer.nationality,
+          naturalidade: this.volunteer.placeOfBirth,
+          nome: this.volunteer.name,
+          rg: this.volunteer.rg,
+          sexo: this.volunteer.cpf,
+          situacao_profissional: this.volunteer.jobRole,
+          telefoneCelular: this.volunteer.contact.cellPhoneNumber,
+          telefoneResidencia: this.volunteer.contact.homePhoneNumber,
+          telefoneComercial: this.volunteer.contact.businessPhoneNumber,
+          email: this.volunteer.email,
+          Endereco: {
+            Bairro: {
+              nome: this.volunteer.address.state.name,
+            },
+            cep: this.volunteer.address.cep,
+            complemento: this.volunteer.address.complement,
+            Cidade: {
+              nome: this.volunteer.address.city.name,
+            },
+            numero: this.volunteer.address.number,
+            rua: this.volunteer.address.publicPlace,
+          },
+          Religiao: {
+            nome: this.volunteer.religion.name,
+          },
         },
-        especialidade: this.volunteer.specialties[0].name,
       };
     },
   },
   mounted() {
     if (this.updateMode || this.$route.params.id != null) {
       this.retrieve(parseInt(this.$route.params.id, 10)).then((volunteer) => {
-        this.volunteer = volunteer;
+        this.volunteer = this.volunteerTranslatedBack(volunteer);
+        this.volunteer.update = true;
+        // console.log('traduzido', this.volunteer);
       });
     }
   },
   methods: {
+    volunteerTranslatedBack(voluntario) {
+      return {
+        id: voluntario.voluntario.id,
+        education: {
+          level: voluntario.Pessoa.grauEscolaridade,
+          status: voluntario.Pessoa.estadoEscolaridade,
+        },
+        address: {
+          publicPlace: voluntario.Pessoa.Endereco.rua,
+          number: voluntario.Pessoa.Endereco.numero,
+          complement: voluntario.Pessoa.Endereco.complemento,
+          neighborhood: {
+            id: voluntario.Pessoa.Endereco.BairroId,
+            name: voluntario.Pessoa.Endereco.Bairro.nome,
+          },
+          state: {
+            id: 1,
+            // Debug: there is no attribute for state
+            name: 'Minas Gerais',
+          },
+          city: {
+            id: voluntario.Pessoa.Endereco.CidadeId,
+            name: voluntario.Pessoa.Endereco.Cidade.nome,
+          },
+          cep: voluntario.Pessoa.Endereco.cep,
+        },
+        contact: {
+          cellPhoneNumber: voluntario.Pessoa.telefoneCelular,
+          homePhoneNumber: voluntario.Pessoa.telefoneResidencia,
+          businessPhoneNumber: voluntario.Pessoa.telefoneComercial,
+        },
+        ageRangesOfCare: [
+          {
+            id: 0,
+            name: 'Até 16 anos',
+          },
+          {
+            id: 1,
+            name: 'De 17 a 65 anos',
+          },
+          {
+            id: 2,
+            name: 'Acima de 66 anos',
+          },
+        ],
+        type: voluntario.voluntario.tipo,
+        specialties: [
+          {
+            id: voluntario.voluntario.EspecialidadeId,
+            name: voluntario.voluntario.Especialidade.nome,
+          },
+        ],
+        name: voluntario.Pessoa.nome,
+        birthDate: voluntario.Pessoa.data_nascimento,
+        cpf: voluntario.Pessoa.cpf,
+        rg: voluntario.Pessoa.rg,
+        gender: voluntario.Pessoa.sexo,
+        matrialStatus: voluntario.Pessoa.estado_civil,
+        jobRole: voluntario.Pessoa.situacao_profissional,
+        placeOfBirth: voluntario.Pessoa.naturalidade,
+        nationality: voluntario.Pessoa.nacionalidade,
+        religion: {
+          id: 1,
+          name: 'Agnóstico',
+        },
+        email: voluntario.Pessoa.email,
+      };
+    },
+    submit(method) {
+      if (method === 'update') this.update();
+      this.create();
+    },
     retrieve(id) {
-      this.$axios
-        .get(`/volunteer/${id}`)
+      return this.$axios
+        .get(`/voluntario?id=${id}`)
         .then((response) => response.data)
         .catch((error) => {
           if (error.response) {
@@ -255,6 +320,7 @@ export default {
         });
     },
     create() {
+      // console.log(this.volunteerTranslated);
       this.$axios
         .post('/voluntario', this.volunteerTranslated)
         .then(() => {
@@ -325,12 +391,6 @@ header {
 .cancel-btn {
   color: #707070;
   border: 4px solid #707070;
-}
-
-.step {
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
 }
 
 .infos .current-step {
