@@ -1,6 +1,6 @@
 {
   "name": "naasp-web",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "repository": "git@github.com:TheMarini/naasp-web.git",
   "author": "Bruno Marini <bruno.marini1@gmail.com>",
   "private": true,
